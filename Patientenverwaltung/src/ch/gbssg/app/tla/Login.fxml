@@ -2,6 +2,6 @@
 	
 <?import javafx.scene.layout.BorderPane?>
 	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.gbssg.app.LoginController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.gbssg.app.tla.AppView">
 	<!-- TODO Add Nodes -->
 </BorderPane>
