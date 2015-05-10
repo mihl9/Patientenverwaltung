@@ -23,11 +23,13 @@ public class App extends Application {
 	private static ApplicationContext ctx;
 
 	public static void main(String[] args) {
-		ctx = new ClassPathXmlApplicationContext("Beans.xml");
+		/*ctx = new ClassPathXmlApplicationContext("Beans.xml");
 		
 		UserJDBCTemplate u = (UserJDBCTemplate)ctx.getBean("UserJDBCTemplate");
 		
-		List<User> users = u.get();
+		List<User> users = u.get();*/
+		
+		launch(args);
 	}
 	
 	/*
