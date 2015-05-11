@@ -1,8 +1,20 @@
 package ch.gbssg.app.model;
 
-public class User {
+
+
+import java.util.List;
+
+import ch.gbssg.app.util.UserRoll;
+import ch.gbssg.core.AbsModel;
+
+/**
+ * represent a user model.
+ * @author pedrett
+ * @version 1.0
+ */
+public class User extends AbsModel {
 	private int id;
-	private int rolleId;
+	private UserRoll rolle;
 	private String firstname;
 	private String lastname;
 	private String loginname;
@@ -16,14 +28,6 @@ public class User {
 	
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	public int getRolleId() {
-		return rolleId;
-	}
-	
-	public void setRolleId(int rolleId) {
-		this.rolleId = rolleId;
 	}
 	
 	public String getFirstname() {
@@ -72,5 +76,30 @@ public class User {
 
 	public void setInactive(boolean isDeleted) {
 		this.isInactive = isDeleted;
+	}
+	
+	public UserRoll getRolle() {
+		return rolle;
+	}
+
+	public void setRolle(UserRoll rolle) {
+		this.rolle = rolle;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see ch.gbssg.core.AbsModel#isValid(java.util.List)
+	 */
+	@Override
+	public boolean isValid(List<String> errors) {
+		if (getLoginname() == null || getLoginname().isEmpty()) {
+			errors.add("Username is empty");
+		}
+		if (getPassword() == null || getPassword().isEmpty()) {
+			errors.add("Password is empty");
+		}
+
+		
+		return errors.size() == 0;
 	}
 }
