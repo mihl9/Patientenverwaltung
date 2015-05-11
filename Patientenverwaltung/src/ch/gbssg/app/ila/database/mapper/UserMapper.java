@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import ch.gbssg.app.model.User;
+import ch.gbssg.app.util.UserRoll;
 
 public class UserMapper implements RowMapper<User> {
 
@@ -13,7 +14,7 @@ public class UserMapper implements RowMapper<User> {
 	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 		User user = new User();
 		user.setId(rs.getInt("UsrId"));
-		user.setRolleId(rs.getInt("UsrRollId_CD"));
+		user.setRolle(UserRoll.convert(rs.getInt("UsrRollId_CD")));
 		user.setFirstname(rs.getString("UsrFirstName"));
 		user.setLastname(rs.getString("UsrLastName"));
 		user.setLoginname(rs.getString("UsrLoginName"));
