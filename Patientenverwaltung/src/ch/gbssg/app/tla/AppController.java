@@ -19,6 +19,7 @@ import ch.gbssg.core.pac.AgentFactory;
 import ch.gbssg.core.pac.ICommand;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -189,6 +190,13 @@ public class AppController extends AgentController {
 			loader.setController(view);
 			pane = (Pane)loader.load();
 			
+			// dynamically root pane
+			AnchorPane.setRightAnchor(pane, (double) 0);
+			AnchorPane.setLeftAnchor(pane, (double) 0);
+			AnchorPane.setTopAnchor(pane, (double) 0);
+			AnchorPane.setBottomAnchor(pane, (double) 0);
+			
+			windowContainer.getChildren().clear();
 			windowContainer.getChildren().add(pane);
 		} catch (Exception e) {
 			e.printStackTrace();
