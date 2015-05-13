@@ -3,12 +3,13 @@ package ch.gbssg.app.tla;
 import java.util.List;
 
 import ch.gbssg.app.model.User;
+import ch.gbssg.core.pac.IView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
-public class AppView {
+public class AppView implements IView {
 	public AppView(AppController controller) {
 		this.controller = controller;
 	}
@@ -44,15 +45,6 @@ public class AppView {
 	}
 	
 	/**
-	 * TODO 
-	 * @return
-	 */
-	public Pane getContainerPane() {
-		container.getChildren().clear(); // TODO if blink screen by change pane, clear manuell befor add new pane
-		return container;
-	}
-	
-	/**
 	 * controller for this view
 	 */
 	private AppController controller;
@@ -68,4 +60,10 @@ public class AppView {
 	
 	@FXML 
 	private Pane container;
+
+	@Override
+	public Pane getContent() {
+		container.getChildren().clear(); // TODO if blink screen by change pane, clear manuell befor add new pane
+		return container;
+	}
 }
