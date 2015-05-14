@@ -6,8 +6,8 @@ import javafx.scene.layout.Pane;
 public class CmdShowUi implements ICommand  {
 	private Pane pane;
 
-	public CmdShowUi(Pane stage) {
-		setPane(stage);
+	public CmdShowUi(Pane pane) {
+		setPane(pane);
 	}
 
 	public Pane getPane() {
@@ -15,6 +15,7 @@ public class CmdShowUi implements ICommand  {
 	}
 
 	public void setPane(Pane pane) {
+		pane.getChildren().clear();
 		this.pane = pane;
 	}
 }
