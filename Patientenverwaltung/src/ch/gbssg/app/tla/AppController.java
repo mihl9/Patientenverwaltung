@@ -31,29 +31,31 @@ import javafx.stage.Stage;
  */
 public class AppController extends AgentController {
 
+	private AdminController adminAgent;
+	private DoctorController doctorAgent;
+	private KvController kvAgent;
+	
+	private DatabaseController databaseController;
+	private ExportController exportController;
+	
 	/**
 	 * Constructor for tla controller.
 	 */
 	public AppController() {
 		// create agent hierarchy
-		AdminController adminAgent = AgentFactory.getInstance().requestAgent(AdminController.class);
-		adminAgent.setParent(this);
+		adminAgent = AgentFactory.getInstance().requestAgent(AdminController.class);
 		addChild(adminAgent);
 		
-		DoctorController doctorAgent = AgentFactory.getInstance().requestAgent(DoctorController.class);
-		doctorAgent.setParent(this);
+		doctorAgent = AgentFactory.getInstance().requestAgent(DoctorController.class);
 		addChild(doctorAgent);
 		
-		KvController kvAgent = AgentFactory.getInstance().requestAgent(KvController.class);
-		kvAgent.setParent(this);
+		kvAgent = AgentFactory.getInstance().requestAgent(KvController.class);
 		addChild(kvAgent);
 		
-		DatabaseController databaseController = AgentFactory.getInstance().requestAgent(DatabaseController.class);
-		databaseController.setParent(this);
+		databaseController = AgentFactory.getInstance().requestAgent(DatabaseController.class);
 		addChild(databaseController);
 	
-		ExportController exportController = AgentFactory.getInstance().requestAgent(ExportController.class);
-		exportController.setParent(this);
+		exportController = AgentFactory.getInstance().requestAgent(ExportController.class);
 		addChild(exportController);
 	}
 	
@@ -77,10 +79,10 @@ public class AppController extends AgentController {
 	protected void processMessage(AgentCommand messages) {
 		ICommand cmd = messages.peek();
 		
-		if (cmd instanceof CmdShowUi) {
+		/*if (cmd instanceof CmdShowUi) {
 			CmdShowUi cmdShowUi = (CmdShowUi)messages.poll();
 			cmdShowUi.setPane(view.getContainerPane());
-		}
+		}*/
 	}
 
 	/**
@@ -119,7 +121,7 @@ public class AppController extends AgentController {
 		model.getStage().setWidth(500);
 		model.getStage().setResizable(false);
 		
-		addConatinerPane(getClass().getResource("Login.fxml"));
+		addContainerPane(getClass().getResource("Login.fxml"));
 		
 		model.getStage().show();
 	}
@@ -142,7 +144,7 @@ public class AppController extends AgentController {
 		// 1) check if user exist
 		// 1.1) if user not exist, call view.setError()
 		// 1.2) if user exist, send user object to database and check it. --> get user roll
-		user.setRolle(UserRoll.DOCTOR);
+		user.setRolle(UserRoll.KV);
 		
 		// redirect to correct frame
 		String filename = "";
@@ -153,7 +155,8 @@ public class AppController extends AgentController {
 				filename = "Admin.fxml";
 				break;
 			case KV:
-				filename = "Kv.fxml";
+				//filename = "Kv.fxml";
+				sendAgentMessage(kvAgent,new AgentCommand(new CmdShowUi(view.getContent())));
 				break;
 			case DOCTOR:
 				filename = "Doctor.fxml";
@@ -167,7 +170,7 @@ public class AppController extends AgentController {
 		model.getStage().setWidth(1024);
 		model.getStage().setResizable(true);
 		
-		addConatinerPane(getClass().getResource(filename));
+		//addContainerPane(getClass().getResource(filename));
 	}
 
 	/**
@@ -175,12 +178,12 @@ public class AppController extends AgentController {
 	 * 
 	 * @param url to fxml ui file
 	 */
-	private void addConatinerPane(URL url) {
+	private void addContainerPane(URL url) {
 		if (model.getStage() == null) {
 			return;
 		}
 		
-		Pane windowContainer = view.getContainerPane();
+		Pane windowContainer = view.getContent();
 		Pane pane = null;
 				
 		try {
