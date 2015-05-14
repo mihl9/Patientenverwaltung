@@ -18,14 +18,15 @@ import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.AgentFactory;
 import ch.gbssg.core.pac.ICommand;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * Top-Level-Agent controller. 
- * handles all agents and is on top of hierarchy level
+ * Top-Level-Agent controller. handles all agents and is on top of hierarchy
+ * level
  * 
  * @author pedrett.sandro
  * @version 1.0
@@ -35,182 +36,166 @@ public class AppController extends AgentController {
 	private AdminController adminAgent;
 	private DoctorController doctorAgent;
 	private KvController kvAgent;
-	
+
 	private DatabaseController databaseController;
 	private ExportController exportController;
-	
+
 	/**
 	 * Constructor for tla controller.
 	 */
 	public AppController() {
 		// create agent hierarchy
-		adminAgent = AgentFactory.getInstance().requestAgent(AdminController.class);
+		adminAgent = AgentFactory.getInstance().requestAgent(
+				AdminController.class);
 		addChild(adminAgent);
-		
-		doctorAgent = AgentFactory.getInstance().requestAgent(DoctorController.class);
+
+		doctorAgent = AgentFactory.getInstance().requestAgent(
+				DoctorController.class);
 		addChild(doctorAgent);
-		
+
 		kvAgent = AgentFactory.getInstance().requestAgent(KvController.class);
 		addChild(kvAgent);
-		
-		databaseController = AgentFactory.getInstance().requestAgent(DatabaseController.class);
+
+		databaseController = AgentFactory.getInstance().requestAgent(
+				DatabaseController.class);
 		addChild(databaseController);
-	
-		exportController = AgentFactory.getInstance().requestAgent(ExportController.class);
+
+		exportController = AgentFactory.getInstance().requestAgent(
+				ExportController.class);
 		addChild(exportController);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see ch.gbssg.core.pac.AgentController#setupAgent()
 	 */
 	@Override
 	public boolean setupAgent() {
 		model = new AppModel();
 		view = new AppView(this);
-		
+
 		return true;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see ch.gbssg.core.pac.AgentController#processMessage(ch.gbssg.core.pac.AgentCommand)
+	 * 
+	 * @see ch.gbssg.core.pac.AgentController#processMessage(ch.gbssg.core.pac.
+	 * AgentCommand)
 	 */
 	@Override
 	protected void processMessage(AgentCommand messages) {
 		ICommand cmd = messages.peek();
-		
-		/*if (cmd instanceof CmdShowUi) {
-			CmdShowUi cmdShowUi = (CmdShowUi)messages.poll();
-			cmdShowUi.setPane(view.getContainerPane());
-		}*/
 	}
 
 	/**
 	 * set the stage for root window ui in javafx
 	 * 
-	 * IMPORTANT: stage must be set before run a pane! window will be not shown after that!
-	 * @param stage top level element of javafx container
+	 * IMPORTANT: stage must be set before run a pane! window will be not shown
+	 * after that!
+	 * 
+	 * @param stage
+	 *            top level element of javafx container
 	 */
 	public void initializeStage(Stage stage) {
 		model.setStage(stage);
+	}
+
+	/**
+	 * show login pane with default stage values.
+	 * 
+	 * show window!
+	 */
+	public void showLoginPane() {	
+		setWindowLayout(getClass().getResource("Login.fxml"));
 		
+		model.getStage().setHeight(370);
+		model.getStage().setWidth(500);
+		model.getStage().setResizable(false);
+
+		model.getStage().show();
+	}
+
+	/**
+	 * check if user login valid and redirect to other page. otherwise if false,
+	 * then display an error code on screen.
+	 * 
+	 * @param user
+	 *            user which will be logged in
+	 */
+	public void LoginValid(User user) {
+		List<String> errors = new ArrayList<String>();
+
+		// check errors in model
+		if (!user.isValid(errors)) {
+			view.setError(errors);
+			return;
+		}
+
+		// TODO Login (optimize)
+		// 1) check if user exist
+		// 1.1) if user not exist, call view.setError()
+		// 1.2) if user exist, send user object to database and check it. -->
+		// get user roll
+		user.setRolle(UserRoll.DOCTOR);
+
+		// redirect to correct frame
+		String filename = "";
+		setWindowLayout(getClass().getResource("RootWindow.fxml"));
+		// set ui filename
+		switch (user.getRolle()) {
+		case ADMIN:
+			filename = "Admin.fxml";
+			break;
+		case KV:
+			sendAgentMessage(kvAgent,
+					new AgentCommand(new CmdShowUi(view.getContent())));
+			break;
+		case DOCTOR:
+			sendAgentMessage(doctorAgent,
+					new AgentCommand(new CmdShowUi(view.getContent())));
+			break;
+		default:
+			break;
+		}
+
+		// set new stage values
+		model.getStage().setMaximized(true);
+		model.getStage().setResizable(true);
+	}
+
+	/**
+	 * set the windows layout. <br>
+	 * 
+	 * exit method if stage don't found.
+	 * @param url
+	 *            to fxml ui file
+	 */
+	private void setWindowLayout(URL url) {
+		if (model.getStage() == null) {
+			return;
+		}
+
 		try {
 			// get root window
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("RootWindow.fxml"));
+			FXMLLoader loader = new FXMLLoader(url);
 			loader.setController(view);
-			model.setWindow((Pane)loader.load());
+			model.setWindow((Pane) loader.load());
+			
+			Scene scene = new Scene(model.getWindow());
+			scene.getStylesheets().add(getClass().getResource("../../resource/application.css").toExternalForm());
+			model.getStage().setScene(scene);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * show login pane with default stage values. 
-	 * 
-	 * show window!
-	 */
-	public void showLoginPane() {
-		if (model.getStage() == null) {
-			return;
-		}
-		
-		Scene scene = new Scene(model.getWindow());
-		model.getStage().setScene(scene);
-		
-		model.getStage().setHeight(370);
-		model.getStage().setWidth(500);
-		model.getStage().setResizable(false);
-		
-		addContainerPane(getClass().getResource("Login.fxml"));
-		
-		model.getStage().show();
-	}
-	
-	/**
-	 * check if user login valid and redirect to other page. otherwise if 
-	 * false, then display an error code on screen.
-	 * @param user user which will be logged in
-	 */
-	public void LoginValid(User user) {
-		List<String> errors = new ArrayList<String>();
-		
-		// check errors in model
-		if (!user.isValid(errors)) {
-			view.setError(errors);
-			return;
-		}
-		
-		// TODO Login (optimize)
-		// 1) check if user exist
-		// 1.1) if user not exist, call view.setError()
-		// 1.2) if user exist, send user object to database and check it. --> get user roll
-		user.setRolle(UserRoll.KV);
-		
-		// redirect to correct frame
-		String filename = "";
-		
-		// set ui filename
-		switch (user.getRolle()) {
-			case ADMIN:
-				filename = "Admin.fxml";
-				break;
-			case KV:
-				//filename = "Kv.fxml";
-				sendAgentMessage(kvAgent,new AgentCommand(new CmdShowUi(view.getContent())));
-				break;
-			case DOCTOR:
-				filename = "Doctor.fxml";
-				break;
-			default:
-				break;
-		}
-		
-		// set new stage values
-		model.getStage().setHeight(768);
-		model.getStage().setWidth(1024);
-		model.getStage().setResizable(true);
-		
-		//addContainerPane(getClass().getResource(filename));
-	}
-
-	/**
-	 * add a pane to root window container.
-	 * 
-	 * @param url to fxml ui file
-	 */
-	private void addContainerPane(URL url) {
-		if (model.getStage() == null) {
-			return;
-		}
-		
-		Pane windowContainer = view.getContent();
-		Pane pane = null;
-				
-		try {
-			// get root window
-			FXMLLoader loader = new FXMLLoader(url);
-			loader.setController(view);
-			pane = (Pane)loader.load();
-			
-			// dynamically root pane
-			AnchorPane.setRightAnchor(pane, (double) 0);
-			AnchorPane.setLeftAnchor(pane, (double) 0);
-			AnchorPane.setTopAnchor(pane, (double) 0);
-			AnchorPane.setBottomAnchor(pane, (double) 0);
-			
-			windowContainer.getChildren().clear();
-			windowContainer.getChildren().add(pane);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
 	 * represent a model for this agent
 	 */
 	private AppModel model;
-	
+
 	/**
 	 * represent a view for this agent.
 	 */
