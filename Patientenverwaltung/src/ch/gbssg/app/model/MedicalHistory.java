@@ -28,6 +28,8 @@ public class MedicalHistory extends AbsModel{
 	private IntegerProperty billState;
 	private ObjectProperty<LocalDate> billDueTo;
 	
+	private Patient patient;
+	
 	public MedicalHistory(){
 		id = new SimpleIntegerProperty();
 		userId = new SimpleIntegerProperty();
@@ -78,17 +80,35 @@ public class MedicalHistory extends AbsModel{
 	}
 	
 	public Patient getPatientModel(){
-		Patient fakePatient = new Patient();
-		fakePatient.setId(1);
-		fakePatient.setGenderCode(1);
-		fakePatient.setLastname("Micahel");
-		fakePatient.setFirstname("Huber");
-		fakePatient.setBirthday(LocalDate.now());
-		fakePatient.setAddress("Mooshaldenstrasse 25");
-		fakePatient.setPlz("9050");
-		fakePatient.setPlace("Appenzell");
-		fakePatient.setInsuranceNumber("12344");
-		return fakePatient;
+		if(patient==null){
+			/*define a fake patient*/
+			Patient fakePatient = new Patient();
+			fakePatient.setId(1);
+			fakePatient.setGenderCode(1);
+			fakePatient.setLastname("Micahel");
+			fakePatient.setFirstname("Huber");
+			fakePatient.setBirthday(LocalDate.now());
+			fakePatient.setAddress("Mooshaldenstrasse 25");
+			fakePatient.setPlz("9050");
+			fakePatient.setPlace("Appenzell");
+			fakePatient.setInsuranceNumber("12344");
+			patient = fakePatient;
+		}else if(patient.getId()!=this.getPatientId()){
+			/*if the Patient id has changed reload the data*/
+			Patient fakePatient = new Patient();
+			fakePatient.setId(1);
+			fakePatient.setGenderCode(1);
+			fakePatient.setLastname("Micahel");
+			fakePatient.setFirstname("Huber");
+			fakePatient.setBirthday(LocalDate.now());
+			fakePatient.setAddress("Mooshaldenstrasse 25");
+			fakePatient.setPlz("9050");
+			fakePatient.setPlace("Appenzell");
+			fakePatient.setInsuranceNumber("12344");
+			patient = fakePatient;
+		}
+		
+		return patient;
 	}
 	
 	public double getHour() {
@@ -148,6 +168,14 @@ public class MedicalHistory extends AbsModel{
 
 	public IntegerProperty billstateProperty(){
 		return this.billState;
+	}
+	
+	public Codes getbillStateCodeModel(){
+		Codes fakeCode = new Codes();
+		fakeCode.setId(1);
+		fakeCode.setCodeTypeId(3);
+		fakeCode.setDescription("veranlagt");
+		return fakeCode;
 	}
 	
 	public LocalDate getBillDueTo() {

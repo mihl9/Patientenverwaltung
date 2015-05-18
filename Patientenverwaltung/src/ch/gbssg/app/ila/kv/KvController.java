@@ -47,7 +47,11 @@ public class KvController extends AgentController {
 		MedicalHistory m1 = new MedicalHistory();
 		m1.setDateFrom(LocalDate.now());
 		m1.setBillState(1);
+		MedicalHistory m2 = new MedicalHistory();
+		m2.setDateFrom(LocalDate.now());
+		m2.setBillState(3);
 		model.getFakturenData().add(m1);
+		model.getFakturenData().add(m2);
 		view.fillTableData(model.getFakturenData());
 	}
 }
