@@ -78,16 +78,12 @@ public class MedicalHistory extends AbsModel{
 	}
 	
 	public Patient getPatientModel(){
-		/*set test Data*/
-		Calendar bDay = GregorianCalendar.getInstance();
-		bDay.set(2015, 5, 18);
-		
 		Patient fakePatient = new Patient();
 		fakePatient.setId(1);
 		fakePatient.setGenderCode(1);
 		fakePatient.setLastname("Micahel");
 		fakePatient.setFirstname("Huber");
-		fakePatient.setBirthday(bDay.getTime());
+		fakePatient.setBirthday(LocalDate.now());
 		fakePatient.setAddress("Mooshaldenstrasse 25");
 		fakePatient.setPlz("9050");
 		fakePatient.setPlace("Appenzell");
