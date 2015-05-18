@@ -8,8 +8,10 @@ import java.util.List;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import ch.gbssg.core.AbsModel;
 
@@ -29,9 +31,13 @@ public class MedicalHistory extends AbsModel{
 	public MedicalHistory(){
 		id = new SimpleIntegerProperty();
 		userId = new SimpleIntegerProperty();
-		
+		patientId = new SimpleIntegerProperty();
 		dateFrom = new SimpleObjectProperty<LocalDate>(LocalDate.now());
-		
+		hour = new SimpleDoubleProperty();
+		symptoms = new SimpleStringProperty();
+		diagnostic = new SimpleStringProperty();
+		notes = new SimpleStringProperty();
+		billState = new SimpleIntegerProperty();
 		billDueTo = new SimpleObjectProperty<LocalDate>(LocalDate.now());
 	}
 	

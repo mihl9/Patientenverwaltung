@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="1000000.0" maxWidth="1000000.0" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="14.0" layoutY="28.0" text="Filter">
+      <Label layoutX="14.0" layoutY="28.0" text="Filter" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="28.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Button layoutX="494.0" layoutY="133.0" mnemonicParsing="false" text="Filter setzen" />
+      <Button layoutX="494.0" layoutY="133.0" mnemonicParsing="false" text="Filter setzen" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="133.0" />
       <TableView fx:id="faktTable" layoutX="14.0" layoutY="185.0" prefHeight="249.0" prefWidth="677.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="185.0">
         <columns>
             <TableColumn fx:id="dateFromCol" prefWidth="107.0" text="Untersuch vom" />
@@ -26,12 +26,12 @@
             <TableColumn fx:id="billStateCol" prefWidth="67.0" text="Status" />
         </columns>
       </TableView>
-      <Label layoutX="14.0" layoutY="49.0" text="Rechnungsstatus" />
-      <Label layoutX="14.0" layoutY="87.0" text="Rechnungsdatum" />
-      <TextField layoutX="180.0" layoutY="83.0" />
-      <TextField layoutX="425.0" layoutY="83.0" />
-      <Label layoutX="146.0" layoutY="87.0" text="von" />
-      <Label layoutX="397.0" layoutY="87.0" text="bis" />
-      <ComboBox layoutX="144.0" layoutY="45.0" prefHeight="25.0" prefWidth="186.0" />
+      <Label layoutX="14.0" layoutY="49.0" text="Rechnungsstatus" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="49.0" />
+      <Label layoutX="14.0" layoutY="87.0" text="Rechnungsdatum" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="87.0" />
+      <TextField layoutX="180.0" layoutY="83.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="83.0" />
+      <TextField layoutX="425.0" layoutY="83.0" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="83.0" />
+      <Label layoutX="146.0" layoutY="87.0" text="von" AnchorPane.leftAnchor="146.0" AnchorPane.topAnchor="87.0" />
+      <Label layoutX="397.0" layoutY="87.0" text="bis" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="87.0" />
+      <ComboBox layoutX="144.0" layoutY="45.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="144.0" AnchorPane.topAnchor="45.0" />
    </children>
 </AnchorPane>
