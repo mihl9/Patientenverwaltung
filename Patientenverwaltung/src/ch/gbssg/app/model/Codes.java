@@ -2,38 +2,57 @@ package ch.gbssg.app.model;
 
 import java.util.List;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import ch.gbssg.core.AbsModel;
 
 public class Codes extends AbsModel {
 
-	private int id;
-	private String description;
-	private int codeTypeId;
+	private IntegerProperty id;
+	private StringProperty description;
+	private IntegerProperty codeTypeId;
 	
+	public Codes(){
+		id = new SimpleIntegerProperty();
+		description = new SimpleStringProperty();
+		codeTypeId = new SimpleIntegerProperty();
+	}
 	public int getId() {
-		return id;
+		return id.get();
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.id.set(id);
 	}
 
+	public IntegerProperty idProperty(){
+		return this.id;
+	}
 	public String getDescription() {
-		return description;
+		return description.get();
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.description.set(description);
 	}
 
+	public StringProperty descriptionProperty(){
+		return this.description;
+	}
+	
 	public int getCodeTypeId() {
-		return codeTypeId;
+		return codeTypeId.get();
 	}
 
 	public void setCodeTypeId(int codeTypeId) {
-		this.codeTypeId = codeTypeId;
+		this.codeTypeId.set(codeTypeId);
 	}
 
+	public IntegerProperty codetypeidProperty(){
+		return this.codeTypeId;
+	}
 	@Override
 	public boolean isValid(List<String> errors) {
 		// TODO Auto-generated method stub

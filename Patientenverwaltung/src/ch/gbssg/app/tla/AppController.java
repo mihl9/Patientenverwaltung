@@ -138,7 +138,7 @@ public class AppController extends AgentController {
 		// 1.1) if user not exist, call view.setError()
 		// 1.2) if user exist, send user object to database and check it. -->
 		// get user roll
-		user.setRolle(UserRoll.DOCTOR);
+		user.setRolle(UserRoll.KV);
 
 		// redirect to correct frame
 		String filename = "";
