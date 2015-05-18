@@ -1,6 +1,7 @@
 package ch.gbssg.app.model;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import ch.gbssg.core.AbsModel;
@@ -68,8 +69,8 @@ public class Patient extends AbsModel {
 	}
 
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	public void setBirthday(Date date) {
+		this.birthday = date;
 	}
 
 

@@ -1,6 +1,10 @@
 package ch.gbssg.app.ila.kv;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import javafx.scene.layout.Pane;
+import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
@@ -21,7 +25,7 @@ public class KvController extends AgentController {
 		model = new KvModel();
 		view = new KvView(this);
 		
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -33,7 +37,15 @@ public class KvController extends AgentController {
 			Pane container = cmdShowUi.getPane();
 			container.getChildren().clear();
 			container.getChildren().add(view.getContent());
+			loadTestData();
 		}
 		
+	}
+	
+	public void loadTestData(){
+		/*test*/
+		MedicalHistory m1 = new MedicalHistory();
+		m1.setDateFrom(LocalDate.now());
+		m1.setBillState(1);
 	}
 }
