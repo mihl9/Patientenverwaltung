@@ -14,7 +14,7 @@
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <Button layoutX="494.0" layoutY="133.0" mnemonicParsing="false" text="Filter setzen" />
-      <TableView fx:id="faktTable" layoutX="14.0" layoutY="185.0" prefHeight="249.0" prefWidth="677.0">
+      <TableView fx:id="faktTable" layoutX="14.0" layoutY="185.0" prefHeight="249.0" prefWidth="677.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="185.0">
         <columns>
             <TableColumn fx:id="dateFromCol" prefWidth="107.0" text="Untersuch vom" />
           <TableColumn fx:id="firstnameCol" editable="false" prefWidth="74.0" text="Name" />
