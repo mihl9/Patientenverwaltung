@@ -10,11 +10,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
+import ch.gbssg.app.model.Code;
 import ch.gbssg.app.model.Fakturen;
+import ch.gbssg.app.util.CellFactoryCode;
 import ch.gbssg.core.pac.IView;
 
 public class KvView implements IView, Initializable{
@@ -44,6 +51,14 @@ public class KvView implements IView, Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		setTableCellValueFactory();
+		cboCodes.setButtonCell(new CellFactoryCode());
+		cboCodes.setCellFactory(new Callback<ListView<Code>, ListCell<Code>>() {
+			@Override
+			public ListCell<Code> call(ListView<Code> arg0) {
+				// TODO Auto-generated method stub
+				return new CellFactoryCode();
+			}
+		});
 	}
 	
 	private void setTableCellValueFactory(){
@@ -74,9 +89,21 @@ public class KvView implements IView, Initializable{
 	public void fillTableData(ObservableList<Fakturen> fakturen){
 		faktTable.setItems(fakturen);
 	}
+	
+	public void fillCombobox(ObservableList<Code> codes){
+		cboCodes.setItems(codes);
+	}
+	
 	@FXML
 	private AnchorPane root;
 	
+	/*Filter menu*/
+	@FXML
+	ComboBox<Code> cboCodes;
+	@FXML
+	DatePicker fromDatePicker;
+	@FXML
+	DatePicker toDatePicker;
 	/*Table*/
 	@FXML
 	private TableView<Fakturen> faktTable;

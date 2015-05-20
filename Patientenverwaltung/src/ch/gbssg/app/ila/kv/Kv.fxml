@@ -32,10 +32,10 @@
       <Label layoutX="14.0" layoutY="49.0" text="Rechnungsstatus" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="49.0" />
       <Label layoutX="14.0" layoutY="87.0" text="Rechnungsdatum" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="87.0" />
       <Label layoutX="146.0" layoutY="87.0" text="von" AnchorPane.leftAnchor="146.0" AnchorPane.topAnchor="87.0" />
-      <Label layoutX="514.0" layoutY="87.0" text="bis" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="87.0" />
-      <ComboBox layoutX="144.0" layoutY="45.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="144.0" AnchorPane.topAnchor="45.0" />
-      <DatePicker layoutX="171.0" layoutY="83.0" AnchorPane.leftAnchor="171.0" AnchorPane.topAnchor="83.0" />
-      <DatePicker layoutX="537.0" layoutY="83.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="83.0" />
+      <Label layoutX="501.0" layoutY="87.0" text="bis" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="87.0" />
+      <ComboBox fx:id="cboCodes" layoutX="144.0" layoutY="45.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="144.0" AnchorPane.topAnchor="45.0" />
+      <DatePicker fx:id="fromDatePicker" layoutX="171.0" layoutY="83.0" AnchorPane.leftAnchor="171.0" AnchorPane.topAnchor="83.0" />
+      <DatePicker fx:id="toDatePicker" layoutX="537.0" layoutY="83.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="83.0" />
       <Button layoutX="634.0" layoutY="439.0" mnemonicParsing="false" text="Drucken" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="22.0" />
       <Button layoutX="537.0" layoutY="439.0" mnemonicParsing="false" text="Status ändern" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="92.0" />
    </children>
