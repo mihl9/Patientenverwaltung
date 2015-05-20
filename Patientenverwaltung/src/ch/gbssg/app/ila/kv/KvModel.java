@@ -1,16 +1,18 @@
 package ch.gbssg.app.ila.kv;
 
-import javafx.scene.layout.Pane;
+import ch.gbssg.app.model.MedicalHistory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 public class KvModel {
-	private Pane content;
-
-	public Pane getContent() {
-		return content;
-	}
-
-	public void setContent(Pane content) {
-		this.content = content;
+	private ObservableList<MedicalHistory> fakturenData;
+	
+	public KvModel(){
+		fakturenData = FXCollections.observableArrayList();
 	}
 	
+	public ObservableList<MedicalHistory> getFakturenData(){
+		return this.fakturenData;
+	}
 }
