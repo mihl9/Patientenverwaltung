@@ -6,13 +6,14 @@ import java.util.List;
 
 import ch.gbssg.app.util.UserRoll;
 import ch.gbssg.core.AbsModel;
+import ch.gbssg.core.IFilterEntity;
 
 /**
  * represent a user model.
  * @author pedrett
  * @version 1.0
  */
-public class User extends AbsModel {
+public class User extends AbsModel implements IFilterEntity<User>  {
 	private int id;
 	private UserRoll rolle;
 	private String firstname;

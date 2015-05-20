@@ -10,8 +10,10 @@ import ch.gbssg.app.ila.database.DatabaseController;
 import ch.gbssg.app.ila.doctor.DoctorController;
 import ch.gbssg.app.ila.export.ExportController;
 import ch.gbssg.app.ila.kv.KvController;
+import ch.gbssg.app.model.Patient;
 import ch.gbssg.app.model.User;
 import ch.gbssg.app.util.UserRoll;
+import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
@@ -123,26 +125,37 @@ public class AppController extends AgentController {
 	 * 
 	 * @param user
 	 *            user which will be logged in
+	 * @throws Exception 
 	 */
 	public void LoginValid(User user) {
 		List<String> errors = new ArrayList<String>();
 
 		// check errors in model
 		if (!user.isValid(errors)) {
-			view.setError(errors);
+			view.setErrors(errors);
 			return;
 		}
 
-		// TODO Login (optimize)
-		// 1) check if user exist
-		// 1.1) if user not exist, call view.setError()
-		// 1.2) if user exist, send user object to database and check it. -->
-		// get user roll
-		user.setRolle(UserRoll.KV);
-
+		CmdFilterEntity<User> userFilterCommand = new CmdFilterEntity<User>(User.class, user);
+		sendAgentMessage(databaseController, new AgentCommand(userFilterCommand));
+			
+		// check if user exist and set it
+		if (userFilterCommand.getEntities().size() != 1) {
+			view.setError("Benutzername/Passwort ist falsch");
+			return;
+		} else if (userFilterCommand.getEntities().size() == 1) {
+			user = userFilterCommand.getEntities().get(0);
+		}
+		
 		// redirect to correct frame
 		String filename = "";
+		
+		// set new stage values
 		setWindowLayout(getClass().getResource("RootWindow.fxml"));
+		model.getStage().setMaximized(true);
+		model.getStage().setResizable(true);
+		
+		
 		// set ui filename
 		switch (user.getRolle()) {
 		case ADMIN:
@@ -157,12 +170,8 @@ public class AppController extends AgentController {
 					new AgentCommand(new CmdShowUi(view.getContent())));
 			break;
 		default:
-			break;
+			System.out.println("Don't found a Roll for this User");
 		}
-
-		// set new stage values
-		model.getStage().setMaximized(true);
-		model.getStage().setResizable(true);
 	}
 
 	/**

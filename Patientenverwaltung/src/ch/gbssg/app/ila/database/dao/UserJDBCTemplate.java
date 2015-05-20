@@ -1,14 +1,17 @@
 package ch.gbssg.app.ila.database.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import ch.gbssg.app.ila.database.ICrud;
 import ch.gbssg.app.ila.database.mapper.UserMapper;
 import ch.gbssg.app.model.User;
+import ch.gbssg.app.util.UserRoll;
+import ch.gbssg.core.ICrud;
+import ch.gbssg.core.IFilterEntity;
 
 public class UserJDBCTemplate implements ICrud<User> {
 	private JdbcTemplate jdbcTemplateObject;
@@ -37,6 +40,18 @@ public class UserJDBCTemplate implements ICrud<User> {
 		String sql = "select * from t_User";
 		return jdbcTemplateObject.query(sql, new UserMapper());
 	}
+	
+	@Override
+	public List<User> filterByEntity(User entity) {
+		List<User> ul = new ArrayList<User>();
+		User u = new User();
+		u.setRolle(UserRoll.DOCTOR);
+		u.setLoginname("test");
+		u.setPassword("test");
+		ul.add(u);
+		
+		return ul;
+	}
 
 	@Override
 	public int delete(int id) {
@@ -49,5 +64,4 @@ public class UserJDBCTemplate implements ICrud<User> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }
