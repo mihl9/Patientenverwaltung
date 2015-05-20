@@ -1,7 +1,10 @@
-package ch.gbssg.app.ila.database;
+package ch.gbssg.core;
 
 import java.util.List;
+
 import javax.sql.DataSource;
+
+import ch.gbssg.core.pac.ICommand;
 
 /**
  * interface for DAO objects.
@@ -9,7 +12,7 @@ import javax.sql.DataSource;
  * @author pedrett.sandro
  * @version 1.0
  */
-public interface ICrud<T> {
+public interface ICrud<T extends AbsModel> {
 	/**
 	 * used to initialize database resources connection.
 	 * 
@@ -37,6 +40,13 @@ public interface ICrud<T> {
 	 * @return a list of dao entities
 	 */
 	List<T> get();
+	
+	/**
+	 * returns all filtered entities.
+	 * @param entity to filter
+	 * @return a list of all filterted entites.
+	 */
+	List<T> filterByEntity(T entity);
 	
 	/**
 	 * delete a record from dao object

@@ -1,14 +1,14 @@
 package ch.gbssg.app.tla;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import ch.gbssg.app.model.User;
-import ch.gbssg.core.pac.IView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import ch.gbssg.app.model.User;
+import ch.gbssg.core.pac.IView;
 
 public class AppView implements IView {
 	public AppView(AppController controller) {
@@ -19,7 +19,7 @@ public class AppView implements IView {
 	 * set a error on screen
 	 * @param errors list of errors
 	 */
-	public void setError(List<String> errors) {
+	public void setErrors(List<String> errors) {
 		String errorString = "";
 		
 		for (String string : errors) {
@@ -27,6 +27,12 @@ public class AppView implements IView {
 		}
 		
 		lblErrorCode.setText(errorString);
+	}
+	
+	public void setError(String error) {
+		List<String> errors = new ArrayList<String>();
+		errors.add(error);
+		setErrors(errors);
 	}
 	
 	/**

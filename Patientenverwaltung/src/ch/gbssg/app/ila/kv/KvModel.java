@@ -1,18 +1,18 @@
 package ch.gbssg.app.ila.kv;
 
-import ch.gbssg.app.model.MedicalHistory;
+import ch.gbssg.app.model.Fakturen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
 public class KvModel {
-	private ObservableList<MedicalHistory> fakturenData;
+	private ObservableList<Fakturen> fakturenData;
 	
 	public KvModel(){
 		fakturenData = FXCollections.observableArrayList();
 	}
 	
-	public ObservableList<MedicalHistory> getFakturenData(){
+	public ObservableList<Fakturen> getFakturenData(){
 		return this.fakturenData;
 	}
 }

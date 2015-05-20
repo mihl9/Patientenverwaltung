@@ -1,8 +1,6 @@
 package ch.gbssg.app.model;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javafx.beans.property.DoubleProperty;
@@ -28,8 +26,6 @@ public class MedicalHistory extends AbsModel{
 	private IntegerProperty billState;
 	private ObjectProperty<LocalDate> billDueTo;
 	
-	private Patient patient;
-	
 	public MedicalHistory(){
 		id = new SimpleIntegerProperty();
 		userId = new SimpleIntegerProperty();
@@ -51,7 +47,7 @@ public class MedicalHistory extends AbsModel{
 		this.id.set(id);
 	}
 
-	public IntegerProperty idProperty(){
+	public IntegerProperty getIdProperty(){
 		return this.id;
 	}
 	
@@ -63,7 +59,7 @@ public class MedicalHistory extends AbsModel{
 		this.userId.set(userId);
 	}
 
-	public IntegerProperty useridProperty(){
+	public IntegerProperty getUserIdProperty(){
 		return this.userId;
 	}
 	
@@ -75,40 +71,8 @@ public class MedicalHistory extends AbsModel{
 		this.patientId.set(patientId);
 	}
 	
-	public IntegerProperty patientidProperty(){
+	public IntegerProperty getPatientIdProperty(){
 		return this.patientId;
-	}
-	
-	public Patient getPatientModel(){
-		if(patient==null){
-			/*define a fake patient*/
-			Patient fakePatient = new Patient();
-			fakePatient.setId(1);
-			fakePatient.setGenderCode(1);
-			fakePatient.setLastname("Micahel");
-			fakePatient.setFirstname("Huber");
-			fakePatient.setBirthday(LocalDate.now());
-			fakePatient.setAddress("Mooshaldenstrasse 25");
-			fakePatient.setPlz("9050");
-			fakePatient.setPlace("Appenzell");
-			fakePatient.setInsuranceNumber("12344");
-			patient = fakePatient;
-		}else if(patient.getId()!=this.getPatientId()){
-			/*if the Patient id has changed reload the data*/
-			Patient fakePatient = new Patient();
-			fakePatient.setId(1);
-			fakePatient.setGenderCode(1);
-			fakePatient.setLastname("Micahel");
-			fakePatient.setFirstname("Huber");
-			fakePatient.setBirthday(LocalDate.now());
-			fakePatient.setAddress("Mooshaldenstrasse 25");
-			fakePatient.setPlz("9050");
-			fakePatient.setPlace("Appenzell");
-			fakePatient.setInsuranceNumber("12344");
-			patient = fakePatient;
-		}
-		
-		return patient;
 	}
 	
 	public double getHour() {
@@ -119,7 +83,7 @@ public class MedicalHistory extends AbsModel{
 		this.hour.set(hour);
 	}
 
-	public DoubleProperty hourProperty(){
+	public DoubleProperty getHourProperty(){
 		return this.hour;
 	}
 	
@@ -131,7 +95,7 @@ public class MedicalHistory extends AbsModel{
 		this.symptoms.set(symptoms);
 	}
 
-	public StringProperty symptomsProperty(){
+	public StringProperty getSymptomsProperty(){
 		return this.symptoms;
 	}
 	
@@ -143,7 +107,7 @@ public class MedicalHistory extends AbsModel{
 		this.diagnostic.set(diagnostic);
 	}
 
-	public StringProperty diagnosticProperty(){
+	public StringProperty getDiagnosticProperty(){
 		return this.diagnostic;
 	}
 	public String getNotes() {
@@ -154,7 +118,7 @@ public class MedicalHistory extends AbsModel{
 		this.notes.set(notes);
 	}
 
-	public StringProperty notesProperty(){
+	public StringProperty getNotesProperty(){
 		return this.notes;
 	}
 	
@@ -166,16 +130,8 @@ public class MedicalHistory extends AbsModel{
 		this.billState.set(billState);
 	}
 
-	public IntegerProperty billstateProperty(){
+	public IntegerProperty getBillStateProperty(){
 		return this.billState;
-	}
-	
-	public Codes getbillStateCodeModel(){
-		Codes fakeCode = new Codes();
-		fakeCode.setId(1);
-		fakeCode.setCodeTypeId(3);
-		fakeCode.setDescription("veranlagt");
-		return fakeCode;
 	}
 	
 	public LocalDate getBillDueTo() {
@@ -186,7 +142,7 @@ public class MedicalHistory extends AbsModel{
 		this.billDueTo.set(billDueTo);
 	}
 
-	public ObjectProperty<LocalDate> billduetoProperty(){
+	public ObjectProperty<LocalDate> getBillDueToProperty(){
 		return this.billDueTo;
 	}
 	
@@ -198,7 +154,7 @@ public class MedicalHistory extends AbsModel{
 		this.dateFrom.set(dateFrom);
 	}
 	
-	public ObjectProperty<LocalDate> datefromProperty(){
+	public ObjectProperty<LocalDate> getDateFromProperty(){
 		return this.dateFrom;
 	}
 	
