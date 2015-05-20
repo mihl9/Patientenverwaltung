@@ -18,9 +18,7 @@ import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.AgentFactory;
 import ch.gbssg.core.pac.ICommand;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -141,12 +139,13 @@ public class AppController extends AgentController {
 		user.setRolle(UserRoll.KV);
 
 		// redirect to correct frame
-		String filename = "";
+		
 		setWindowLayout(getClass().getResource("RootWindow.fxml"));
 		// set ui filename
 		switch (user.getRolle()) {
 		case ADMIN:
-			filename = "Admin.fxml";
+			sendAgentMessage(adminAgent,
+					new AgentCommand(new CmdShowUi(view.getContent())));
 			break;
 		case KV:
 			sendAgentMessage(kvAgent,

@@ -3,23 +3,18 @@ package ch.gbssg.app.ila.kv;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
-import ch.gbssg.app.model.MedicalHistory;
-import ch.gbssg.app.model.Patient;
+import ch.gbssg.app.model.Fakturen;
 import ch.gbssg.core.pac.IView;
 
 public class KvView implements IView, Initializable{
@@ -33,6 +28,12 @@ public class KvView implements IView, Initializable{
 		
 		try {
 			root = (AnchorPane)loader.load();
+			
+			// bind new pane to parent pane
+			AnchorPane.setTopAnchor(root, 0.0);
+			AnchorPane.setBottomAnchor(root, 0.0);
+			AnchorPane.setLeftAnchor(root, 0.0);
+			AnchorPane.setRightAnchor(root, 0.0);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,70 +47,14 @@ public class KvView implements IView, Initializable{
 	}
 	
 	private void setTableCellValueFactory(){
-		dateFromCol.setCellValueFactory(new PropertyValueFactory<MedicalHistory, java.util.Date>("dateFrom"));
-		firstnameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MedicalHistory,String>, ObservableValue<String>>() {
-			
-			@Override
-			public ObservableValue<String> call(
-					CellDataFeatures<MedicalHistory, String> param) {
-				// TODO Auto-generated method stub
-				return param.getValue().getPatientModel().getFirstnameProperty();
-			}
-		});
-		lastnameCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MedicalHistory,String>, ObservableValue<String>>() {
-			
-			@Override
-			public ObservableValue<String> call(
-					CellDataFeatures<MedicalHistory, String> param) {
-				// TODO Auto-generated method stub
-				return param.getValue().getPatientModel().getLastnameProperty();
-			}
-		});;
-		insuranceNumberCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MedicalHistory,String>, ObservableValue<String>>() {
-			
-			@Override
-			public ObservableValue<String> call(
-					CellDataFeatures<MedicalHistory, String> param) {
-				// TODO Auto-generated method stub
-				return param.getValue().getPatientModel().getInsuranceNumberProperty();
-			}
-		});
-		placeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MedicalHistory,String>, ObservableValue<String>>() {
-			
-			@Override
-			public ObservableValue<String> call(
-					CellDataFeatures<MedicalHistory, String> param) {
-				// TODO Auto-generated method stub
-				return param.getValue().getPatientModel().getPlaceProperty();
-			}
-		});
-		plzCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MedicalHistory,String>, ObservableValue<String>>() {
-			
-			@Override
-			public ObservableValue<String> call(
-					CellDataFeatures<MedicalHistory, String> param) {
-				// TODO Auto-generated method stub
-				return param.getValue().getPatientModel().getPlzProberty();
-			}
-		});
-		streetCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MedicalHistory,String>, ObservableValue<String>>() {
-			
-			@Override
-			public ObservableValue<String> call(
-					CellDataFeatures<MedicalHistory, String> param) {
-				// TODO Auto-generated method stub
-				return param.getValue().getPatientModel().getAddressProperty();
-			}
-		});
-		billStateCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MedicalHistory,String>, ObservableValue<String>>() {
-			
-			@Override
-			public ObservableValue<String> call(
-					CellDataFeatures<MedicalHistory, String> param) {
-				// TODO Auto-generated method stub
-				return param.getValue().getbillStateCodeModel().descriptionProperty();
-			}
-		});
+		dateFromCol.setCellValueFactory(cellData -> cellData.getValue().getDateFromProperty());
+		firstnameCol.setCellValueFactory(cellData -> cellData.getValue().getFirstnameProperty());
+		lastnameCol.setCellValueFactory(cellData -> cellData.getValue().getLastnameProperty());
+		insuranceNumberCol.setCellValueFactory(cellData -> cellData.getValue().getInsuranceNumberProperty());
+		placeCol.setCellValueFactory(cellData -> cellData.getValue().getPlaceProperty());
+		plzCol.setCellValueFactory(cellData -> cellData.getValue().getPlzProberty());
+		streetCol.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
+		billStateCol.setCellValueFactory(cellData -> cellData.getValue().getBillStateProperty());
 
 	}
 	
@@ -126,7 +71,7 @@ public class KvView implements IView, Initializable{
 		return null;
 	}
 	
-	public void fillTableData(ObservableList<MedicalHistory> fakturen){
+	public void fillTableData(ObservableList<Fakturen> fakturen){
 		faktTable.setItems(fakturen);
 	}
 	@FXML
@@ -134,23 +79,23 @@ public class KvView implements IView, Initializable{
 	
 	/*Table*/
 	@FXML
-	private TableView<MedicalHistory> faktTable;
+	private TableView<Fakturen> faktTable;
 	@FXML
-	private TableColumn<MedicalHistory, Date> dateFromCol;
+	private TableColumn<Fakturen, LocalDate> dateFromCol;
 	@FXML
-	private TableColumn<MedicalHistory, String> firstnameCol;
+	private TableColumn<Fakturen, String> firstnameCol;
 	@FXML
-	private TableColumn<MedicalHistory, String> lastnameCol;
+	private TableColumn<Fakturen, String> lastnameCol;
 	@FXML
-	private TableColumn<MedicalHistory, String> insuranceNumberCol;
+	private TableColumn<Fakturen, String> insuranceNumberCol;
 	@FXML
-	private TableColumn<MedicalHistory, String> placeCol;
+	private TableColumn<Fakturen, String> placeCol;
 	@FXML
-	private TableColumn<MedicalHistory, String> plzCol;
+	private TableColumn<Fakturen, String> plzCol;
 	@FXML
-	private TableColumn<MedicalHistory, String> streetCol;
+	private TableColumn<Fakturen, String> streetCol;
 	@FXML
-	private TableColumn<MedicalHistory, String> billStateCol;
+	private TableColumn<Fakturen, Number> billStateCol;
 
 	
 }

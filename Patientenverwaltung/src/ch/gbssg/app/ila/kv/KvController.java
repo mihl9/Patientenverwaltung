@@ -1,10 +1,9 @@
 package ch.gbssg.app.ila.kv;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javafx.scene.layout.Pane;
-import ch.gbssg.app.model.MedicalHistory;
+import ch.gbssg.app.model.Fakturen;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
@@ -44,10 +43,10 @@ public class KvController extends AgentController {
 	
 	public void loadTestData(){
 		/*test*/
-		MedicalHistory m1 = new MedicalHistory();
+		Fakturen m1 = new Fakturen();
 		m1.setDateFrom(LocalDate.now());
 		m1.setBillState(1);
-		MedicalHistory m2 = new MedicalHistory();
+		Fakturen m2 = new Fakturen();
 		m2.setDateFrom(LocalDate.now());
 		m2.setBillState(3);
 		model.getFakturenData().add(m1);

@@ -7,7 +7,7 @@ package ch.gbssg.app.util;
  */
 public enum UserRoll {
 	// user states
-	ADMIN(0), KV(1), DOCTOR(2);
+	ADMIN(3), KV(2), DOCTOR(1);
 
     private final int value;
     

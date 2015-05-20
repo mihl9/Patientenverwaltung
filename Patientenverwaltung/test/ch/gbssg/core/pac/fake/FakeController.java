@@ -2,7 +2,6 @@ package ch.gbssg.core.pac.fake;
 
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
-import ch.gbssg.core.pac.IAgentController;
 import ch.gbssg.core.pac.ICommand;
 
 public class FakeController extends AgentController {

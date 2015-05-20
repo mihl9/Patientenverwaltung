@@ -19,7 +19,10 @@ public class DatabaseController extends AgentController {
 	@Override
 	protected void processMessage(AgentCommand messages) {
 		// TODO Auto-generated method stub
+		//CmdGetEntity<User>(u1)
+		// model.getUserBy(u1)
 		
+		// CmdGetEntity<Patient>(p1)
 	}
 
 }
