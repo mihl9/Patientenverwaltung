@@ -2,29 +2,48 @@ package ch.gbssg.app.model;
 
 import java.util.List;
 
+import org.springframework.util.SimpleIdGenerator;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import ch.gbssg.core.AbsModel;
 
 public class CodeType extends AbsModel {
 	
-	private int id;
-	private String desc;
+	private IntegerProperty id;
+	private StringProperty desc;
+	
+	public CodeType(){
+		id = new SimpleIntegerProperty();
+		desc = new SimpleStringProperty();
+	}
 	
 	public int getId() {
-		return id;
+		return id.get();
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.id.set(id);
+	}
+	
+	public IntegerProperty getIdProperty(){
+		return this.id;
 	}
 
 	public String getDesc() {
-		return desc;
+		return desc.get();
 	}
 
 	public void setDesc(String desc) {
-		this.desc = desc;
+		this.desc.set(desc);
 	}
 
+	public StringProperty getDescProperty(){
+		return this.desc;
+	}
+	
 	@Override
 	public boolean isValid(List<String> errors) {
 		// TODO Auto-generated method stub

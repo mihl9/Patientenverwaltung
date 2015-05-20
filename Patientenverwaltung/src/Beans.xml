@@ -11,8 +11,13 @@
       <property name="password" value="Patientenverwaltung1234"/>
    </bean>
 
-   <!-- Definition for studentJDBCTemplate bean -->
+   <!-- Definition for UserJDBCTemplate bean -->
    <bean id="UserJDBCTemplate" class="ch.gbssg.app.ila.database.dao.UserJDBCTemplate">
+      <property name="dataSource" ref="dataSource" />    
+   </bean>
+   
+   <!-- Definition for CodeJDBCTemplate bean -->
+   <bean id="CodeJDBCTemplate" class="ch.gbssg.app.ila.database.dao.CodeJDBCTemplate">
       <property name="dataSource" ref="dataSource" />    
    </bean>
 </beans>

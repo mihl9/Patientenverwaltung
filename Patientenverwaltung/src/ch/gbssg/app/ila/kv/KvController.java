@@ -3,7 +3,10 @@ package ch.gbssg.app.ila.kv;
 import java.time.LocalDate;
 
 import javafx.scene.layout.Pane;
+import ch.gbssg.app.model.Code;
 import ch.gbssg.app.model.Fakturen;
+import ch.gbssg.app.model.User;
+import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
@@ -52,5 +55,17 @@ public class KvController extends AgentController {
 		model.getFakturenData().add(m1);
 		model.getFakturenData().add(m2);
 		view.fillTableData(model.getFakturenData());
+		
+		/*Load the data from database*/
+		//prepare the filter
+		Code codeFilter = new Code();
+		codeFilter.setCodeTypeId(1);
+		//get the data
+		CmdFilterEntity<Code> codeFilterCommand = new CmdFilterEntity<Code>(Code.class, codeFilter);
+		sendAgentMessage(new AgentCommand(codeFilterCommand));
+		
+		model.getCodesData().addAll(codeFilterCommand.getEntities());
+		
+		view.fillCombobox(model.getCodesData());
 	}
 }

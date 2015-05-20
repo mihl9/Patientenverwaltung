@@ -8,13 +8,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import ch.gbssg.core.AbsModel;
 
-public class Codes extends AbsModel {
+public class Code extends AbsModel {
 
 	private IntegerProperty id;
 	private StringProperty description;
 	private IntegerProperty codeTypeId;
 	
-	public Codes(){
+	public Code(){
 		id = new SimpleIntegerProperty();
 		description = new SimpleStringProperty();
 		codeTypeId = new SimpleIntegerProperty();
