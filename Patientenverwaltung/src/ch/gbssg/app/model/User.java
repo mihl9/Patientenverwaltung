@@ -2,8 +2,19 @@ package ch.gbssg.app.model;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import ch.gbssg.app.util.UserRoll;
 import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.IFilterEntity;
@@ -14,77 +25,120 @@ import ch.gbssg.core.IFilterEntity;
  * @version 1.0
  */
 public class User extends AbsModel implements IFilterEntity<User>  {
-	private int id;
-	private UserRoll rolle;
-	private String firstname;
-	private String lastname;
-	private String loginname;
-	private String password;
-	private double hourlyWage;
-	private boolean isInactive;
+	private IntegerProperty id;
+	private ObjectProperty<UserRoll> rolle;
+	private StringProperty firstname;
+	private StringProperty lastname;
+	private StringProperty loginname;
+	private StringProperty password;
+	private DoubleProperty hourlyWage;
+	private BooleanProperty isInactive;
+	
+	public User(){
+		id = new SimpleIntegerProperty();
+		rolle = new SimpleObjectProperty<UserRoll>();
+		firstname = new SimpleStringProperty();
+		lastname = new SimpleStringProperty();
+		loginname = new SimpleStringProperty();
+		password = new SimpleStringProperty();
+		hourlyWage = new SimpleDoubleProperty();
+		isInactive = new SimpleBooleanProperty();
+	}
 	
 	public int getId() {
-		return id;
+		return id.get();
 	}
 	
 	public void setId(int id) {
-		this.id = id;
+		this.id.set(id);
+	}
+	
+	public IntegerProperty getIdProperty(){
+		return this.id;
 	}
 	
 	public String getFirstname() {
-		return firstname;
+		return firstname.get();
 	}
 	
 	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+		this.firstname.set(firstname);
+	}
+	
+	public StringProperty getFirstnameProperty(){
+		return this.firstname;
 	}
 	
 	public String getLastname() {
-		return lastname;
+		return lastname.get();
 	}
 	
 	public void setLastname(String lastname) {
-		this.lastname = lastname;
+		this.lastname.set(lastname);
+	}
+	
+	public StringProperty getLastnameProperty(){
+		return this.lastname;
 	}
 	
 	public String getLoginname() {
-		return loginname;
+		return loginname.get();
 	}
 	
 	public void setLoginname(String loginName) {
-		this.loginname = loginName;
+		this.loginname.set(loginName);
+	}
+	
+	public StringProperty getLoginnameProperty(){
+		return this.loginname;
 	}
 	
 	public String getPassword() {
-		return password;
+		return password.get();
 	}
 	
 	public void setPassword(String password) {
-		this.password = password;
+		this.password.set(password);
+	}
+	
+	public StringProperty getPasswordProperty(){
+		return this.password;
 	}
 	
 	public double getHourlyWage() {
-		return hourlyWage;
+		return hourlyWage.get();
 	}
 	
 	public void setHourlyWage(double hourlyWage) {
-		this.hourlyWage = hourlyWage;
+		this.hourlyWage.set(hourlyWage);
 	}
 
-	public boolean isInactive() {
-		return isInactive;
+	public DoubleProperty getHourlyWageProperty(){
+		return this.hourlyWage;
+	}
+	
+	public Boolean isInactive() {
+		return isInactive.getValue();
 	}
 
-	public void setInactive(boolean isDeleted) {
-		this.isInactive = isDeleted;
+	public void setInactive(Boolean isDeleted) {
+		this.isInactive.setValue(isDeleted);
+	}
+	
+	public BooleanProperty getInactiveProperty(){
+		return this.isInactive;
 	}
 	
 	public UserRoll getRolle() {
-		return rolle;
+		return rolle.get();
 	}
 
 	public void setRolle(UserRoll rolle) {
-		this.rolle = rolle;
+		this.rolle.set(rolle);
+	}
+	
+	public ObjectProperty<UserRoll> getRolleProperty(){
+		return this.rolle;
 	}
 	
 	/*

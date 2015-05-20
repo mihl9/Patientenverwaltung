@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.mysql.jdbc.StringUtils;
+
 import ch.gbssg.app.ila.database.mapper.UserMapper;
 import ch.gbssg.app.model.User;
 import ch.gbssg.app.util.UserRoll;
@@ -43,14 +45,39 @@ public class UserJDBCTemplate implements ICrud<User> {
 	
 	@Override
 	public List<User> filterByEntity(User entity) {
-		List<User> ul = new ArrayList<User>();
-		User u = new User();
-		u.setRolle(UserRoll.DOCTOR);
-		u.setLoginname("test");
-		u.setPassword("test");
-		ul.add(u);
-		
-		return ul;
+		List<String> whereArg;
+		String sql=" SELECT * FROM t_User ";
+		whereArg = new ArrayList<String>();
+		/*go throug each field and show if a filter should be set*/
+		if(entity.getId()>0){
+			whereArg.add(" UsrId="+entity.getId()+" ");
+		}
+		if(entity.getRolle()!=null){
+			whereArg.add(" UsrRollId_CD="+entity.getRolle().getValue()+" ");
+		}
+		if(entity.getFirstname()!=null && !entity.getFirstname().isEmpty()){
+			whereArg.add(" UsrFirstName='"+entity.getFirstname()+"' ");
+		}
+		if(entity.getLastname()!=null && !entity.getLastname().isEmpty()){
+			whereArg.add(" UsrLastName='"+entity.getLastname()+"' ");
+		}
+		if(entity.getLoginname()!=null && !entity.getLoginname().isEmpty()){
+			whereArg.add(" UsrLoginName='"+entity.getLoginname()+"' ");
+		}
+		if(entity.getPassword()!=null && !entity.getPassword().isEmpty()){
+			whereArg.add(" UsrPw='"+entity.getPassword()+"' ");
+		}
+		if(entity.getHourlyWage()>0){
+			whereArg.add(" UsrHourlyWage="+entity.getHourlyWage()+" ");
+		}
+		if(entity.isInactive()!=null){
+			whereArg.add(" UsrInactive="+entity.isInactive()+" ");
+		}
+		/*If any filter should be set add it to the query*/
+		if(whereArg.size()>0){
+			sql += " WHERE "+String.join("AND", whereArg);
+		}
+		return jdbcTemplateObject.query(sql, new UserMapper());
 	}
 
 	@Override

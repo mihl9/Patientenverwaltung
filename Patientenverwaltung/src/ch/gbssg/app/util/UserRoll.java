@@ -33,15 +33,13 @@ public enum UserRoll {
      * @return the convertet state; otherwise null
      */
     public static UserRoll convert(int id) {
-    	switch (id) {
-		case 0:
-			return UserRoll.ADMIN;
-			
+    	switch (id) {			
 		case 1:
-			return UserRoll.KV;
-			
-		case 2:
 			return UserRoll.DOCTOR;
+		case 2:
+			return UserRoll.KV;
+		case 3:
+			return UserRoll.ADMIN;
 		default:
 			return null;
 		}
