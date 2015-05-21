@@ -7,15 +7,9 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.mysql.jdbc.StringUtils;
-
 import ch.gbssg.app.ila.database.mapper.FakturaMapper;
-import ch.gbssg.app.ila.database.mapper.UserMapper;
 import ch.gbssg.app.model.Faktura;
-import ch.gbssg.app.model.User;
-import ch.gbssg.app.util.UserRoll;
 import ch.gbssg.core.ICrud;
-import ch.gbssg.core.IFilterEntity;
 
 public class FakturaJDBCTemplate implements ICrud<Faktura> {
 	private JdbcTemplate jdbcTemplateObject;

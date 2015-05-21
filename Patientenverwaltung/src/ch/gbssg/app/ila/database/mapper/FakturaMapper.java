@@ -2,18 +2,10 @@ package ch.gbssg.app.ila.database.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 import org.springframework.jdbc.core.RowMapper;
 
 import ch.gbssg.app.model.Faktura;
-import ch.gbssg.app.model.User;
-import ch.gbssg.app.util.UserRoll;
 
 public class FakturaMapper implements RowMapper<Faktura> {
 

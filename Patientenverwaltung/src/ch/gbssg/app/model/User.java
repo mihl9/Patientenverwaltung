@@ -2,7 +2,6 @@ package ch.gbssg.app.model;
 
 
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javafx.beans.property.BooleanProperty;

@@ -16,7 +16,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -114,7 +113,7 @@ public class KvView implements IView, Initializable{
 	
 	@FXML
 	private void printFakturen(){
-		
+		this.controller.generateInvoice(this.faktTable.getSelectionModel().getSelectedItem());
 	}
 	@FXML
 	private void changeState(){

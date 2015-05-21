@@ -2,8 +2,6 @@ package ch.gbssg.app.model;
 
 import java.util.List;
 
-import org.springframework.util.SimpleIdGenerator;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
