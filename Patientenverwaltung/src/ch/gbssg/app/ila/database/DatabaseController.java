@@ -3,6 +3,7 @@ package ch.gbssg.app.ila.database;
 import java.util.List;
 
 import ch.gbssg.app.model.Code;
+import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.model.User;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.core.pac.AgentCommand;
@@ -36,6 +37,10 @@ public class DatabaseController extends AgentController {
 				filter.setEntities(matches);
 			}else if (filter.getType() == Code.class) {
 				List<?> matches = model.getFilteredCode((Code) filter.getFilterEntity());
+				
+				filter.setEntities(matches);
+			}else if (filter.getType() == Faktura.class) {
+				List<?> matches = model.getFilteredFaktura((Faktura) filter.getFilterEntity());
 				
 				filter.setEntities(matches);
 			}
