@@ -31,7 +31,7 @@
 	<artifactId>mockito-all</artifactId>
 	<version>1.9.5</version>
 </dependency>
-  
+
   <dependency>
 	<groupId>mysql</groupId>
 	<artifactId>mysql-connector-java</artifactId>
@@ -58,6 +58,50 @@
 	<artifactId>spring-context</artifactId>
 	<version>4.1.6.RELEASE</version>
 </dependency>
-
+<dependency>
+    <groupId>fr.opensagres.xdocreport</groupId>
+    <artifactId>xdocreport</artifactId>
+    <version>1.0.5</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.velocity</groupId>
+    <artifactId>velocity</artifactId>
+    <version>1.7</version>
+</dependency>
+<dependency>
+    <groupId>org.freemarker</groupId>
+    <artifactId>freemarker</artifactId>
+    <version>2.3.22</version>
+</dependency>
+<dependency>
+    <groupId>oro</groupId>
+    <artifactId>oro</artifactId>
+    <version>2.0.8</version>
+</dependency>
+<dependency>
+    <groupId>com.lowagie</groupId>
+    <artifactId>itext</artifactId>
+    <version>4.2.1</version>
+</dependency>
+<dependency>
+    <groupId>org.odftoolkit</groupId>
+    <artifactId>odfdom-java</artifactId>
+    <version>0.8.7</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>3.12-beta1</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>3.12-beta1</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>ooxml-schemas</artifactId>
+    <version>1.1</version>
+</dependency>
   </dependencies>
 </project>

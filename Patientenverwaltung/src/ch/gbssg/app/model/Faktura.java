@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import ch.gbssg.core.AbsModel;
 
-public class Fakturen extends AbsModel{
+public class Faktura extends AbsModel{
 	/*Medical History Infos*/
 	private IntegerProperty id;
 	private IntegerProperty userId;
@@ -36,7 +36,7 @@ public class Fakturen extends AbsModel{
 	private StringProperty usrLastname;
 	private DoubleProperty hourlyWage;
 	
-	public Fakturen(){
+	public Faktura(){
 		/*Medical History Infos*/
 		id = new SimpleIntegerProperty();
 		userId = new SimpleIntegerProperty();
@@ -279,7 +279,7 @@ public class Fakturen extends AbsModel{
 	}
 
 
-	public void setUsrLastname(double hourlyWage) {
+	public void setHourlyWage(double hourlyWage) {
 		this.hourlyWage.set(hourlyWage);
 	}
 

@@ -6,8 +6,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ch.gbssg.app.ila.database.dao.CodeJDBCTemplate;
+import ch.gbssg.app.ila.database.dao.FakturaJDBCTemplate;
 import ch.gbssg.app.ila.database.dao.UserJDBCTemplate;
 import ch.gbssg.app.model.Code;
+import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.model.User;
 
 public class DatabaseModel {
@@ -18,12 +20,14 @@ public class DatabaseModel {
 	
 	private UserJDBCTemplate userJdbcTemplate;
 	private CodeJDBCTemplate codeJdbcTemplate;
+	private FakturaJDBCTemplate fakturaJdbcTemplate;
 	public DatabaseModel() {
 		// include the beans config file.
 		ctx = new ClassPathXmlApplicationContext("Beans.xml");
 		
 		userJdbcTemplate = (UserJDBCTemplate)ctx.getBean("UserJDBCTemplate");
 		codeJdbcTemplate = (CodeJDBCTemplate)ctx.getBean("CodeJDBCTemplate");
+		fakturaJdbcTemplate = (FakturaJDBCTemplate)ctx.getBean("FakturaJDBCTemplate");
 	}
 	
 	/**
@@ -49,6 +53,19 @@ public class DatabaseModel {
 			return  codeJdbcTemplate.filterByEntity(code);
 		} else {
 			return codeJdbcTemplate.get();
+		}
+	}
+	
+	/**
+	 * returns a list of matching Faktura. don't found any matches, return null.
+	 * @param user filtered Code; by null return all Codes
+	 * @return get a list of matches users which matches with user parameter
+	 */
+	public List<Faktura> getFilteredFaktura(Faktura faktura) {
+		if (faktura != null) {
+			return  fakturaJdbcTemplate.filterByEntity(faktura);
+		} else {
+			return fakturaJdbcTemplate.get();
 		}
 	}
 }

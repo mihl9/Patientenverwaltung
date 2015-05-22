@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import ch.gbssg.core.pac.ICommand;
 
 /**
  * interface for DAO objects.

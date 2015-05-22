@@ -4,8 +4,9 @@ import java.time.LocalDate;
 
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.Code;
-import ch.gbssg.app.model.Fakturen;
-import ch.gbssg.app.model.User;
+import ch.gbssg.app.model.Faktura;
+import ch.gbssg.app.util.command.CmdDoExport;
+import ch.gbssg.app.util.command.CmdDoExport.ExportType;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;
@@ -36,36 +37,78 @@ public class KvController extends AgentController {
 		
 		if (cmd instanceof CmdShowUi) {
 			CmdShowUi cmdShowUi = (CmdShowUi)messages.poll();
+			
 			Pane container = cmdShowUi.getPane();
 			container.getChildren().clear();
 			container.getChildren().add(view.getContent());
-			loadTestData();
+			
+			loadData();
 		}
 		
 	}
 	
-	public void loadTestData(){
-		/*test*/
-		Fakturen m1 = new Fakturen();
-		m1.setDateFrom(LocalDate.now());
-		m1.setBillState(1);
-		Fakturen m2 = new Fakturen();
-		m2.setDateFrom(LocalDate.now());
-		m2.setBillState(3);
-		model.getFakturenData().add(m1);
-		model.getFakturenData().add(m2);
-		view.fillTableData(model.getFakturenData());
+	public Code getAssignedCode(int id){
+		Code result = null;
+		for (Code code : model.getCodesData()) {
+			if(code.getId()==id){
+				result = code;
+				break;
+			}
+		}
 		
-		/*Load the data from database*/
+		return result;
+	}
+	
+	public void generateInvoice(Faktura model){
+		CmdDoExport cmd = new CmdDoExport(model, "InvoiceTemplate.docx");
+		sendAgentMessage(new AgentCommand(cmd));
+		
+	}
+	public void FilterTable(Code state, LocalDate dateFrom, LocalDate dateTo){
+		model.getFakturenFilteredData().clear();
+		for (Faktura faktura : model.getFakturenData()) {
+			boolean visible=true;
+			if(state!=null){
+				visible = visible && faktura.getBillState()==state.getId();
+			}
+			if(visible && dateFrom!=null){
+				visible = visible && faktura.getDateFrom().isAfter(dateFrom);
+			}
+			if(visible && dateTo!=null){
+				visible = visible && faktura.getBillDueTo().isBefore(dateTo);
+			}
+			if(visible==true){
+				model.getFakturenFilteredData().add(faktura);
+			}
+		}
+	}
+	
+	public void loadData(){
+		/*Load the Data from the db*/
+		/*
+		 * Load the Faktura from Database
+		 */
+		CmdFilterEntity<Faktura> fakturaRs = new CmdFilterEntity<Faktura>(Faktura.class, null);
+		sendAgentMessage(new AgentCommand(fakturaRs));
+		//save the Data into the model
+		model.getFakturenData().addAll(fakturaRs.getEntities());
+		//reset the search Filter
+		FilterTable(null, null, null);
+		
+		/*
+		 * Load the Codes from the DB
+		 */
 		//prepare the filter
 		Code codeFilter = new Code();
-		codeFilter.setCodeTypeId(1);
+		codeFilter.setCodeTypeId(2);
 		//get the data
 		CmdFilterEntity<Code> codeFilterCommand = new CmdFilterEntity<Code>(Code.class, codeFilter);
 		sendAgentMessage(new AgentCommand(codeFilterCommand));
-		
+		//save the data
 		model.getCodesData().addAll(codeFilterCommand.getEntities());
 		
+		/*Connect the object to the data source*/
 		view.fillCombobox(model.getCodesData());
+		view.fillTableData(model.getFakturenFilteredData());
 	}
 }

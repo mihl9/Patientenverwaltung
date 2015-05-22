@@ -27,7 +27,7 @@ public class Code extends AbsModel {
 		this.id.set(id);
 	}
 
-	public IntegerProperty idProperty(){
+	public IntegerProperty getIdProperty(){
 		return this.id;
 	}
 	public String getDescription() {
@@ -38,7 +38,7 @@ public class Code extends AbsModel {
 		this.description.set(description);
 	}
 
-	public StringProperty descriptionProperty(){
+	public StringProperty getDescriptionProperty(){
 		return this.description;
 	}
 	
@@ -50,7 +50,7 @@ public class Code extends AbsModel {
 		this.codeTypeId.set(codeTypeId);
 	}
 
-	public IntegerProperty codetypeidProperty(){
+	public IntegerProperty getCodetypeIdProperty(){
 		return this.codeTypeId;
 	}
 	@Override

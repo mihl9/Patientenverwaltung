@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
@@ -20,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import ch.gbssg.app.model.Code;
-import ch.gbssg.app.model.Fakturen;
+import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.util.CellFactoryCode;
 import ch.gbssg.core.pac.IView;
 
@@ -51,6 +52,10 @@ public class KvView implements IView, Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		setTableCellValueFactory();
+		setComboboxCellFacotry();
+	}
+	
+	private void setComboboxCellFacotry(){
 		cboCodes.setButtonCell(new CellFactoryCode());
 		cboCodes.setCellFactory(new Callback<ListView<Code>, ListCell<Code>>() {
 			@Override
@@ -69,8 +74,7 @@ public class KvView implements IView, Initializable{
 		placeCol.setCellValueFactory(cellData -> cellData.getValue().getPlaceProperty());
 		plzCol.setCellValueFactory(cellData -> cellData.getValue().getPlzProberty());
 		streetCol.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
-		billStateCol.setCellValueFactory(cellData -> cellData.getValue().getBillStateProperty());
-
+		billStateCol.setCellValueFactory(cellData -> this.controller.getAssignedCode(cellData.getValue().getBillState()).getDescriptionProperty());
 	}
 	
 	/**
@@ -86,14 +90,36 @@ public class KvView implements IView, Initializable{
 		return null;
 	}
 	
-	public void fillTableData(ObservableList<Fakturen> fakturen){
+	public void fillTableData(ObservableList<Faktura> fakturen){
 		faktTable.setItems(fakturen);
 	}
 	
 	public void fillCombobox(ObservableList<Code> codes){
 		cboCodes.setItems(codes);
 	}
+	/*Several Events*/
+	@FXML
+	private void setFilter(){
+		this.controller.FilterTable(cboCodes.getSelectionModel().getSelectedItem(), fromDatePicker.getValue(), toDatePicker.getValue());
+	}
 	
+	@FXML 
+	private void removeFilter(){
+		this.controller.FilterTable(null, null, null);
+		cboCodes.setValue(null);
+		fromDatePicker.setValue(null);
+		toDatePicker.setValue(null);
+	}
+	
+	@FXML
+	private void printFakturen(){
+		this.controller.generateInvoice(this.faktTable.getSelectionModel().getSelectedItem());
+	}
+	@FXML
+	private void changeState(){
+		
+	}
+	/*The GUI Elements of the View*/
 	@FXML
 	private AnchorPane root;
 	
@@ -104,25 +130,29 @@ public class KvView implements IView, Initializable{
 	DatePicker fromDatePicker;
 	@FXML
 	DatePicker toDatePicker;
+	@FXML
+	Button btnSetFilter;
+	@FXML
+	Button btnRemoveFilter;
 	/*Table*/
 	@FXML
-	private TableView<Fakturen> faktTable;
+	private TableView<Faktura> faktTable;
 	@FXML
-	private TableColumn<Fakturen, LocalDate> dateFromCol;
+	private TableColumn<Faktura, LocalDate> dateFromCol;
 	@FXML
-	private TableColumn<Fakturen, String> firstnameCol;
+	private TableColumn<Faktura, String> firstnameCol;
 	@FXML
-	private TableColumn<Fakturen, String> lastnameCol;
+	private TableColumn<Faktura, String> lastnameCol;
 	@FXML
-	private TableColumn<Fakturen, String> insuranceNumberCol;
+	private TableColumn<Faktura, String> insuranceNumberCol;
 	@FXML
-	private TableColumn<Fakturen, String> placeCol;
+	private TableColumn<Faktura, String> placeCol;
 	@FXML
-	private TableColumn<Fakturen, String> plzCol;
+	private TableColumn<Faktura, String> plzCol;
 	@FXML
-	private TableColumn<Fakturen, String> streetCol;
+	private TableColumn<Faktura, String> streetCol;
 	@FXML
-	private TableColumn<Fakturen, Number> billStateCol;
+	private TableColumn<Faktura, String> billStateCol;
 
 	
 }

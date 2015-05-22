@@ -10,10 +10,9 @@ import ch.gbssg.app.ila.database.DatabaseController;
 import ch.gbssg.app.ila.doctor.DoctorController;
 import ch.gbssg.app.ila.export.ExportController;
 import ch.gbssg.app.ila.kv.KvController;
-import ch.gbssg.app.model.Patient;
 import ch.gbssg.app.model.User;
-import ch.gbssg.app.util.UserRoll;
 import ch.gbssg.app.util.command.CmdFilterEntity;
+import ch.gbssg.app.util.command.CmdGetRootWindow;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
@@ -87,6 +86,11 @@ public class AppController extends AgentController {
 	@Override
 	protected void processMessage(AgentCommand messages) {
 		ICommand cmd = messages.peek();
+		
+		if(cmd instanceof CmdGetRootWindow){
+			CmdGetRootWindow getRootWindow = (CmdGetRootWindow) cmd;
+			getRootWindow.setWindow(model.getStage());
+		}
 	}
 
 	/**

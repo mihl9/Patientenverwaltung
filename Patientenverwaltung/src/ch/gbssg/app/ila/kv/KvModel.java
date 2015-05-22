@@ -1,23 +1,30 @@
 package ch.gbssg.app.ila.kv;
 
 import ch.gbssg.app.model.Code;
-import ch.gbssg.app.model.Fakturen;
+import ch.gbssg.app.model.Faktura;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class KvModel extends Searchable{
-	private ObservableList<Fakturen> fakturenData;
+public class KvModel{
+	private ObservableList<Faktura> fakturenData;
+	private ObservableList<Faktura> fakturenFilteredData;
 	private ObservableList<Code> codesData;
 	
 	public KvModel(){
 		fakturenData = FXCollections.observableArrayList();
+		fakturenFilteredData = FXCollections.observableArrayList();
 		codesData = FXCollections.observableArrayList();
 	}
 	
-	public ObservableList<Fakturen> getFakturenData(){
+	public ObservableList<Faktura> getFakturenData(){
 		return this.fakturenData;
 	}
+	
+	public ObservableList<Faktura> getFakturenFilteredData(){
+		return this.fakturenFilteredData;
+	}
+	
 	
 	public ObservableList<Code> getCodesData(){
 		return this.codesData;

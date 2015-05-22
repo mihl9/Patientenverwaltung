@@ -20,4 +20,9 @@
    <bean id="CodeJDBCTemplate" class="ch.gbssg.app.ila.database.dao.CodeJDBCTemplate">
       <property name="dataSource" ref="dataSource" />    
    </bean>
+   
+   <!-- Definition for FakturaJDBCTemplate bean -->
+   <bean id="FakturaJDBCTemplate" class="ch.gbssg.app.ila.database.dao.FakturaJDBCTemplate">
+      <property name="dataSource" ref="dataSource" />    
+   </bean>
 </beans>
