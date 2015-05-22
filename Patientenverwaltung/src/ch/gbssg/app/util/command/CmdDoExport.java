@@ -1,8 +1,11 @@
 package ch.gbssg.app.util.command;
 
+import java.io.File;
+
+import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.ICommand;
 
-public class CmdDoExport<T> implements ICommand  {
+public class CmdDoExport implements ICommand  {
 	public enum ExportType{
 		PDF,
 		Word,
@@ -10,16 +13,22 @@ public class CmdDoExport<T> implements ICommand  {
 	}
 	
 	private ExportType exportType;
-	private T dataModel;
+	private AbsModel dataModel;
 	private String templateName;
-	private String outputPath;
-	
-	public CmdDoExport(ExportType exportType, T model, String template) {
+	private File outputFile;
+	private boolean promptUser;
+
+	public CmdDoExport(ExportType exportType, AbsModel model, String template) {
 		this.exportType = exportType;
 		this.dataModel = model;
 		this.templateName = template;
 	}
 
+	public CmdDoExport(AbsModel model, String template) {
+		this(null,model,template);
+		this.setPromptUser(true);
+	}
+	
 	public ExportType getExportType() {
 		return exportType;
 	}
@@ -28,11 +37,11 @@ public class CmdDoExport<T> implements ICommand  {
 		this.exportType = exportType;
 	}
 
-	public T getDataModel() {
+	public AbsModel getDataModel() {
 		return dataModel;
 	}
 
-	public void setDataModel(T dataModel) {
+	public void setDataModel(AbsModel dataModel) {
 		this.dataModel = dataModel;
 	}
 
@@ -44,14 +53,20 @@ public class CmdDoExport<T> implements ICommand  {
 		this.templateName = templateName;
 	}
 
-	public String getOutputPath() {
-		return outputPath;
+	public File getOutputFile() {
+		return outputFile;
 	}
 
-	public void setOutputPath(String outputPath) {
-		this.outputPath = outputPath;
+	public void setOutputFile(File outputFile) {
+		this.outputFile = outputFile;
 	}
 
-	
+	public boolean isPromptUser() {
+		return promptUser;
+	}
+
+	public void setPromptUser(boolean promptUser) {
+		this.promptUser = promptUser;
+	}
 
 }

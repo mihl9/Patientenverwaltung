@@ -6,6 +6,7 @@ import ch.gbssg.app.bla.pdfexport.PdfExportController;
 import ch.gbssg.app.bla.wordexport.WordExportController;
 import ch.gbssg.app.util.command.CmdDoExport;
 import ch.gbssg.app.util.command.CmdDoExport.ExportType;
+import ch.gbssg.app.util.command.CmdGetRootWindow;
 import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
@@ -21,6 +22,9 @@ public class ExportController extends AgentController {
 	private WordExportController wordAgent;
 	private PdfExportController pdfAgent;
 	
+	private ExportModel model;
+	private ExportView view;
+	
 	public ExportController() {
 		// create agent hierarchy
 		wordAgent = AgentFactory.getInstance().requestAgent(WordExportController.class);
@@ -30,12 +34,15 @@ public class ExportController extends AgentController {
 		pdfAgent = AgentFactory.getInstance().requestAgent(PdfExportController.class);
 		pdfAgent.setParent(this);
 		addChild(pdfAgent);
+		
 	}
 	
 	@Override
 	public boolean setupAgent() {
-		// TODO Auto-generated method stub
-		return false;
+		model = new ExportModel();
+		view = new ExportView(this);
+		
+		return true;
 	}
 
 	@Override
@@ -43,20 +50,59 @@ public class ExportController extends AgentController {
 		// TODO Auto-generated method stub
 		ICommand cmd = messages.peek();
 		
-		if (cmd instanceof CmdDoExport<?>) {
-			CmdDoExport<?> export = (CmdDoExport<?>) cmd;
-			if(export.getExportType()==ExportType.PDF){
-				
-			}else if(export.getExportType()==ExportType.Word){
-				/*test*/
-				ClassLoader classLoader = getClass().getClassLoader();
-				InputStream in = classLoader.getResourceAsStream("ch/gbssg/core/templates/"+export.getTemplateName());
-				wordAgent.generateVelocityDocx("C:\\temp\\test.docx",(AbsModel)export.getDataModel() ,in);
-			}else if(export.getExportType()==ExportType.Printer){
-				
+		if (cmd instanceof CmdDoExport) {
+			CmdDoExport export = validateExportCmd((CmdDoExport) cmd);
+			
+			if(export.isPromptUser()){
+				getRootWindow();
+				view.showDialog(model.getRootWindow(), export);
+			}else{
+				doExport(export);
 			}
 		}
 		
+	}
+	/**
+	 * 
+	 * @param export
+	 */
+	public void doExport(CmdDoExport export){
+		//load the Template
+		ClassLoader classLoader = getClass().getClassLoader();
+		InputStream in = classLoader.getResourceAsStream("ch/gbssg/core/templates/"+export.getTemplateName());
+		
+		if(export.getExportType()==ExportType.PDF){
+			pdfAgent.generateVelocityPDF(export.getOutputFile(), (AbsModel)export.getDataModel() ,in);
+		}else if(export.getExportType()==ExportType.Word){			
+			wordAgent.generateVelocityDocx(export.getOutputFile(),(AbsModel)export.getDataModel() ,in);
+		}else if(export.getExportType()==ExportType.Printer){
+			//TODO Printer Bottom level Agent for printing
+			
+		}
+	}
+	
+	private void getRootWindow(){
+		CmdGetRootWindow getRootWindow = new CmdGetRootWindow();
+		sendAgentMessage(new AgentCommand(getRootWindow));
+		
+		model.setRootWindow(getRootWindow.getWindow());
+	}
+	
+	private CmdDoExport validateExportCmd(CmdDoExport export){
+		
+		if(export.getExportType()==null){
+			export.setPromptUser(true);
+		}else{
+			if(export.getExportType()==ExportType.Printer){
+				
+			}else{
+				if(export.getOutputFile()==null){
+					export.setPromptUser(true);
+				}
+			}
+		}
+		
+		return export;
 	}
 
 }

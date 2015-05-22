@@ -60,7 +60,7 @@ public class KvController extends AgentController {
 	}
 	
 	public void generateInvoice(Faktura model){
-		CmdDoExport<Faktura> cmd = new CmdDoExport<Faktura>(ExportType.Word, model, "InvoiceTemplate.docx");
+		CmdDoExport cmd = new CmdDoExport(model, "InvoiceTemplate.docx");
 		sendAgentMessage(new AgentCommand(cmd));
 		
 	}

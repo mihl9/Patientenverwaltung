@@ -34,10 +34,11 @@ public class WordExportController extends AgentController {
 		
 	}
 	
-	public void generateVelocityDocx(String SavePath, AbsModel model, InputStream template){
+	public void generateVelocityDocx(File outputFile, AbsModel model, InputStream template){
 		try {
 			//read this site
 			//https://code.google.com/p/xdocreport/wiki/ODTReportingJavaMain
+			//https://code.google.com/p/xdocreport/wiki/DocxReportingJavaMainNotes
 			//load the docx file, load template engine and cahce it to the registry
 			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(template,TemplateEngineKind.Velocity);
 			
@@ -46,7 +47,7 @@ public class WordExportController extends AgentController {
 			context.put("model", model);
 			
 			//generate report by merging the model with the tempalte
-			OutputStream out = new FileOutputStream(new File(SavePath));
+			OutputStream out = new FileOutputStream(outputFile);
 			report.process(context, out);
 			
 		} catch (IOException e) {
@@ -57,9 +58,5 @@ public class WordExportController extends AgentController {
 			e.printStackTrace();
 		}
 		
-	}
-
-	public OutputStream generateVelocityDocx(AbsModel model, InputStream template){
-		return null;
 	}
 }
