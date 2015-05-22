@@ -70,14 +70,15 @@ public class ExportController extends AgentController {
 		//load the Template
 		ClassLoader classLoader = getClass().getClassLoader();
 		InputStream in = classLoader.getResourceAsStream("ch/gbssg/core/templates/"+export.getTemplateName());
-		
-		if(export.getExportType()==ExportType.PDF){
-			pdfAgent.generateVelocityPDF(export.getOutputFile(), (AbsModel)export.getDataModel() ,in);
-		}else if(export.getExportType()==ExportType.Word){			
-			wordAgent.generateVelocityDocx(export.getOutputFile(),(AbsModel)export.getDataModel() ,in);
-		}else if(export.getExportType()==ExportType.Printer){
-			//TODO Printer Bottom level Agent for printing
-			
+		if(export.getDataModel()!=null){
+			if(export.getExportType()==ExportType.PDF){
+				pdfAgent.generateVelocityPDF(export.getOutputFile(), (AbsModel)export.getDataModel() ,in);
+			}else if(export.getExportType()==ExportType.Word){			
+				wordAgent.generateVelocityDocx(export.getOutputFile(),(AbsModel)export.getDataModel() ,in);
+			}else if(export.getExportType()==ExportType.Printer){
+				//TODO Printer Bottom level Agent for printing
+				
+			}
 		}
 	}
 	

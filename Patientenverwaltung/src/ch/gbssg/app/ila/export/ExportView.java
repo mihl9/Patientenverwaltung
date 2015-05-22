@@ -28,6 +28,9 @@ public class ExportView implements IView, Initializable{
 	private ExportController controller;
 	private CmdDoExport export;
 	
+	private Stage window;
+	private Scene form;
+	
 	public ExportView(ExportController controller){
 		this.controller = controller;
 		
@@ -51,20 +54,24 @@ public class ExportView implements IView, Initializable{
 
 	public void showDialog(Window owner, CmdDoExport export){
 		Stage dialog = new Stage();
-		
+
 		dialog.setTitle("Exportieren");
 		dialog.initOwner(owner);
 		dialog.initModality(Modality.WINDOW_MODAL);
 		//dialog.setX(owner.getX() + owner.getWidth());
 	    //dialog.setY(owner.getY());
 	    dialog.centerOnScreen();
-	    
-	    Scene form = new Scene(root);
+	    if(form==null){
+	    	form = new Scene(root);
+	    	//form.setr
+	    }else{
+	    	//form.setRoot(null);
+	    }
 	    dialog.setScene(form);
 	    
-	    this.window = dialog;
 	    dialog.show();
 	    dialog.toFront();
+	    this.window = dialog;
 	    loadData(export);
 	}
 	
@@ -73,6 +80,8 @@ public class ExportView implements IView, Initializable{
 		cboExportType.setValue(this.export.getExportType());
 		if(this.export.getOutputFile()!=null) {
 			txtSavePath.setText(this.export.getOutputFile().getPath());
+		}else{
+			txtSavePath.setText("");
 		}
 		changedExportType();
 	}
@@ -129,6 +138,7 @@ public class ExportView implements IView, Initializable{
 		//TODO set the Export object to null
 		this.export = null;
 		this.window.close();
+		
 	}
 	
 	@FXML void submit(){
@@ -148,9 +158,9 @@ public class ExportView implements IView, Initializable{
 	/*
 	 * FXML Elements
 	 */
+	@FXML
 	private AnchorPane root;
 	
-	private Stage window;
 	@FXML
 	private ComboBox<ExportType> cboExportType;
 	
