@@ -51,7 +51,7 @@ public class ExportController extends AgentController {
 				/*test*/
 				ClassLoader classLoader = getClass().getClassLoader();
 				InputStream in = classLoader.getResourceAsStream("ch/gbssg/core/templates/"+export.getTemplateName());
-				wordAgent.generateVelocityDocx("C:\temp\test.docx",(AbsModel)export.getDataModel() ,in);
+				wordAgent.generateVelocityDocx("C:\\temp\\test.docx",(AbsModel)export.getDataModel() ,in);
 			}else if(export.getExportType()==ExportType.Printer){
 				
 			}

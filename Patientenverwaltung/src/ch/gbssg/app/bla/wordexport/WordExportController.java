@@ -45,7 +45,7 @@ public class WordExportController extends AgentController {
 			IContext context = report.createContext();
 			context.put("model", model);
 			
-			//generate report by mergin the model with the tempalte
+			//generate report by merging the model with the tempalte
 			OutputStream out = new FileOutputStream(new File(SavePath));
 			report.process(context, out);
 			
