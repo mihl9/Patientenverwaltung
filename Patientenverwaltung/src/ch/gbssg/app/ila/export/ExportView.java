@@ -123,7 +123,9 @@ public class ExportView implements IView, Initializable{
 			extFilter = null;
 		}
 		fileChooser.getExtensionFilters().add(extFilter);
-		
+		/*if(this.export.getOutputFile()!=null){
+			fileChooser.setInitialDirectory(this.export.getOutputFile());
+		}*/
 		//show save file dialog
 		File file = fileChooser.showSaveDialog(this.window);
 		

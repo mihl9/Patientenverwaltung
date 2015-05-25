@@ -61,6 +61,7 @@ public class KvController extends AgentController {
 	
 	public void generateInvoice(Faktura model){
 		CmdDoExport cmd = new CmdDoExport(model, "InvoiceTemplate.docx");
+		//cmd.setExportType(ExportType.PDF);
 		sendAgentMessage(new AgentCommand(cmd));
 		
 	}
