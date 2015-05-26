@@ -6,7 +6,6 @@ import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.Code;
 import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.util.command.CmdDoExport;
-import ch.gbssg.app.util.command.CmdDoExport.ExportType;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;
@@ -61,6 +60,7 @@ public class KvController extends AgentController {
 	
 	public void generateInvoice(Faktura model){
 		CmdDoExport cmd = new CmdDoExport(model, "InvoiceTemplate.docx");
+		//cmd.setExportType(ExportType.PDF);
 		sendAgentMessage(new AgentCommand(cmd));
 		
 	}

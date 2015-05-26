@@ -13,7 +13,8 @@ import ch.gbssg.core.ICrud;
 
 public class FakturaJDBCTemplate implements ICrud<Faktura> {
 	private JdbcTemplate jdbcTemplateObject;
-    private DataSource dataSource;
+    @SuppressWarnings("unused")
+	private DataSource dataSource;
     
 	@Override
 	public void setDataSource(DataSource dataSource) {
@@ -23,14 +24,19 @@ public class FakturaJDBCTemplate implements ICrud<Faktura> {
 
 	@Override
 	public int create(Faktura entity) {
-		// TODO Auto-generated method stub
+		// Cannot create in a view
 		return 0;
 	}
 
 	@Override
 	public Faktura getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM v_Faktura WHERE MedHID=" + id;
+		List<Faktura> rs = jdbcTemplateObject.query(sql, new FakturaMapper());
+		if(rs.size()==1){
+			return rs.get(0);
+		}else{
+			return null;
+		}
 	}
 
 	@Override
@@ -111,13 +117,13 @@ public class FakturaJDBCTemplate implements ICrud<Faktura> {
 
 	@Override
 	public int delete(int id) {
-		// TODO Auto-generated method stub
+		// Cannot delete entry in view
 		return 0;
 	}
 
 	@Override
 	public int update(int id, Faktura newEntity) {
-		// TODO Auto-generated method stub
+		// cannot update the entry in a view
 		return 0;
 	}
 }
