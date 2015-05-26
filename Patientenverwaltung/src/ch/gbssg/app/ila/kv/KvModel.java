@@ -5,7 +5,11 @@ import ch.gbssg.app.model.Faktura;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
+/**
+ * 
+ * @author Michael
+ *
+ */
 public class KvModel{
 	private ObservableList<Faktura> fakturenData;
 	private ObservableList<Faktura> fakturenFilteredData;
