@@ -6,7 +6,6 @@ import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.Code;
 import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.util.command.CmdDoExport;
-import ch.gbssg.app.util.command.CmdDoExport.ExportType;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;

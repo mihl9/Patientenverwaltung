@@ -11,13 +11,13 @@
       <property name="password" value="Patientenverwaltung1234"/>
    </bean>
 
-   <!-- Definition for UserJDBCTemplate bean -->
-   <bean id="UserJDBCTemplate" class="ch.gbssg.app.ila.database.dao.UserJDBCTemplate">
+	<!-- Definition for CodeJDBCTemplate bean -->
+   <bean id="CodeJDBCTemplate" class="ch.gbssg.app.ila.database.dao.CodeJDBCTemplate">
       <property name="dataSource" ref="dataSource" />    
    </bean>
    
-   <!-- Definition for CodeJDBCTemplate bean -->
-   <bean id="CodeJDBCTemplate" class="ch.gbssg.app.ila.database.dao.CodeJDBCTemplate">
+   <!-- Definition for CodeTypeJDBCTemplate bean -->
+   <bean id="CodeTypeJDBCTemplate" class="ch.gbssg.app.ila.database.dao.CodeTypeJDBCTemplate">
       <property name="dataSource" ref="dataSource" />    
    </bean>
    
@@ -25,4 +25,20 @@
    <bean id="FakturaJDBCTemplate" class="ch.gbssg.app.ila.database.dao.FakturaJDBCTemplate">
       <property name="dataSource" ref="dataSource" />    
    </bean>
+   
+   <!-- Definition for MedicalHistoryJDBCTemplate bean -->
+   <bean id="MedicalHistoryJDBCTemplate" class="ch.gbssg.app.ila.database.dao.MedicalHistoryJDBCTemplate">
+      <property name="dataSource" ref="dataSource" />    
+   </bean>
+   
+   <!-- Definition for PatientJDBCTemplate bean -->
+   <bean id="PatientJDBCTemplate" class="ch.gbssg.app.ila.database.dao.PatientJDBCTemplate">
+      <property name="dataSource" ref="dataSource" />    
+   </bean>
+   
+   <!-- Definition for UserJDBCTemplate bean -->
+   <bean id="UserJDBCTemplate" class="ch.gbssg.app.ila.database.dao.UserJDBCTemplate">
+      <property name="dataSource" ref="dataSource" />    
+   </bean>
+   
 </beans>

@@ -1,15 +1,20 @@
 package ch.gbssg.app.ila.database.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import ch.gbssg.app.ila.database.mapper.FakturaMapper;
 import ch.gbssg.app.ila.database.mapper.MedicalHistoryMapper;
-import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.core.ICrud;
 
@@ -25,14 +30,66 @@ public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 
 	@Override
 	public int create(MedicalHistory entity) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection connection = null;
+		int generatedKey=0;
+		String sqlInsert = " INSERT INTO t_MedicalHistory "
+						   + " (`MedHUsrID_FK`,`MedHPatID_FK`,`MedHHour`,`MedHSymptoms`,`MedHDiagnostic`,`MedHNotes`,`MedHBillState_CD`,`MedHBillDueTo`,`MedHDateFrom`) "
+						   + " VALUES(?,?,?,?,?,?,?,?,?);";
+		if(entity.isValid(null)){
+			try {
+				//prepare the connection
+				connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
+				//set the new Values
+				statement.setInt(1, entity.getUserId());
+				statement.setInt(2, entity.getPatientId());
+				statement.setDouble(3, entity.getHour());
+				statement.setString(4, entity.getSymptoms());
+				statement.setString(5, entity.getDiagnostic());
+				statement.setString(6, entity.getNotes());
+				statement.setInt(7, entity.getBillState());
+				statement.setDate(8, (Date) Date.from(entity.getBillDueTo().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				statement.setDate(9, (Date) Date.from(entity.getDateFrom().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				//execute sql query
+				int affectedRows = statement.executeUpdate();
+				
+				if(affectedRows==0){
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl.");
+				}
+				
+				ResultSet generatedKeys = statement.getGeneratedKeys();
+				if(generatedKeys.next()){
+					//return the generated ID
+					generatedKey = generatedKeys.getInt(1);
+				}else{
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl. Keine ID wurde vergeben");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if (connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return generatedKey;
 	}
 
 	@Override
 	public MedicalHistory getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM t_MedicalHistory WHERE MedHId=" + id;
+		List<MedicalHistory> rs = jdbcTemplateObject.query(sql, new MedicalHistoryMapper());
+		if(rs.size()==1){
+			return rs.get(0);
+		}else{
+			return null;
+		}
 	}
 
 	@Override
@@ -63,6 +120,15 @@ public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 		if(entity.getHour()>0) {
 			whereArg.add(" MedHHour="+entity.getHour()+" ");
 		}
+		if(entity.getSymptoms()!=null && !entity.getSymptoms().isEmpty()){
+			whereArg.add(" MedHSymptoms='"+entity.getSymptoms()+"' ");
+		}
+		if(entity.getDiagnostic()!=null && !entity.getDiagnostic().isEmpty()){
+			whereArg.add(" MedHDiagnostic='"+entity.getDiagnostic()+"' ");
+		}
+		if(entity.getNotes()!=null && !entity.getNotes().isEmpty()){
+			whereArg.add(" MedHNotes='"+entity.getNotes()+"' ");
+		}
 		if(entity.getBillState()>0){
 			whereArg.add(" MedHBillState_CD="+entity.getBillState()+" ");
 		}
@@ -75,13 +141,65 @@ public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 
 	@Override
 	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "DELETE FROM t_MedicalHistory WHERE MedHId="+id;
+		//TODO Clear result handling with statement
+		jdbcTemplateObject.execute(sql);
+		return 1;
 	}
 
 	@Override
 	public int update(int id, MedicalHistory newEntity) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sqlUpdate = " UPDATE `t_MedicalHistory` "
+						 + " SET "
+						 + " `MedHUsrID_FK` = ?, "
+						 + " `MedHPatID_FK` = ?, "
+						 + " `MedHHour` = ?, "
+						 + " `MedHSymptoms` = ?, "
+						 + " `MedHDiagnostic` = ?, "
+						 + " `MedHNotes` = ?, "
+						 + " `MedHBillState_CD` = ?, "
+						 + " `MedHBillDueTo` = ?, "
+						 + " `MedHDateFrom` = ? "
+						 + " WHERE `MedHId` = ?;";
+		Connection connection = null;
+		int affectedRows = 0;
+		if(newEntity.isValid(null)){
+			try {
+				//prepare the connection
+				connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sqlUpdate,Statement.RETURN_GENERATED_KEYS);
+				//set the new Values
+				statement.setInt(1, newEntity.getUserId());
+				statement.setInt(2, newEntity.getPatientId());
+				statement.setDouble(3, newEntity.getHour());
+				statement.setString(4, newEntity.getSymptoms());
+				statement.setString(5, newEntity.getDiagnostic());
+				statement.setString(6, newEntity.getNotes());
+				statement.setInt(7, newEntity.getBillState());
+				statement.setDate(8, (Date) Date.from(newEntity.getBillDueTo().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				statement.setDate(9, (Date) Date.from(newEntity.getDateFrom().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				statement.setInt(10, id);
+				//execute sql query
+				affectedRows = statement.executeUpdate();
+				
+				if(affectedRows==0){
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl.");
+				}
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if (connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return affectedRows;
 	}
 }

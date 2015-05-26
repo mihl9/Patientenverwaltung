@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.model.MedicalHistory;
 
 public class MedicalHistoryMapper implements RowMapper<MedicalHistory> {

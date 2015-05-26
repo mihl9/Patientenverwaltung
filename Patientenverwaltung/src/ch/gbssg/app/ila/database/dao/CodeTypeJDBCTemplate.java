@@ -15,7 +15,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ch.gbssg.app.ila.database.mapper.CodeTypeMapper;
 import ch.gbssg.app.model.CodeType;
 import ch.gbssg.core.ICrud;
-
+/**
+ * 
+ * @author Michael
+ *
+ */
 public class CodeTypeJDBCTemplate implements ICrud<CodeType> {
 	private JdbcTemplate jdbcTemplateObject;
     private DataSource dataSource;
@@ -28,39 +32,51 @@ public class CodeTypeJDBCTemplate implements ICrud<CodeType> {
 
 	@Override
 	public int create(CodeType entity) {
+		Connection connection = null;
+		int generatedKey=0;
 		String sqlInsert = "INSERT INTO t_CodeType (CdtDesc) VALUES (?)";
-		try {
-			//prepare the connection
-			Connection connection = dataSource.getConnection();
-			PreparedStatement statement = connection.prepareStatement("",Statement.RETURN_GENERATED_KEYS);
-			//set the new Values
-			statement.setString(1, entity.getDesc());
-			
-			//execute sql query
-			int affectedRows = statement.executeUpdate();
-			
-			if(affectedRows==0){
-				throw new SQLException("Erstellen des SQL Objektes schlug fehl.");
+		if(entity.isValid(null)){
+			try {
+				//prepare the connection
+				connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
+				//set the new Values
+				statement.setString(1, entity.getDesc());
+				
+				//execute sql query
+				int affectedRows = statement.executeUpdate();
+				
+				if(affectedRows==0){
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl.");
+				}
+				
+				ResultSet generatedKeys = statement.getGeneratedKeys();
+				if(generatedKeys.next()){
+					//return the generated ID
+					generatedKey = generatedKeys.getInt(1);
+				}else{
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl. Keine ID wurde vergeben");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if (connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
-			
-			ResultSet generatedKeys = statement.getGeneratedKeys();
-			if(generatedKeys.next()){
-				return generatedKeys.getInt(1);
-			}else{
-				throw new SQLException("Erstellen des SQL Objektes schlug fehl. Keine ID wurde vergeben");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		return 0;
+		return generatedKey;
 	}
 
 	@Override
 	public CodeType getById(int id) {
-		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM t_CodeType WHERE CdtID="  + id;
+		String sql = "SELECT * FROM t_CodeType WHERE CdtID=" + id;
 		List<CodeType> rs = jdbcTemplateObject.query(sql, new CodeTypeMapper());
 		if(rs.size()==1){
 			return rs.get(0);
@@ -98,7 +114,7 @@ public class CodeTypeJDBCTemplate implements ICrud<CodeType> {
 
 	@Override
 	public int delete(int id) {
-		String sql = "DELETE FROM t_CodeType="+id;
+		String sql = "DELETE FROM t_CodeType WHERE CdtID="+id;
 		//TODO Clear result handling with statement
 		jdbcTemplateObject.execute(sql);
 		return 1;
@@ -106,7 +122,38 @@ public class CodeTypeJDBCTemplate implements ICrud<CodeType> {
 
 	@Override
 	public int update(int id, CodeType newEntity) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sqlUpdate = "UPDATE t_CodeType SET CdtDesc=? WHERE CdtID=?";
+		Connection connection = null;
+		int affectedRows = 0;
+		if(newEntity.isValid(null)){
+			try {
+				//prepare the connection
+				connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sqlUpdate,Statement.RETURN_GENERATED_KEYS);
+				//set the new Values
+				statement.setString(1, newEntity.getDesc());
+				statement.setInt(2, id);
+				//execute sql query
+				affectedRows = statement.executeUpdate();
+				
+				if(affectedRows==0){
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl.");
+				}
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if (connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return affectedRows;
 	}
 }

@@ -1,5 +1,10 @@
 package ch.gbssg.app.ila.database.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +28,58 @@ public class CodeJDBCTemplate implements ICrud<Code> {
 
 	@Override
 	public int create(Code entity) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection connection = null;
+		int generatedKey=0;
+		String sqlInsert = "INSERT INTO t_Codes (CdsDesc, CdsCdtID_FK) VALUES (?,?)";
+		if(entity.isValid(null)){
+			try {
+				//prepare the connection
+				connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
+				//set the new Values
+				statement.setString(1, entity.getDescription());
+				statement.setInt(2, entity.getCodeTypeId());
+				
+				//execute sql query
+				int affectedRows = statement.executeUpdate();
+				
+				if(affectedRows==0){
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl.");
+				}
+				
+				ResultSet generatedKeys = statement.getGeneratedKeys();
+				if(generatedKeys.next()){
+					//return the generated ID
+					generatedKey = generatedKeys.getInt(1);
+				}else{
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl. Keine ID wurde vergeben");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if (connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return generatedKey;
 	}
 
 	@Override
 	public Code getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM t_Codes WHERE CdsID=" + id;
+		List<Code> rs = jdbcTemplateObject.query(sql, new CodeMapper());
+		if(rs.size()==1){
+			return rs.get(0);
+		}else{
+			return null;
+		}
 	}
 
 	@Override
@@ -55,7 +104,6 @@ public class CodeJDBCTemplate implements ICrud<Code> {
 			whereArg.add(" CdsCdtID_FK="+entity.getCodeTypeId()+" ");
 		}
 		
-		
 		/*If any filter should be set add it to the query*/
 		if(whereArg.size()>0){
 			sql += " WHERE "+String.join("AND", whereArg);
@@ -65,13 +113,47 @@ public class CodeJDBCTemplate implements ICrud<Code> {
 
 	@Override
 	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "DELETE FROM t_Codes WHERE CdsID="+id;
+		//TODO Clear result handling with statement
+		jdbcTemplateObject.execute(sql);
+		return 1;
 	}
 
 	@Override
 	public int update(int id, Code newEntity) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sqlUpdate = "UPDATE t_Codes SET CdsDesc=?, CdsCdtID_FK=? WHERE CdsID=?";
+		Connection connection = null;
+		int affectedRows = 0;
+		if(newEntity.isValid(null)){
+			try {
+				//prepare the connection
+				connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sqlUpdate,Statement.RETURN_GENERATED_KEYS);
+				//set the new Values
+				statement.setString(1, newEntity.getDescription());
+				statement.setInt(2, newEntity.getCodeTypeId());
+				statement.setInt(3, id);
+				//execute sql query
+				affectedRows = statement.executeUpdate();
+				
+				if(affectedRows==0){
+					throw new SQLException("Erstellen des SQL Objektes schlug fehl.");
+				}
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if (connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return affectedRows;
 	}
 }
