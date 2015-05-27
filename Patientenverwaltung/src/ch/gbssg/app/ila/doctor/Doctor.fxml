@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -7,11 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="986.0" prefHeight="562.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox spacing="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="80.0">
+            <VBox spacing="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="60.0">
                <children>
                   <Group>
                      <children>
@@ -47,30 +48,43 @@
             </VBox>
             <FlowPane alignment="CENTER_RIGHT" hgap="10.0" prefHeight="46.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                <children>
-                  <Button mnemonicParsing="false" text="Suchen" />
-                  <Button mnemonicParsing="false" text="Zurücksetzen" />
+                  <Button mnemonicParsing="false" onAction="#searchPatient" text="Suchen" />
+                  <Button mnemonicParsing="false" onAction="#resetSearch" text="Zurücksetzen" />
                </children>
             </FlowPane>
-            <Label layoutX="20.0" layoutY="49.0" text="Patienten Datenbank durchsuchen:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="40.0" />
+            <Label layoutX="20.0" layoutY="49.0" text="Patienten Datenbank durchsuchen:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="40.0">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
          </children>
       </AnchorPane>
-      <SplitPane dividerPositions="0.38403614457831325" layoutX="335.0" layoutY="6.0" prefHeight="554.0" prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.3930722891566265" layoutX="335.0" layoutY="6.0" prefHeight="554.0" prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane maxWidth="300.0" minWidth="300.0">
                <children>
-                  <TableView fx:id="patientTable" layoutX="90.0" layoutY="208.0" minWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="patientTable" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="firstnameCol" prefWidth="75.0" text="Vorname" />
-                      <TableColumn fx:id="lastnameCol" prefWidth="75.0" text="Nachname" />
-                        <TableColumn fx:id="ahvCol" prefWidth="75.0" text="AHV" />
+                      <TableColumn fx:id="lastnameCol" prefWidth="69.0" text="Nachname" />
+                        <TableColumn fx:id="ahvCol" maxWidth="124.0" prefWidth="104.0" resizable="false" text="AHV" />
                     </columns>
                   </TableView>
+                  <FlowPane alignment="CENTER_RIGHT" hgap="10.0" layoutX="-38.0" layoutY="513.0" prefHeight="46.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#deletePatient" text="Löschen" />
+                        <Button mnemonicParsing="false" onAction="#updatePatient" text="Bearbeiten" />
+                        <Button mnemonicParsing="false" onAction="#addPatient" text="Neuer Patient" />
+                     </children>
+                  </FlowPane>
                </children>
             </AnchorPane>
-          <AnchorPane maxWidth="400.0" minWidth="400.0">
+          <AnchorPane>
                <children>
-                  <Label layoutX="34.0" layoutY="40.0" text="Patienten Detail:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="40.0" />
-                  <VBox layoutX="30.0" layoutY="96.0" prefHeight="200.0" prefWidth="349.0" spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="80.0">
+                  <Label layoutX="34.0" layoutY="40.0" text="Patienten Detail:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="40.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+                  <VBox layoutX="30.0" layoutY="96.0" prefHeight="200.0" prefWidth="349.0" spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
@@ -118,9 +132,24 @@
                   </VBox>
                   <FlowPane alignment="CENTER_RIGHT" hgap="10.0" layoutX="30.0" layoutY="360.0" prefHeight="46.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Löschen" />
-                        <Button mnemonicParsing="false" text="Bearbeiten" />
-                        <Button mnemonicParsing="false" text="Neuer Patient" />
+                        <Button mnemonicParsing="false" onAction="#exportPatient" text="Export" />
+                     </children>
+                  </FlowPane>
+                  <Label layoutX="30.0" layoutY="308.0" text="Krankengeschichte" AnchorPane.topAnchor="295.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="medicalHistoryTable" layoutX="30.0" layoutY="328.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="320.0">
+                    <columns>
+                      <TableColumn fx:id="symptomsCol" prefWidth="136.0" text="Symptome" />
+                      <TableColumn fx:id="diagnosticCol" minWidth="5.0" prefWidth="71.0" text="Diagnose" />
+                        <TableColumn fx:id="notesCol" prefWidth="72.0" text="Bemerkung" />
+                    </columns>
+                  </TableView>
+                  <FlowPane alignment="CENTER_RIGHT" hgap="10.0" layoutX="20.0" layoutY="277.0" prefHeight="46.0" prefWidth="400.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="277.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#addMedicalHistory" text="+" />
                      </children>
                   </FlowPane>
                </children>

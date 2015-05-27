@@ -63,6 +63,11 @@ public class Faktura extends AbsModel{
 		usrLastname = new SimpleStringProperty();
 		hourlyWage = new SimpleDoubleProperty();
 	}
+	
+	public double getPrice() {
+		return hourlyWage.get() * hour.get();
+	}
+	
 	/*Medical History Information*/
 	public int getId() {
 		return id.get();
