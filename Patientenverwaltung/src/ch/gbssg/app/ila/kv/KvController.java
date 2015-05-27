@@ -1,8 +1,12 @@
 package ch.gbssg.app.ila.kv;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.Code;
@@ -11,6 +15,7 @@ import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.app.util.command.CmdDoExport;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdShowUi;
+import ch.gbssg.app.util.command.CmdUpdateEntity;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.ICommand;
@@ -65,6 +70,18 @@ public class KvController extends AgentController {
 		return result;
 	}
 	
+	public Code getAssignedCode(String desc){
+		Code result = null;
+		for (Code code : model.getCodesData()) {
+			if(code.getDescription()==desc){
+				result = code;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
 	public void generateInvoice(Faktura model){
 		CmdDoExport cmd = new CmdDoExport("InvoiceTemplate.docx");
 		cmd.addDataModel("faktura", model);
@@ -72,10 +89,28 @@ public class KvController extends AgentController {
 		//cmd.setExportType(ExportType.PDF);
 		sendAgentMessage(new AgentCommand(cmd));
 		
+		//change the state of the data
+		MedicalHistory medHistory = new MedicalHistory();
+		medHistory.setId(model.getId());
+		
+		CmdFilterEntity<MedicalHistory> getData = new CmdFilterEntity<MedicalHistory>(MedicalHistory.class, medHistory);
+		sendAgentMessage(new AgentCommand(getData));
+		
+		medHistory = getData.getEntities().get(0);
+		//check if should be changed
+		if(medHistory.getBillState()==4){	
+			medHistory.setBillState(5);
+			CmdUpdateEntity<MedicalHistory> cmdUpdate = new CmdUpdateEntity<MedicalHistory>(MedicalHistory.class, medHistory);
+			sendAgentMessage(new AgentCommand(cmdUpdate));	
+		}
+		
+		loadData();
+		
 	}
 	
 	public void changeState(Faktura model){
 		if(model!=null){
+			ArrayList<String> selective = new ArrayList<String>();
 			MedicalHistory medHistory = new MedicalHistory();
 			medHistory.setId(model.getId());
 			
@@ -84,15 +119,25 @@ public class KvController extends AgentController {
 			
 			medHistory = getData.getEntities().get(0);
 			
-			ChoiceDialog<Code> dialog = new ChoiceDialog<>(getAssignedCode(medHistory.getBillState()), this.model.getCodesData());
+			for (Code code : this.model.getCodesData()) {
+				selective.add(code.getDescription());
+			}
+			
+			ChoiceDialog<String> dialog = new ChoiceDialog<>(getAssignedCode(medHistory.getBillState()).getDescription(), selective );
 			dialog.setTitle("Neuer Status");
 			dialog.setHeaderText("Bitte wählen Sie den neuen Status aus.");
 			dialog.setContentText("Status:");
 			
-			Optional<Code> result = dialog.showAndWait();
+			Optional<String> result = dialog.showAndWait();
 			
-			result.ifPresent(choice -> System.out.println(choice.getId()));
+			if(result.isPresent()){
+				medHistory.setBillState(getAssignedCode(result.get()).getId());
+			}
 			
+			CmdUpdateEntity<MedicalHistory> cmdUpdate = new CmdUpdateEntity<MedicalHistory>(MedicalHistory.class, medHistory);
+			sendAgentMessage(new AgentCommand(cmdUpdate));
+			
+			loadData();
 		}
 	}
 	public void FilterTable(Code state, LocalDate dateFrom, LocalDate dateTo){
@@ -119,6 +164,9 @@ public class KvController extends AgentController {
 		/*
 		 * Load the Faktura from Database
 		 */
+		this.model.getCodesData().clear();
+		this.model.getFakturenData().clear();
+		
 		CmdFilterEntity<Faktura> fakturaRs = new CmdFilterEntity<Faktura>(Faktura.class, null);
 		sendAgentMessage(new AgentCommand(fakturaRs));
 		//save the Data into the model
