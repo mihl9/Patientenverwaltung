@@ -7,7 +7,6 @@ import ch.gbssg.app.bla.wordexport.WordExportController;
 import ch.gbssg.app.util.command.CmdDoExport;
 import ch.gbssg.app.util.command.CmdDoExport.ExportType;
 import ch.gbssg.app.util.command.CmdGetRootWindow;
-import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.AgentFactory;
@@ -15,7 +14,7 @@ import ch.gbssg.core.pac.ICommand;
 
 /**
  * TODO 
- * @author pedrett.sandro
+ * @author Michael Huber
  *
  */
 public class ExportController extends AgentController {
@@ -70,11 +69,11 @@ public class ExportController extends AgentController {
 		//load the Template
 		ClassLoader classLoader = getClass().getClassLoader();
 		InputStream in = classLoader.getResourceAsStream("ch/gbssg/core/templates/"+export.getTemplateName());
-		if(export.getDataModel()!=null){
+		if(export.getDataModels().size()>0){
 			if(export.getExportType()==ExportType.PDF){
-				pdfAgent.generateVelocityPDF(export.getOutputFile(), (AbsModel)export.getDataModel() ,in);
+				pdfAgent.generateVelocityPDF(export.getOutputFile(), export.getDataModels() ,in);
 			}else if(export.getExportType()==ExportType.Word){			
-				wordAgent.generateVelocityDocx(export.getOutputFile(),(AbsModel)export.getDataModel() ,in);
+				wordAgent.generateVelocityDocx(export.getOutputFile(),export.getDataModels() ,in);
 			}else if(export.getExportType()==ExportType.Printer){
 				//TODO Printer Bottom level Agent for printing
 				

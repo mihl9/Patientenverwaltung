@@ -22,7 +22,11 @@ import javafx.stage.Window;
 import ch.gbssg.app.util.command.CmdDoExport;
 import ch.gbssg.app.util.command.CmdDoExport.ExportType;
 import ch.gbssg.core.pac.IView;
-
+/**
+ * 
+ * @author Michael Huber
+ *
+ */
 public class ExportView implements IView, Initializable{
 	
 	private ExportController controller;

@@ -12,7 +12,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import ch.gbssg.core.AbsModel;
-
+/**
+ * represent a Medical History model
+ * @author Michael Huber
+ *
+ */
 public class MedicalHistory extends AbsModel{
 	
 	private IntegerProperty id;

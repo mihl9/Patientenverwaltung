@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
-import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import fr.opensagres.xdocreport.converter.ConverterTypeTo;
@@ -37,7 +37,7 @@ public class PdfExportController extends AgentController {
 		
 	}
 
-	public void generateVelocityPDF(File outputFile, AbsModel model, InputStream template){
+	public void generateVelocityPDF(File outputFile, Map<String, Object> models, InputStream template){
 		try {
 			//read this site
 			//https://code.google.com/p/xdocreport/wiki/ODTReportingJavaMain
@@ -47,7 +47,7 @@ public class PdfExportController extends AgentController {
 			
 			//Create context for the model
 			IContext context = report.createContext();
-			context.put("model", model);
+			context.putMap(models);
 			
 			//generate report by merging the model with the template
 			OutputStream out = new FileOutputStream(outputFile);

@@ -24,7 +24,11 @@ import ch.gbssg.app.model.Code;
 import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.util.CellFactoryCode;
 import ch.gbssg.core.pac.IView;
-
+/**
+ * 
+ * @author Michael
+ *
+ */
 public class KvView implements IView, Initializable{
 
 	public KvView(KvController controller){

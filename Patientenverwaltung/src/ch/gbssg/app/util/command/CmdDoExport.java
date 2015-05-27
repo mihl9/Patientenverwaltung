@@ -1,6 +1,8 @@
 package ch.gbssg.app.util.command;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.ICommand;
@@ -13,19 +15,19 @@ public class CmdDoExport implements ICommand  {
 	}
 	
 	private ExportType exportType;
-	private AbsModel dataModel;
+	private Map<String, Object> dataModel;
 	private String templateName;
 	private File outputFile;
 	private boolean promptUser;
 
-	public CmdDoExport(ExportType exportType, AbsModel model, String template) {
+	public CmdDoExport(ExportType exportType, String template) {
+		this.dataModel = new HashMap<String, Object>();
 		this.exportType = exportType;
-		this.dataModel = model;
 		this.templateName = template;
 	}
 
-	public CmdDoExport(AbsModel model, String template) {
-		this(null,model,template);
+	public CmdDoExport(String template) {
+		this(null,template);
 		this.setPromptUser(true);
 	}
 	
@@ -37,12 +39,12 @@ public class CmdDoExport implements ICommand  {
 		this.exportType = exportType;
 	}
 
-	public AbsModel getDataModel() {
+	public Map<String, Object> getDataModels() {
 		return dataModel;
 	}
 
-	public void setDataModel(AbsModel dataModel) {
-		this.dataModel = dataModel;
+	public void addDataModel(String key, AbsModel dataModel) {
+		this.dataModel.put(key, dataModel);
 	}
 
 	public String getTemplateName() {

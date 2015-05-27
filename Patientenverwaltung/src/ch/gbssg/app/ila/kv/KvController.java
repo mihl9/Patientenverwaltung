@@ -12,7 +12,11 @@ import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.ICommand;
 
-
+/**
+ * 
+ * @author Michael Huber
+ *
+ */
 public class KvController extends AgentController {
 	
 	private KvModel model;
@@ -59,7 +63,8 @@ public class KvController extends AgentController {
 	}
 	
 	public void generateInvoice(Faktura model){
-		CmdDoExport cmd = new CmdDoExport(model, "InvoiceTemplate.docx");
+		CmdDoExport cmd = new CmdDoExport("InvoiceTemplate.docx");
+		cmd.addDataModel("faktura", model);
 		//cmd.setExportType(ExportType.PDF);
 		sendAgentMessage(new AgentCommand(cmd));
 		

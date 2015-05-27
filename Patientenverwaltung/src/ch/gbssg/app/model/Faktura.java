@@ -12,7 +12,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import ch.gbssg.core.AbsModel;
-
+/**
+ * represent a Faktura Model
+ * @author Michael Huber
+ *
+ */
 public class Faktura extends AbsModel{
 	/*Medical History Infos*/
 	private IntegerProperty id;
