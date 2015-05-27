@@ -7,7 +7,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import ch.gbssg.core.AbsModel;
-
+/**
+ * Represent a CodeType model
+ * @author Michael Huber
+ *
+ */
 public class CodeType extends AbsModel {
 	
 	private IntegerProperty id;
