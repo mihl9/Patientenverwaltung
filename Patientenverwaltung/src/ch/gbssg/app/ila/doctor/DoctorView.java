@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.app.model.Patient;
 import ch.gbssg.core.pac.IView;
 
@@ -48,6 +49,7 @@ public class DoctorView implements IView {
 		}
 		
 		patientTable.setItems(model.getPatientsData());
+		medicalHistoryTable.setItems(model.getMedicalHistoryData());
 	}
 
 	@FXML
@@ -55,6 +57,10 @@ public class DoctorView implements IView {
 		firstnameCol.setCellValueFactory(cellData -> cellData.getValue().getFirstnameProperty());
 		lastnameCol.setCellValueFactory(cellData -> cellData.getValue().getLastnameProperty());
 		ahvCol.setCellValueFactory(cellData -> cellData.getValue().getAhvProperty());
+		
+		diagnosticCol.setCellValueFactory(cellData -> cellData.getValue().getDiagnosticProperty());
+		symptomsCol.setCellValueFactory(cellData -> cellData.getValue().getSymptomsProperty());
+		notesCol.setCellValueFactory(cellData -> cellData.getValue().getNotesProperty());
 		
 		showPatientDetails(null);
 		
@@ -71,7 +77,7 @@ public class DoctorView implements IView {
 	 * @param patient
 	 *            to show details
 	 */
-	private void showPatientDetails(Patient patient) {
+	private void showPatientDetails(Patient patient) {	
 		if (patient == null) {
 			firstname.setText("");
 			lastname.setText("");
@@ -88,9 +94,46 @@ public class DoctorView implements IView {
 			place.setText(patient.getPlace());
 			plz.setText(patient.getPlz());
 			address.setText(patient.getAddress());
+			
+			controller.showMedicalHistory(patient.getId());
 		}
 	}
 
+	@FXML
+	private void addPatient() {
+		controller.showChildWindow();
+	}
+	
+	@FXML
+	private void updatePatient() {
+		
+	}
+	
+	@FXML
+	private void deletePatient() {
+		
+	}
+	
+	@FXML
+	private void searchPatient() {
+		
+	}
+	
+	@FXML
+	private void resetSearch() {
+		
+	}
+	
+	@FXML
+	private void exportPatient() {
+		
+	}
+	
+	@FXML
+	private void addMedicalHistory() {
+		
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -114,6 +157,9 @@ public class DoctorView implements IView {
 	private TableView<Patient> patientTable;
 	
 	@FXML
+	private TableView<MedicalHistory> medicalHistoryTable;
+	
+	@FXML
 	private TableColumn<Patient, String> firstnameCol;
 	
 	@FXML
@@ -121,6 +167,15 @@ public class DoctorView implements IView {
 	
 	@FXML
 	private TableColumn<Patient, String> ahvCol;
+	
+	@FXML
+	private TableColumn<MedicalHistory, String> diagnosticCol;
+	
+	@FXML
+	private TableColumn<MedicalHistory, String> symptomsCol;
+	
+	@FXML
+	private TableColumn<MedicalHistory, String> notesCol;
 	
 	@FXML
 	private Label firstname;

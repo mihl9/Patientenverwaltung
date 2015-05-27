@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="34.0" layoutY="40.0" text="Patienten Detail:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <VBox layoutX="30.0" layoutY="96.0" prefHeight="200.0" prefWidth="349.0" spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="150.0" text="Vorname" />
+                  <TextField fx:id="firstname" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="150.0" text="Nachname" />
+                  <TextField fx:id="lastname" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="150.0" text="Geburtsdatum" />
+                  <TextField fx:id="birthday" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="150.0" text="AHV" />
+                  <TextField fx:id="ahv" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="150.0" text="PLZ" />
+                  <TextField fx:id="plz" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="150.0" text="Ort" />
+                  <TextField fx:id="place" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefWidth="150.0" text="Adresse" />
+                  <TextField fx:id="address" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <FlowPane alignment="CENTER_RIGHT" hgap="10.0" layoutX="30.0" layoutY="360.0" prefHeight="46.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+         <children>
+            <Button mnemonicParsing="false" text="Abbrechen" />
+            <Button mnemonicParsing="false" text="Speichern" />
+         </children>
+      </FlowPane>
+      <Label layoutX="30.0" layoutY="308.0" text="Krankengeschichte" AnchorPane.topAnchor="295.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TableView fx:id="medicalHistoryTable" layoutX="30.0" layoutY="328.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="320.0">
+         <columns>
+            <TableColumn fx:id="symptomsCol" prefWidth="136.0" text="Symptome" />
+            <TableColumn fx:id="diagnosticCol" minWidth="5.0" prefWidth="71.0" text="Diagnose" />
+            <TableColumn fx:id="notesCol" prefWidth="72.0" text="Bemerkung" />
+         </columns>
+      </TableView>
+      <FlowPane alignment="CENTER_RIGHT" hgap="10.0" layoutX="20.0" layoutY="277.0" prefHeight="46.0" prefWidth="400.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="277.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#addMedicalHistory" text="+" />
+         </children>
+      </FlowPane>
+   </children>
+</AnchorPane>

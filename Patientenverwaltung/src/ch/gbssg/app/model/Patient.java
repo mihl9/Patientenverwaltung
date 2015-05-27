@@ -1,5 +1,6 @@
 package ch.gbssg.app.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class Patient extends AbsModel {
 
 
 	public void setBirthday(LocalDate birthday) {
-		this.birthday.set(birthday);
+		//this.birthday.set(birthday);
 	}
 
 
