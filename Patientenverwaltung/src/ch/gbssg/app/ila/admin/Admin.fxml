@@ -7,19 +7,19 @@
 
 <AnchorPane prefHeight="335.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="14.0" layoutY="26.0" prefHeight="268.0" prefWidth="509.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="26.0">
+      <TableView fx:id="userTable" layoutX="14.0" layoutY="26.0" prefHeight="268.0" prefWidth="509.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="26.0">
         <columns>
-          <TableColumn editable="false" prefWidth="128.0" text="Name" />
-          <TableColumn editable="false" prefWidth="126.0" text="Vorname" />
-            <TableColumn editable="false" prefWidth="148.0" text="Benutzername" />
-            <TableColumn editable="false" prefWidth="106.0" text="Rolle" />
+          <TableColumn fx:id="firstnameCol" editable="false" prefWidth="128.0" text="Name" />
+          <TableColumn fx:id="lastnameCol" editable="false" prefWidth="126.0" text="Vorname" />
+            <TableColumn fx:id="usernameCol" editable="false" prefWidth="148.0" text="Benutzername" />
+            <TableColumn fx:id="rolleCol" editable="false" prefWidth="106.0" text="Rolle" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="487.0" layoutY="302.0" mnemonicParsing="false" text="Neu" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="14.0" />
-      <Button layoutX="407.0" layoutY="302.0" mnemonicParsing="false" text="Bearbeiten" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="62.0" />
-      <Button layoutX="338.0" layoutY="302.0" mnemonicParsing="false" text="Löschen" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="143.0" />
+      <Button layoutX="487.0" layoutY="302.0" mnemonicParsing="false" onAction="#addUser" text="Neu" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="14.0" />
+      <Button layoutX="407.0" layoutY="302.0" mnemonicParsing="false" onAction="#editUser" text="Bearbeiten" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="62.0" />
+      <Button layoutX="338.0" layoutY="302.0" mnemonicParsing="false" onAction="#deleteUser" text="Löschen" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="143.0" />
    </children>
 </AnchorPane>

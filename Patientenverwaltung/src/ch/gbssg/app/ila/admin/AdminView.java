@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import ch.gbssg.app.model.Code;
+import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.model.User;
 import ch.gbssg.core.pac.IView;
 
@@ -39,10 +42,17 @@ public class AdminView implements IView, Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		firstnameCol.setCellValueFactory(cellData -> cellData.getValue().getFirstnameProperty());
+		lastnameCol.setCellValueFactory(cellData -> cellData.getValue().getLastnameProperty());
+		usernameCol.setCellValueFactory(cellData -> cellData.getValue().getLoginnameProperty());
+		rolleCol.setCellValueFactory(cellData -> this.controller.getAssignedCode(cellData.getValue().getRolle().getValue()).getDescriptionProperty());
 		
 	}
 
+	public void fillTableData(ObservableList<User> user){
+		userTable.setItems(user);
+	}
+	
 	@Override
 	public Pane getContent() {
 		if(root != null){
@@ -54,7 +64,22 @@ public class AdminView implements IView, Initializable {
 	//Controller
 	private AdminController controller;
 	
+	//Javafx events
+	@FXML
+	private void deleteUser(){
+		
+	}
+	@FXML
+	private void addUser(){
+		
+	}
+	@FXML
+	private void editUser(){
+		
+	}
+	
 	//Javafx Elements
+	@FXML
 	private AnchorPane root;
 	
 	/*table*/

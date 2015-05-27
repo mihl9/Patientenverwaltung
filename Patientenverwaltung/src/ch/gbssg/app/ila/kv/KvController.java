@@ -3,8 +3,6 @@ package ch.gbssg.app.ila.kv;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.Code;
