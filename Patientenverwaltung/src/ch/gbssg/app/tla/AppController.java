@@ -11,6 +11,7 @@ import ch.gbssg.app.ila.doctor.DoctorController;
 import ch.gbssg.app.ila.export.ExportController;
 import ch.gbssg.app.ila.kv.KvController;
 import ch.gbssg.app.model.User;
+import ch.gbssg.app.util.command.CmdCloseApplication;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdGetRootWindow;
 import ch.gbssg.app.util.command.CmdShowUi;
@@ -90,6 +91,8 @@ public class AppController extends AgentController {
 		if(cmd instanceof CmdGetRootWindow){
 			CmdGetRootWindow getRootWindow = (CmdGetRootWindow) cmd;
 			getRootWindow.setWindow(model.getStage());
+		}else if(cmd instanceof CmdCloseApplication){
+			this.model.getStage().close();
 		}
 	}
 
@@ -117,10 +120,18 @@ public class AppController extends AgentController {
 		model.getStage().setHeight(370);
 		model.getStage().setWidth(500);
 		model.getStage().setResizable(false);
-
+		
+		model.getStage().centerOnScreen();
 		model.getStage().show();
 	}
 
+	public void closeApp(){
+		this.model.getStage().close();
+	}
+	
+	public void logout(){
+		showLoginPane();
+	}
 	/**
 	 * check if user login valid and redirect to other page. otherwise if false,
 	 * then display an error code on screen.

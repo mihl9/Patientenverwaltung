@@ -17,7 +17,11 @@ public class PatientMapper implements RowMapper<Patient> {
 		patient.setGenderCode(rs.getInt("PatGender_CD"));
 		patient.setLastname(rs.getString("PatLastName"));
 		patient.setFirstname(rs.getString("PatFirstName"));
-		patient.setBirthday(rs.getDate("PatBirthdate").toLocalDate());
+		try {
+			patient.setBirthday(rs.getDate("PatBirthdate").toLocalDate());
+		} catch (Exception e) {
+			patient.setBirthday(null);
+		}
 		patient.setAddress(rs.getString("PatAddress"));
 		patient.setPlz(rs.getString("PatPLZ"));
 		patient.setPlace(rs.getString("PatPlace"));
