@@ -8,14 +8,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import ch.gbssg.app.model.Code;
 import ch.gbssg.app.model.User;
@@ -27,8 +26,6 @@ import ch.gbssg.core.pac.IView;
  *
  */
 public class UserView  implements IView, Initializable {
-	private Stage window;
-	private Scene form;
 	
 	public UserView(UserController controller){
 		this.controller = controller;
@@ -61,38 +58,24 @@ public class UserView  implements IView, Initializable {
 				return new CellFactoryCode();
 			}
 		});
-		
+		cboCodes.setButtonCell(new CellFactoryCode());
 	}
 	
 	public void fillCombobox(ObservableList<Code> codes){
 		cboCodes.setItems(codes);
 	}
 	
-	public void showDialog(Stage owner, User model){
-		Stage dialog = new Stage();
-
-		dialog.setTitle("Exportieren");
-		dialog.initOwner(owner);
-		dialog.initModality(Modality.WINDOW_MODAL);
-		//dialog.setX(owner.getX() + owner.getWidth());
-	    //dialog.setY(owner.getY());
-	    dialog.centerOnScreen();
-	    if(form==null){
-	    	form = new Scene(root);
-	    	//form.setr
-	    }else{
-	    	//form.setRoot(null);
-	    }
-	    dialog.setScene(form);
-	    
-	    dialog.show();
-	    dialog.toFront();
-	    this.window = dialog;
-	    displayData(model);
-	}
-	
 	public void displayData(User model){
-		
+		if(model!=null){
+			txtFirstname.setText(model.getFirstname());
+			txtlastname.setText(model.getLastname());
+			txtUsername.setText(model.getLoginname());
+			txtPassword.setText(model.getPassword());
+			txtHourlyWage.setText(""+model.getHourlyWage());
+			if(model.getRolle()!=null){
+				cboCodes.setValue(this.controller.getAssignedCode(model.getRolle().getValue()));
+			}
+		}
 	}
 	
 	@Override
@@ -103,13 +86,69 @@ public class UserView  implements IView, Initializable {
 		return null;
 	}
 	
+	public TextField getTxtFirstname(){
+		return txtFirstname;
+	}
+	
+	public TextField getTxtlastname(){
+		return txtlastname;
+	}
+	
+	public TextField getTxtUsername(){
+		return txtUsername;
+	}
+	
+	public TextField getTxtPassword(){
+		return txtPassword;
+	}
+	
+	public TextField getTxtHourlyWage(){
+		return txtHourlyWage;
+	}
+	
+	public ComboBox<Code> getCboCodes(){
+		return cboCodes;
+	}
+	
+	public Button getBtnSave(){
+		return btnSave;
+	}
+	
+	public Button getBtnCancel(){
+		return btnCancel;
+	}
+	
 	//Controller
+	@SuppressWarnings("unused")
 	private UserController controller;
 	
 	//Javafx Elements
 	@FXML
 	private AnchorPane root;
 
+	
+	
 	@FXML
-	ComboBox<Code> cboCodes;
+	private TextField txtFirstname;
+	
+	@FXML
+	private TextField txtlastname;
+	
+	@FXML
+	private TextField txtUsername;
+	
+	@FXML
+	private TextField txtPassword;
+	
+	@FXML
+	private TextField txtHourlyWage;
+	
+	@FXML
+	private ComboBox<Code> cboCodes;
+	
+	@FXML
+	private Button btnSave;
+	
+	@FXML
+	private Button btnCancel;
 }

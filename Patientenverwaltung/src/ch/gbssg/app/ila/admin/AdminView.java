@@ -12,8 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import ch.gbssg.app.model.Code;
-import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.model.User;
 import ch.gbssg.core.pac.IView;
 
@@ -67,15 +65,15 @@ public class AdminView implements IView, Initializable {
 	//Javafx events
 	@FXML
 	private void deleteUser(){
-		
+		this.controller.delUser(userTable.getSelectionModel().getSelectedItem());
 	}
 	@FXML
 	private void addUser(){
-		
+		this.controller.addUser();
 	}
 	@FXML
 	private void editUser(){
-		
+		this.controller.editUser(userTable.getSelectionModel().getSelectedItem());
 	}
 	
 	//Javafx Elements

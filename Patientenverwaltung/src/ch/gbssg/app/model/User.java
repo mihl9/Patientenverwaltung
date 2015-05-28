@@ -153,7 +153,10 @@ public class User extends AbsModel implements IFilterEntity<User>  {
 			errors.add("Password is empty");
 		}
 
-		
-		return errors.size() == 0;
+		if(errors!=null){
+			return errors.size() == 0;
+		}else{
+			return true;
+		}
 	}
 }
