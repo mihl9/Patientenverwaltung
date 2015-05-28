@@ -44,7 +44,7 @@ public class PatientJDBCTemplate implements ICrud<Patient> {
 				statement.setInt(1, entity.getGenderCode());
 				statement.setString(2, entity.getLastname());
 				statement.setString(3, entity.getFirstname());
-				statement.setDate(4, (Date) Date.from(entity.getBirthday().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				statement.setDate(4, new java.sql.Date(Date.from(entity.getBirthday().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
 				statement.setString(5, entity.getAddress());
 				statement.setString(6, entity.getPlz());
 				statement.setString(7, entity.getPlace());
@@ -172,7 +172,7 @@ public class PatientJDBCTemplate implements ICrud<Patient> {
 				statement.setInt(1, newEntity.getGenderCode());
 				statement.setString(2, newEntity.getLastname());
 				statement.setString(3, newEntity.getFirstname());
-				statement.setDate(4, (Date) Date.from(newEntity.getBirthday().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				statement.setDate(4, new java.sql.Date(Date.from(newEntity.getBirthday().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
 				statement.setString(5, newEntity.getAddress());
 				statement.setString(6, newEntity.getPlz());
 				statement.setString(7, newEntity.getPlace());
