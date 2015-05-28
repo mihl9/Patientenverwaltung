@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import ch.gbssg.app.model.Code;
 import ch.gbssg.app.model.User;
 import ch.gbssg.app.util.UserRoll;
-import ch.gbssg.app.util.command.CmdDoExport;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdInsertEntity;
 import ch.gbssg.app.util.command.CmdShowUserDialog;
