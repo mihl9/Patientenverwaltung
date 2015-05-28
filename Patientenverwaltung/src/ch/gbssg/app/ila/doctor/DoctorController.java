@@ -49,7 +49,7 @@ public class DoctorController extends AgentController {
 	}
 	
 	public void showChildWindow() {
-		sendAgentMessage(patientAgent, new AgentCommand(new CmdShowUi(pane)));
+		//sendAgentMessage(patientAgent, new AgentCommand(new CmdShowUi(pane)));
 	}
 	
 	public void showMedicalHistory(int patientId) {

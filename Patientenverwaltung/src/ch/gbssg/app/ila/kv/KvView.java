@@ -121,7 +121,7 @@ public class KvView implements IView, Initializable{
 	}
 	@FXML
 	private void changeState(){
-		
+		this.controller.changeState(this.faktTable.getSelectionModel().getSelectedItem());
 	}
 	/*The GUI Elements of the View*/
 	@FXML

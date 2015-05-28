@@ -51,6 +51,16 @@ public class AppView implements IView {
 		controller.LoginValid(u);
 	}
 	
+	@FXML
+	private void logout(){
+		this.controller.logout();
+	}
+	
+	@FXML
+	private void close(){
+		this.controller.closeApp();
+	}
+	
 	/**
 	 * controller for this view
 	 */

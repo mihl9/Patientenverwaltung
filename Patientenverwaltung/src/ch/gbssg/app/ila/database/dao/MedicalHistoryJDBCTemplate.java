@@ -48,8 +48,8 @@ public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 				statement.setString(5, entity.getDiagnostic());
 				statement.setString(6, entity.getNotes());
 				statement.setInt(7, entity.getBillState());
-				statement.setDate(8, (Date) Date.from(entity.getBillDueTo().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				statement.setDate(9, (Date) Date.from(entity.getDateFrom().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				statement.setDate(8, new java.sql.Date(Date.from(entity.getBillDueTo().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
+				statement.setDate(9, new java.sql.Date(Date.from(entity.getDateFrom().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
 				//execute sql query
 				int affectedRows = statement.executeUpdate();
 				
@@ -176,8 +176,8 @@ public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 				statement.setString(5, newEntity.getDiagnostic());
 				statement.setString(6, newEntity.getNotes());
 				statement.setInt(7, newEntity.getBillState());
-				statement.setDate(8, (Date) Date.from(newEntity.getBillDueTo().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				statement.setDate(9, (Date) Date.from(newEntity.getDateFrom().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				statement.setDate(8, new java.sql.Date(Date.from(newEntity.getBillDueTo().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
+				statement.setDate(9, new java.sql.Date(Date.from(newEntity.getDateFrom().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
 				statement.setInt(10, id);
 				//execute sql query
 				affectedRows = statement.executeUpdate();
