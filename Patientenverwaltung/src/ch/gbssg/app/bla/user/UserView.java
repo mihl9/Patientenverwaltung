@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -70,7 +71,7 @@ public class UserView  implements IView, Initializable {
 			txtFirstname.setText(model.getFirstname());
 			txtlastname.setText(model.getLastname());
 			txtUsername.setText(model.getLoginname());
-			txtPassword.setText(model.getPassword());
+			txtPassword.setText("password");
 			txtHourlyWage.setText(""+model.getHourlyWage());
 			if(model.getRolle()!=null){
 				cboCodes.setValue(this.controller.getAssignedCode(model.getRolle().getValue()));
@@ -138,7 +139,7 @@ public class UserView  implements IView, Initializable {
 	private TextField txtUsername;
 	
 	@FXML
-	private TextField txtPassword;
+	private PasswordField txtPassword;
 	
 	@FXML
 	private TextField txtHourlyWage;

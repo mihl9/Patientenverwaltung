@@ -165,10 +165,12 @@ public class AppController extends AgentController {
 		
 		// set new stage values
 		setWindowLayout(getClass().getResource("RootWindow.fxml"));
-		model.getStage().setMaximized(true);
+		
 		model.getStage().setResizable(true);
-		
-		
+		if(model.getStage().isMaximized()==true){
+			model.getStage().setMaximized(false);
+		}
+		model.getStage().setMaximized(true);
 		// set ui filename
 		switch (user.getRolle()) {
 		case ADMIN:
@@ -185,7 +187,8 @@ public class AppController extends AgentController {
 			break;
 		default:
 			System.out.println("Don't found a Roll for this User");
-		}
+		}	
+		
 	}
 
 	/**
