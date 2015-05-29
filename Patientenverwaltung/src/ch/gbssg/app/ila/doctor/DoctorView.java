@@ -101,7 +101,7 @@ public class DoctorView implements IView {
 
 	@FXML
 	private void addPatient() {
-		controller.showChildWindow();
+		controller.showNewPatientChildWindow();
 	}
 	
 	@FXML

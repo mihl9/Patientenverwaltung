@@ -130,6 +130,9 @@ public class AppController extends AgentController {
 	}
 	
 	public void logout(){
+		model = new AppModel();
+		view = new AppView(this);
+		
 		showLoginPane();
 	}
 	/**

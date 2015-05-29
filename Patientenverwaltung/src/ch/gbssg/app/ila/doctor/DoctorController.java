@@ -1,13 +1,12 @@
 package ch.gbssg.app.ila.doctor;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import ch.gbssg.app.bla.patient.PatientController;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.app.model.Patient;
 import ch.gbssg.app.util.command.CmdFilterEntity;
+import ch.gbssg.app.util.command.CmdGetRootWindow;
+import ch.gbssg.app.util.command.CmdShowPatientDialog;
 import ch.gbssg.app.util.command.CmdShowUi;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
@@ -18,6 +17,7 @@ public class DoctorController extends AgentController {
 
 	public DoctorController() {
 		patientAgent = AgentFactory.getInstance().requestAgent(PatientController.class);
+		addChild(patientAgent);
 	}
 	
 	@Override
@@ -42,14 +42,26 @@ public class DoctorController extends AgentController {
 	}
 
 	private void loadData() {
+		model.getPatientsData().clear();
+		model.getMedicalHistoryData().clear();
+		
 		CmdFilterEntity<Patient> cmdPatient = new CmdFilterEntity<Patient>(Patient.class, null);
 		sendAgentMessage(new AgentCommand(cmdPatient));
 		
 		model.getPatientsData().addAll(cmdPatient.getEntities());
 	}
 	
-	public void showChildWindow() {
-		//sendAgentMessage(patientAgent, new AgentCommand(new CmdShowUi(pane)));
+	public void showNewPatientChildWindow() {
+		CmdGetRootWindow cmdRoot = new CmdGetRootWindow();
+		sendAgentMessage(new AgentCommand(cmdRoot));
+		
+		Patient newPatient = new Patient();
+		newPatient.setId(-1);
+		
+		CmdShowPatientDialog cmdShowPatientDialog = new CmdShowPatientDialog(cmdRoot.getWindow(), newPatient);
+		sendAgentMessage(patientAgent, new AgentCommand(cmdShowPatientDialog));
+		
+		loadData();
 	}
 	
 	public void showMedicalHistory(int patientId) {

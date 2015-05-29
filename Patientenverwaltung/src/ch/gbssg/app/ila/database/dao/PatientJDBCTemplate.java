@@ -108,8 +108,9 @@ public class PatientJDBCTemplate implements ICrud<Patient> {
 			whereArg.add(" PatID="+entity.getId()+" ");
 		}
 		/*Patient Information*/
-		if(entity.getGenderCode()>0){
-			whereArg.add(" PatGender_CD="+entity.getGenderCode()+" ");
+		if(entity.getGenderCode() > 0){
+			whereArg.add(" PatGender_CD=8 ");
+			//whereArg.add(" PatGender_CD="+entity.getGenderCode()+" ");
 		}
 		if(entity.getFirstname()!=null && !entity.getFirstname().isEmpty()){
 			whereArg.add(" PatFirstName='"+entity.getFirstname()+"' ");
