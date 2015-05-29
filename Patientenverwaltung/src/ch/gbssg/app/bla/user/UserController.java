@@ -1,5 +1,7 @@
 package ch.gbssg.app.bla.user;
 
+import java.security.NoSuchAlgorithmException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -78,7 +80,7 @@ public class UserController extends AgentController {
 	private void showDialog(Stage owner, User model){
 		final Stage dialog = new Stage();
 
-		dialog.setTitle("Exportieren");
+		dialog.setTitle("Benutzer");
 		dialog.initOwner(owner);
 		dialog.initModality(Modality.WINDOW_MODAL);
 	    dialog.centerOnScreen();
@@ -115,7 +117,14 @@ public class UserController extends AgentController {
 		model.setFirstname(this.view.getTxtFirstname().getText());
 		model.setLastname(this.view.getTxtlastname().getText());
 		model.setLoginname(this.view.getTxtUsername().getText());
-		model.setPassword(this.view.getTxtPassword().getText());
+		if(this.view.getTxtPassword().getText()!="password"){
+			try {
+				model.setPassword(model.decryptSha1(this.view.getTxtPassword().getText()));
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		model.setHourlyWage(Double.parseDouble(this.view.getTxtHourlyWage().getText()));
 		model.setRolle(UserRoll.convert(this.view.getCboCodes().getSelectionModel().getSelectedItem().getId()));
 		//Currently this setting is fix
