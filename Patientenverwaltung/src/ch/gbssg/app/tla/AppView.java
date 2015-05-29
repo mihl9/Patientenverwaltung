@@ -1,10 +1,12 @@
 package ch.gbssg.app.tla;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.User;
@@ -45,7 +47,12 @@ public class AppView implements IView {
 		
 		User u = new User();
 		u.setLoginname(username);
-		u.setPassword(password);
+		try {
+			u.setPassword(u.decryptSha1(password));
+		} catch (NoSuchAlgorithmException e) {
+			
+			e.printStackTrace();
+		}
 		
 		// login
 		controller.LoginValid(u);
@@ -70,7 +77,7 @@ public class AppView implements IView {
 	private TextField txtUsername;
 	
 	@FXML
-	private TextField txtPassword;
+	private PasswordField txtPassword;
 	
 	@FXML
 	private Label lblErrorCode;

@@ -2,6 +2,8 @@ package ch.gbssg.app.model;
 
 
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
@@ -140,6 +142,21 @@ public class User extends AbsModel implements IFilterEntity<User>  {
 		return this.rolle;
 	}
 	
+	public String decryptSha1(String input) throws NoSuchAlgorithmException{
+		MessageDigest mDigest = null;
+		mDigest = MessageDigest.getInstance("SHA1");
+		if(mDigest!=null){
+	        byte[] result = mDigest.digest(input.getBytes());
+	        StringBuffer sb = new StringBuffer();
+	        for (int i = 0; i < result.length; i++) {
+	            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	         
+	        return sb.toString();
+		}else{
+			return null;
+		}
+	}
 	/*
 	 * (non-Javadoc)
 	 * @see ch.gbssg.core.AbsModel#isValid(java.util.List)
