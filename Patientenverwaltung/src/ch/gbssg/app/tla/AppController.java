@@ -210,7 +210,7 @@ public class AppController extends AgentController {
 			model.setWindow((Pane) loader.load());
 			
 			Scene scene = new Scene(model.getWindow());
-			scene.getStylesheets().add(getClass().getResource("../../resource/application.css").toExternalForm());
+			scene.getStylesheets().add(ClassLoader.getSystemResource("ch/gbssg/resource/application.css").toExternalForm());
 			model.getStage().setScene(scene);
 		} catch (IOException e) {
 			e.printStackTrace();
