@@ -4,9 +4,14 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.MedicalHistory;
@@ -48,7 +53,7 @@ public class DoctorView implements IView {
 			e.printStackTrace();
 		}
 		
-		patientTable.setItems(model.getPatientsData());
+		patientTable.setItems(model.getPatientsFilteredData());
 		medicalHistoryTable.setItems(model.getMedicalHistoryData());
 	}
 
@@ -89,7 +94,11 @@ public class DoctorView implements IView {
 		} else {
 			firstname.setText(patient.getFirstname());
 			lastname.setText(patient.getLastname());
-			birthday.setText(patient.getBirthday().toString());
+			if(patient.getBirthday()!=null){
+				birthday.setText(patient.getBirthday().toString());
+			}else{
+				birthday.setText("");
+			}
 			ahv.setText(patient.getAhv());
 			place.setText(patient.getPlace());
 			plz.setText(patient.getPlz());
@@ -101,27 +110,33 @@ public class DoctorView implements IView {
 
 	@FXML
 	private void addPatient() {
-		controller.showChildWindow();
+		Patient model = new Patient();
+		model.setId(0);
+		controller.showPatientChildWindow(model);
 	}
 	
 	@FXML
 	private void updatePatient() {
-		
+		controller.showPatientChildWindow(this.patientTable.getSelectionModel().getSelectedItem());
 	}
 	
 	@FXML
 	private void deletePatient() {
-		
+		controller.deletePatient(this.patientTable.getSelectionModel().getSelectedItem());
 	}
 	
 	@FXML
 	private void searchPatient() {
-		
+		controller.FilterTable(searchFirstname.getText(), searchLastname.getText(), searchBDate.getValue(), searchAhv.getText());
 	}
 	
 	@FXML
 	private void resetSearch() {
-		
+		searchAhv.setText("");
+		searchBDate.setValue(null);
+		searchFirstname.setText("");
+		searchLastname.setText("");
+		controller.FilterTable(null, null, null, null);
 	}
 	
 	@FXML
@@ -131,9 +146,27 @@ public class DoctorView implements IView {
 	
 	@FXML
 	private void addMedicalHistory() {
-		
+		controller.createMedicalHistory(this.patientTable.getSelectionModel().getSelectedItem().getId());
 	}
 	
+	@FXML
+	 public void MedHTableDblClicked(MouseEvent event){
+		//System.out.println("click");
+		if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+            Node node = ((Node) event.getTarget()).getParent();
+            TableRow row;
+            if (node instanceof TableRow) {
+                row = (TableRow) node;
+            } else {
+                // clicking on text part
+                row = (TableRow) node.getParent();
+            }
+            //System.out.println(row.getItem());
+            if(row.getItem() instanceof MedicalHistory){
+            	controller.editMedicalHistory((MedicalHistory) row.getItem());
+            }
+        }
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -197,4 +230,17 @@ public class DoctorView implements IView {
 	
 	@FXML
 	private Label address;
+	
+	//search
+	@FXML
+	private TextField searchFirstname;
+	
+	@FXML
+	private TextField searchLastname;
+	
+	@FXML
+	private TextField searchAhv;
+	
+	@FXML
+	private DatePicker searchBDate;
 }

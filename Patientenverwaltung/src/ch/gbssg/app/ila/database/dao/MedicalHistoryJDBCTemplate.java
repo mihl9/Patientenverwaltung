@@ -136,6 +136,11 @@ public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 			//TODO Implement the Filter for the Date
 		}
 		
+		/*If any filter should be set add it to the query*/
+		if(whereArg.size()>0){
+			sql += " WHERE "+String.join("AND", whereArg);
+		}
+		
 		return jdbcTemplateObject.query(sql, new MedicalHistoryMapper());
 	}
 

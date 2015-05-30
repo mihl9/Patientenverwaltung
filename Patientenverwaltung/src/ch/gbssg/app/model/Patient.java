@@ -90,7 +90,7 @@ public class Patient extends AbsModel {
 
 
 	public void setBirthday(LocalDate birthday) {
-		//this.birthday.set(birthday);
+		this.birthday.set(birthday);
 	}
 
 
@@ -160,8 +160,20 @@ public class Patient extends AbsModel {
 
 	@Override
 	public boolean isValid(List<String> errors) {
-		// TODO Auto-generated method stub
-		return true;
+		if (getLastname() == null || getLastname().isEmpty()) {
+			errors.add("Nachname ist leer");
+		}
+		if (getFirstname() == null || getFirstname().isEmpty()) {
+			errors.add("Vorname ist leer");
+		}
+		if (getBirthday() == null || getBirthday().isAfter(LocalDate.now().plusDays(1))) {
+			errors.add("Geburtstag muss kleiner als heuete sein");
+		}
+		if(errors != null){
+			return errors.size() == 0;
+		}else{
+			return true;
+		}
 	}
 
 }
