@@ -12,6 +12,7 @@ import ch.gbssg.app.ila.export.ExportController;
 import ch.gbssg.app.ila.kv.KvController;
 import ch.gbssg.app.model.User;
 import ch.gbssg.app.util.command.CmdCloseApplication;
+import ch.gbssg.app.util.command.CmdCurrentUser;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdGetRootWindow;
 import ch.gbssg.app.util.command.CmdShowUi;
@@ -93,6 +94,9 @@ public class AppController extends AgentController {
 			getRootWindow.setWindow(model.getStage());
 		}else if(cmd instanceof CmdCloseApplication){
 			this.model.getStage().close();
+		}else if(cmd instanceof CmdCurrentUser){
+			CmdCurrentUser cmdCurUser = (CmdCurrentUser) cmd;
+			cmdCurUser.setUser(this.model.getUser());
 		}
 	}
 
@@ -115,6 +119,7 @@ public class AppController extends AgentController {
 	 * show window!
 	 */
 	public void showLoginPane() {	
+		model.setUser(null);
 		setWindowLayout(getClass().getResource("Login.fxml"));
 		
 		model.getStage().setHeight(370);
@@ -130,9 +135,6 @@ public class AppController extends AgentController {
 	}
 	
 	public void logout(){
-		model = new AppModel();
-		view = new AppView(this);
-		
 		showLoginPane();
 	}
 	/**
@@ -174,6 +176,8 @@ public class AppController extends AgentController {
 			model.getStage().setMaximized(false);
 		}
 		model.getStage().setMaximized(true);
+		
+		model.setUser(user);
 		// set ui filename
 		switch (user.getRolle()) {
 		case ADMIN:

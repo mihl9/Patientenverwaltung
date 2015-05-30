@@ -7,15 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextField?>
 
-<AnchorPane fx:id="root" prefHeight="604.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" prefHeight="460.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="30.0" layoutY="29.0" text="Patienten Detail:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="29.0">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <VBox layoutX="30.0" layoutY="124.0" prefHeight="200.0" prefWidth="349.0" spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="124.0">
+      <VBox layoutX="30.0" layoutY="124.0" prefHeight="262.0" prefWidth="312.0" spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="124.0">
          <children>
+            <HBox prefHeight="35.0" prefWidth="400.0">
+               <children>
+                  <Label prefWidth="150.0" text="Geschlecht" />
+                  <ComboBox fx:id="cboGender" prefHeight="35.0" prefWidth="150.0" />
+               </children>
+            </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label prefWidth="150.0" text="Vorname" />
@@ -31,7 +37,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label prefWidth="150.0" text="Geburtsdatum" />
-                  <DatePicker fx:id="birthday" />
+                  <DatePicker fx:id="birthday" prefHeight="25.0" prefWidth="148.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -60,29 +66,12 @@
             </HBox>
          </children>
       </VBox>
-      <FlowPane alignment="CENTER_RIGHT" hgap="10.0" layoutX="30.0" layoutY="360.0" prefHeight="46.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+      <FlowPane alignment="CENTER_RIGHT" hgap="10.0" layoutX="52.0" layoutY="413.0" prefHeight="46.0" prefWidth="327.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="51.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#close" text="Abbrechen" />
-            <Button mnemonicParsing="false" onAction="#save" text="Speichern" />
+            <Button mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="83.0" text="Speichern" />
+            <Button mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="83.0" text="Abbrechen" />
          </children>
       </FlowPane>
-      <Label layoutX="30.0" layoutY="308.0" text="Krankengeschichte" AnchorPane.topAnchor="295.0">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TableView fx:id="medicalHistoryTable" layoutX="30.0" layoutY="384.0" prefHeight="174.0" prefWidth="400.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="384.0">
-         <columns>
-            <TableColumn fx:id="symptomsCol" prefWidth="136.0" text="Symptome" />
-            <TableColumn fx:id="diagnosticCol" minWidth="5.0" prefWidth="71.0" text="Diagnose" />
-            <TableColumn fx:id="notesCol" prefWidth="72.0" text="Bemerkung" />
-         </columns>
-      </TableView>
-      <FlowPane alignment="CENTER_RIGHT" hgap="10.0" layoutX="30.0" layoutY="341.0" prefHeight="46.0" prefWidth="400.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="341.0">
-         <children>
-            <Button mnemonicParsing="false" text="+" />
-         </children>
-      </FlowPane>
-      <Label fx:id="state" layoutX="30.0" layoutY="59.0" prefHeight="46.0" prefWidth="400.0" />
+      <Label fx:id="state" layoutX="30.0" layoutY="59.0" prefHeight="46.0" prefWidth="305.0" />
    </children>
 </AnchorPane>

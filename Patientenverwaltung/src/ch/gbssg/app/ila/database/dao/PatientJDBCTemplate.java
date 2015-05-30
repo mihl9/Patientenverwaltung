@@ -137,6 +137,11 @@ public class PatientJDBCTemplate implements ICrud<Patient> {
 			whereArg.add(" PatInsuranceNumber='"+entity.getInsuranceNumber()+"' ");
 		}
 
+		/*If any filter should be set add it to the query*/
+		if(whereArg.size()>0){
+			sql += " WHERE "+String.join("AND", whereArg);
+		}
+		
 		return jdbcTemplateObject.query(sql, new PatientMapper());
 	}
 

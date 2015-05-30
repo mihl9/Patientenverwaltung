@@ -7,12 +7,14 @@ import javafx.collections.ObservableList;
 
 public class DoctorModel {
 	private ObservableList<Patient> patientsData;
+	private ObservableList<Patient> patientsFilteredData;
 	
 	private ObservableList<MedicalHistory> medicalHistoryData;
 	
 	public DoctorModel() {
 		patientsData = FXCollections.observableArrayList();
 		medicalHistoryData = FXCollections.observableArrayList();
+		patientsFilteredData = FXCollections.observableArrayList();
 	}
 
 
@@ -21,6 +23,13 @@ public class DoctorModel {
 	 */
 	public ObservableList<Patient> getPatientsData() {
 		return patientsData;
+	}	
+	
+	/**
+	 * @return the patientsData
+	 */
+	public ObservableList<Patient> getPatientsFilteredData() {
+		return patientsFilteredData;
 	}	
 	
 	/**
