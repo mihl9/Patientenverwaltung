@@ -136,7 +136,9 @@ public class PatientJDBCTemplate implements ICrud<Patient> {
 		if(entity.getInsuranceNumber()!=null && !entity.getInsuranceNumber().isEmpty()){
 			whereArg.add(" PatInsuranceNumber='"+entity.getInsuranceNumber()+"' ");
 		}
-
+		if(entity.isInactive()!=null){
+			whereArg.add(" PatInactive=" + entity.isInactive());
+		}
 		/*If any filter should be set add it to the query*/
 		if(whereArg.size()>0){
 			sql += " WHERE "+String.join("AND", whereArg);
@@ -165,7 +167,8 @@ public class PatientJDBCTemplate implements ICrud<Patient> {
 						 + " `PatPLZ` = ?, "
 						 + " `PatPlace` = ?, "
 						 + " `PatInsuranceNumber` = ?, "
-						 + " `PatAhv` = ? "
+						 + " `PatAhv` = ?, "
+						 + " `PatInactive` = ? "
 						 + " WHERE `PatID` = ?;";
 		Connection connection = null;
 		int affectedRows = 0;
@@ -184,7 +187,8 @@ public class PatientJDBCTemplate implements ICrud<Patient> {
 				statement.setString(7, newEntity.getPlace());
 				statement.setString(8, newEntity.getInsuranceNumber());
 				statement.setString(9, newEntity.getAhv());
-				statement.setInt(10, id);
+				statement.setBoolean(10, newEntity.isInactive());
+				statement.setInt(11, id);
 				//execute sql query
 				affectedRows = statement.executeUpdate();
 				

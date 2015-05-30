@@ -4,7 +4,9 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -27,6 +29,7 @@ public class Patient extends AbsModel {
 	private StringProperty ahv;
 	private StringProperty place;
 	private StringProperty insuranceNumber;
+	private BooleanProperty isInactive;
 	
 	public Patient() {
 		firstname = new SimpleStringProperty();
@@ -37,6 +40,7 @@ public class Patient extends AbsModel {
 		place = new SimpleStringProperty();
 		insuranceNumber = new SimpleStringProperty();
 		birthday = new SimpleObjectProperty<LocalDate>(LocalDate.now());
+		isInactive = new SimpleBooleanProperty(false);
 	}
 	
 	public int getId() {
@@ -149,7 +153,6 @@ public class Patient extends AbsModel {
 		return insuranceNumber.get();
 	}
 
-
 	public void setInsuranceNumber(String insuranceNumber) {
 		this.insuranceNumber.set(insuranceNumber);
 	}
@@ -158,6 +161,18 @@ public class Patient extends AbsModel {
 		return insuranceNumber;
 	}
 
+	public Boolean isInactive() {
+		return isInactive.getValue();
+	}
+
+	public void setInactive(Boolean isDeleted) {
+		this.isInactive.setValue(isDeleted);
+	}
+	
+	public BooleanProperty getInactiveProperty(){
+		return this.isInactive;
+	}
+	
 	@Override
 	public boolean isValid(List<String> errors) {
 		if (getLastname() == null || getLastname().isEmpty()) {

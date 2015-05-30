@@ -27,7 +27,7 @@ public class PatientMapper implements RowMapper<Patient> {
 		patient.setPlace(rs.getString("PatPlace"));
 		patient.setAhv(rs.getString("PatAhv"));
 		patient.setInsuranceNumber(rs.getString("PatInsuranceNumber"));
-		
+		patient.setInactive(rs.getBoolean("PatInactive"));
 		return patient;
 	}
 

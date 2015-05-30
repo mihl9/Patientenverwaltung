@@ -18,6 +18,7 @@ import ch.gbssg.app.util.command.CmdGetRootWindow;
 import ch.gbssg.app.util.command.CmdShowMedHistoryDialog;
 import ch.gbssg.app.util.command.CmdShowPatientDialog;
 import ch.gbssg.app.util.command.CmdShowUi;
+import ch.gbssg.app.util.command.CmdUpdateEntity;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.AgentFactory;
@@ -58,7 +59,9 @@ public class DoctorController extends AgentController {
 		model.getPatientsData().clear();
 		model.getMedicalHistoryData().clear();
 		
-		CmdFilterEntity<Patient> cmdPatient = new CmdFilterEntity<Patient>(Patient.class, null);
+		Patient filter = new Patient();
+		filter.setInactive(false);
+		CmdFilterEntity<Patient> cmdPatient = new CmdFilterEntity<Patient>(Patient.class, filter);
 		sendAgentMessage(new AgentCommand(cmdPatient));
 		
 		model.getPatientsData().addAll(cmdPatient.getEntities());
@@ -86,8 +89,10 @@ public class DoctorController extends AgentController {
 		
 		Optional<ButtonType> result = alert.showAndWait();		
 		if(result.get() == ButtonType.OK && model!=null){
-			CmdDeleteEntity<Patient> cmdDelete = new CmdDeleteEntity<Patient>(Patient.class, model);
-			sendAgentMessage(new AgentCommand(cmdDelete));
+			model.setInactive(true);
+			//CmdDeleteEntity<Patient> cmdDelete = new CmdDeleteEntity<Patient>(Patient.class, model);
+			CmdUpdateEntity<Patient> cmdUpdate = new CmdUpdateEntity<Patient>(Patient.class, model);
+			sendAgentMessage(new AgentCommand(cmdUpdate));
 			
 			loadData();
 		}
