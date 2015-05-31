@@ -15,9 +15,16 @@ import ch.gbssg.app.util.command.CmdUpdateEntity;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.ICommand;
-
+/**
+ * Represents the Controller for the Bottom Level Agent Patient
+ * This agent is for editing/adding Patients
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class PatientController extends AgentController {
-
+	/**
+	 * Method which is called every time the Agent is initialized
+	 */
 	@Override
 	public boolean setupAgent() {
 		view = new PatientView(this);
@@ -74,11 +81,17 @@ public class PatientController extends AgentController {
 	
 	private PatientView view;
 	private PatientModel model;
-	
+	/**
+	 * Close the dialog without saving the data
+	 */
 	public void closeDialog() {
 		dialog.close();
 	}
-
+	
+	/**
+	 * Write all changes into the Model
+	 * @param model the model which should be written
+	 */
 	public void refreshPatientData(Patient model){
 		model.setFirstname(this.view.getFirstname().getText());
 		model.setLastname(this.view.getLastname().getText());
@@ -89,7 +102,9 @@ public class PatientController extends AgentController {
 		model.setAddress(this.view.getAddress().getText());
 		model.setGenderCode(this.view.getCboGender().getValue().getId());
 	}
-	
+	/**
+	 * Saves all changes and update it to the Database
+	 */
 	public void save() {	
 		refreshPatientData(this.model.getModel());
 		Patient patient = this.model.getModel();
@@ -111,7 +126,12 @@ public class PatientController extends AgentController {
 		}
 		dialog.close();
 	}
-
+	
+	/**
+	 * Check the Code list and return the Code Model object based on the given ID
+	 * @param id the Code ID which should be returned
+	 * @return the code model object
+	 */
 	public Code getAssignedCode(int id){
 		Code result = null;
 		for (Code code : model.getCodesData()) {

@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.Code;

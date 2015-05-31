@@ -16,6 +16,7 @@ public class FakeController extends AgentController {
 		ICommand cmd = messages.peek();
 		
 		if (cmd instanceof FakeCommand) {
+			@SuppressWarnings("unused")
 			FakeCommand fakeCmd = (FakeCommand)messages.poll();
 			FakeTest();
 		}

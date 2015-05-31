@@ -13,9 +13,16 @@ import ch.gbssg.app.util.command.CmdUpdateEntity;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.ICommand;
-
+/**
+ * Represents the Controller for the Bottom Level Agent MedicalHistory
+ * This agent is for editing/adding Medical History Entries
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class MedicalHistoryController extends AgentController {
-	
+	/**
+	 * Method which is called every time the Agent is initialized
+	 */
 	@Override
 	public boolean setupAgent() {
 		view = new MedicalHistoryView(this);
@@ -57,10 +64,17 @@ public class MedicalHistoryController extends AgentController {
 	private MedicalHistoryView view;
 	private MedicalHistoryModel model;
 	
+	/**
+	 * Close the dialog without saving the data
+	 */
 	public void closeDialog() {
 		dialog.close();
 	}
 
+	/**
+	 * Write all changes into the Model
+	 * @param model the model which should be written
+	 */
 	public void refreshMedHistoryData(MedicalHistory model){
 		model.setDateFrom(this.view.getDateFrom().getValue());
 		model.setBillDueTo(this.view.getDateFrom().getValue().plusDays(30));
@@ -70,6 +84,9 @@ public class MedicalHistoryController extends AgentController {
 		model.setNotes(this.view.getNotes().getText());
 	}
 	
+	/**
+	 * Saves all changes and update it to the Database
+	 */
 	public void save() {	
 		refreshMedHistoryData(this.model.getModel());
 		MedicalHistory medHist = this.model.getModel();

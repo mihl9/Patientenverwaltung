@@ -149,17 +149,18 @@ public class DoctorView implements IView {
 		controller.createMedicalHistory(this.patientTable.getSelectionModel().getSelectedItem().getId());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@FXML
 	 public void MedHTableDblClicked(MouseEvent event){
 		//System.out.println("click");
 		if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
             Node node = ((Node) event.getTarget()).getParent();
-            TableRow row;
+            TableRow<MedicalHistory> row;
             if (node instanceof TableRow) {
-                row = (TableRow) node;
+                row = (TableRow<MedicalHistory>) node;
             } else {
                 // clicking on text part
-                row = (TableRow) node.getParent();
+                row = (TableRow<MedicalHistory>) node.getParent();
             }
             //System.out.println(row.getItem());
             if(row.getItem() instanceof MedicalHistory){
@@ -181,6 +182,7 @@ public class DoctorView implements IView {
 	 * controller for this view
 	 */
 	private DoctorController controller;
+	@SuppressWarnings("unused")
 	private DoctorModel model;
 
 	@FXML

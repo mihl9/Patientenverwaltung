@@ -17,6 +17,7 @@ public class AgentControllerTest {
 		verify(fake, times(1)).setupAgent();
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testReceiveMessage() {
 		FakeCommand cmd = new FakeCommand();

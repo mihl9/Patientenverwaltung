@@ -16,8 +16,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.core.pac.IView;
-
+/**
+ * Represents the View of the Medical History Agent
+ * Loads the belonging fxml and initialize the view and all other elements
+ * Handles the Events and redirect them to the controller. 
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class MedicalHistoryView implements IView, Initializable{
+	/**
+	 * Constructor of the class
+	 * @param medHisController the Controller
+	 */
 	public MedicalHistoryView(MedicalHistoryController medHisController) {
 		controller = medHisController;
 		
@@ -38,7 +48,10 @@ public class MedicalHistoryView implements IView, Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * sets the Error message and display it to the message box
+	 * @param errors
+	 */
 	public void setError(List<String> errors) {
 		String str = "";
 		
@@ -48,7 +61,10 @@ public class MedicalHistoryView implements IView, Initializable{
 		
 		state.setText(str);
 	}
-	
+	/**
+	 * Fills the Data from the model into the form
+	 * @param model
+	 */
 	public void setData(MedicalHistory model) {
 		dateFrom.setValue(model.getDateFrom());
 		hour.setText(""+model.getHour());

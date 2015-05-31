@@ -23,7 +23,13 @@ import ch.gbssg.app.model.Code;
 import ch.gbssg.app.model.Patient;
 import ch.gbssg.app.util.CellFactoryCode;
 import ch.gbssg.core.pac.IView;
-
+/**
+ * Represents the View of the Patient Agent
+ * Loads the belonging fxml and initialize the view and all other elements
+ * Handles the Events and redirect them to the controller. 
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class PatientView implements IView, Initializable {
 	public PatientView(PatientController patientController) {
 		controller = patientController;

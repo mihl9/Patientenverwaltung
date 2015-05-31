@@ -120,7 +120,6 @@ public class UserView  implements IView, Initializable {
 	}
 	
 	//Controller
-	@SuppressWarnings("unused")
 	private UserController controller;
 	
 	//Javafx Elements

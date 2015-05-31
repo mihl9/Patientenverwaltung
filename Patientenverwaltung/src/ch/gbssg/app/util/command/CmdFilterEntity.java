@@ -45,6 +45,7 @@ public class CmdFilterEntity<T extends AbsModel> implements ICommand {
 		return matcheEntites;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setEntities(List<?> matches) {
 		this.matcheEntites = (List<T>) matches;
 	}

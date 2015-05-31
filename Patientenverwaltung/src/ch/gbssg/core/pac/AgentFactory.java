@@ -32,6 +32,7 @@ public class AgentFactory {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
+	@SuppressWarnings("unchecked")
 	public <T extends IAgentController> T requestAgent(Class<T> agentClass) {
 		// serach in agentInstanceList for instance
 		for (IAgentController pacControlIfc : agentInstanceList) {

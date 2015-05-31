@@ -12,7 +12,6 @@ import ch.gbssg.app.bla.patient.PatientController;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.app.model.Patient;
 import ch.gbssg.app.util.command.CmdCurrentUser;
-import ch.gbssg.app.util.command.CmdDeleteEntity;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdGetRootWindow;
 import ch.gbssg.app.util.command.CmdShowMedHistoryDialog;
