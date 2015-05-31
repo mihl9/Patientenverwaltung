@@ -18,19 +18,29 @@ import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.AgentFactory;
 import ch.gbssg.core.pac.ICommand;
-
+/**
+ * Represents the Controller for the Intermediate Level Agent Admin
+ * This agent is the Main Dialog for the User of the type Admin
+ * It handles all basic action which should be performed
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class AdminController extends AgentController {
 	private UserController userAgent;
 	
 	private AdminModel model;
 	private AdminView view;
-	
+	/**
+	 * Constrcutor of the Class
+	 */
 	public AdminController() {
 		userAgent = AgentFactory.getInstance().requestAgent(UserController.class);
 		userAgent.setParent(this);
 		addChild(userAgent);		
 	}
-	
+	/**
+	 * Method which is called every time the Agent is initialized
+	 */
 	@Override
 	public boolean setupAgent() {
 		model = new AdminModel();
@@ -51,7 +61,11 @@ public class AdminController extends AgentController {
 			loadData();
 		}
 	}
-
+	/**
+	 * Check the Code list and return the Code Model object based on the given ID
+	 * @param id the Code ID which should be returned
+	 * @return the code model object
+	 */
 	public Code getAssignedCode(int id){
 		Code result = null;
 		for (Code code : model.getCodesData()) {
@@ -63,7 +77,10 @@ public class AdminController extends AgentController {
 		
 		return result;
 	}
-	
+	/**
+	 * Loads the Data of this formular.
+	 * Make a direct Query from the Database and sets the standard Filter for the table
+	 */
 	public void loadData(){
 		this.model.getCodesData().clear();
 		this.model.getUserData().clear();
@@ -85,7 +102,10 @@ public class AdminController extends AgentController {
 		
 		this.view.fillTableData(this.model.getUserData());
 	}
-	
+	/**
+	 * Edit the given user. Sends a command to the Bottom Level agent User, for editing
+	 * @param model the model which should be edited
+	 */
 	public void editUser(User model){
 		CmdGetRootWindow cmdRoot = new CmdGetRootWindow();
 		sendAgentMessage(new AgentCommand(cmdRoot));
@@ -95,7 +115,10 @@ public class AdminController extends AgentController {
 		
 		loadData();
 	}
-	
+	/**
+	 * Create a new user.
+	 * Create a empty User model and sends it to the Bottom level Agent User, for creating this object
+	 */
 	public void addUser(){
 		CmdGetRootWindow cmdRoot = new CmdGetRootWindow();
 		sendAgentMessage(new AgentCommand(cmdRoot));
@@ -109,7 +132,10 @@ public class AdminController extends AgentController {
 		
 		loadData();
 	}
-	
+	/**
+	 * Prompt the user and set the given model inactive on the database
+	 * @param model model which should be deleted
+	 */
 	public void delUser(User model){
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		

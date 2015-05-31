@@ -16,9 +16,10 @@ import ch.gbssg.app.ila.database.mapper.CodeTypeMapper;
 import ch.gbssg.app.model.CodeType;
 import ch.gbssg.core.ICrud;
 /**
- * 
- * @author Michael
- *
+ * JDBC Template for the CodeType model
+ * Contains all basic SQL transaction, like Select, Insert, Update and delete
+ * @author Michael Huber
+ * @version 1.0
  */
 public class CodeTypeJDBCTemplate implements ICrud<CodeType> {
 	private JdbcTemplate jdbcTemplateObject;

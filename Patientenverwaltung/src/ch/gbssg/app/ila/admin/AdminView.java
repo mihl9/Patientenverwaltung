@@ -14,9 +14,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.User;
 import ch.gbssg.core.pac.IView;
-
+/**
+ * Represents the View of the Intermediate level Agent Admin
+ * Loads the belonging fxml and initialize the view and all other elements
+ * Handles the Events and redirect them to the controller. 
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class AdminView implements IView, Initializable {
-
+	/**
+	 * Constructor
+	 * @param controller
+	 */
 	public AdminView(AdminController controller){
 		this.controller = controller;
 		
@@ -37,7 +46,9 @@ public class AdminView implements IView, Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Is executed when the FXML file is loaded
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		firstnameCol.setCellValueFactory(cellData -> cellData.getValue().getFirstnameProperty());
@@ -46,11 +57,16 @@ public class AdminView implements IView, Initializable {
 		rolleCol.setCellValueFactory(cellData -> this.controller.getAssignedCode(cellData.getValue().getRolle().getValue()).getDescriptionProperty());
 		
 	}
-
+	/**
+	 * Fill the Table with the User data list
+	 * @param user list of users
+	 */
 	public void fillTableData(ObservableList<User> user){
 		userTable.setItems(user);
 	}
-	
+	/**
+	 * @return all gui elements created with the FXML file
+	 */
 	@Override
 	public Pane getContent() {
 		if(root != null){

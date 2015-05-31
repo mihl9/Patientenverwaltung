@@ -6,7 +6,11 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import ch.gbssg.app.model.Patient;
-
+/**
+ * This class defines the relation between the Patient Model and the table t_Patient
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class PatientMapper implements RowMapper<Patient> {
 
 	@Override

@@ -17,7 +17,14 @@ import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.app.model.Patient;
 import ch.gbssg.app.model.User;
-
+/**
+ * Represents the Model for the Intermediate Level agent database
+ * In this class all necessary data is saved
+ * Like all instances to the model Templates
+ * and also the handler for the Commands are placed here
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class DatabaseModel {
  // wenn u1 != null
 		// jdbctamplte.get(p1)
@@ -30,7 +37,9 @@ public class DatabaseModel {
 	private MedicalHistoryJDBCTemplate medicalHistoryJdbcTemplate;
 	private PatientJDBCTemplate patientJdbcTemplate;
 	private UserJDBCTemplate userJdbcTemplate;
-	
+	/**
+	 * constructor
+	 */
 	public DatabaseModel() {
 		// include the beans config file.
 		ctx = new ClassPathXmlApplicationContext("Beans.xml");
@@ -129,41 +138,41 @@ public class DatabaseModel {
 	 * Insert Part
 	 */
 	/**
-	 * 
+	 * Adds a new Code element to the database
 	 * @param code
-	 * @return
+	 * @return the id of the created object
 	 */
 	public int addCode(Code code){
 		return codeJdbcTemplate.create(code);
 	}
 	/**
-	 * 
-	 * @param codeType
-	 * @return
+	 * Adds a new CodeType element to the database
+	 * @param CodeType
+	 * @return the id of the created object
 	 */
 	public int addCodeType(CodeType codeType){
 		return codeTypeJdbcTemplate.create(codeType);
 	}
 	/**
-	 * 
-	 * @param medHistory
-	 * @return
+	 * Adds a new MedicalHistory element to the database
+	 * @param MedicalHistory
+	 * @return the id of the created object
 	 */
 	public int addMedicalHistory(MedicalHistory medHistory){
 		return medicalHistoryJdbcTemplate.create(medHistory);
 	}
 	/**
-	 * 
-	 * @param patient
-	 * @return
+	 * Adds a new Patient element to the database
+	 * @param Patient
+	 * @return the id of the created object
 	 */
 	public int addPatient(Patient patient){
 		return patientJdbcTemplate.create(patient);
 	}
 	/**
-	 * 
-	 * @param user
-	 * @return
+	 * Adds a new User element to the database
+	 * @param User
+	 * @return the id of the created object
 	 */
 	public int addUser(User user){
 		return userJdbcTemplate.create(user);
@@ -172,45 +181,45 @@ public class DatabaseModel {
 	 * Remove Part
 	 */
 	/**
-	 * 
-	 * @param code
-	 * @return
+	 * Remove the given Code from the database
+	 * @param code model which should be removed
+	 * @return  the state
 	 */
 	public int removeCode(Code code) {
 		return codeJdbcTemplate.delete(code.getId());
 	}
 	
 	/**
-	 * 
-	 * @param CodeType
-	 * @return
+	 * Remove the given CodeType from the database
+	 * @param CodeType model which should be removed
+	 * @return  the state
 	 */
 	public int removeCodeType(CodeType codeType){
 		return codeTypeJdbcTemplate.delete(codeType.getId());
 	}
 	
 	/**
-	 * 
-	 * @param medHistory
-	 * @return
+	 * Remove the given MedicalHistory from the database
+	 * @param MedicalHistory model which should be removed
+	 * @return  the state
 	 */
 	public int removeMedicalHistory(MedicalHistory medHistory){
 		return medicalHistoryJdbcTemplate.delete(medHistory.getId());
 	}
 	
 	/**
-	 * 
-	 * @param patient
-	 * @return
+	 * Remove the given Patient from the database
+	 * @param Patient model which should be removed
+	 * @return  the state
 	 */
 	public int removePatient(Patient patient){
 		return patientJdbcTemplate.delete(patient.getId());
 	}
 	
 	/**
-	 * 
-	 * @param user
-	 * @return
+	 * Remove the given User from the database
+	 * @param User model which should be removed
+	 * @return  the state
 	 */
 	public int removeUser(User user){
 		return userJdbcTemplate.delete(user.getId());
@@ -220,41 +229,41 @@ public class DatabaseModel {
 	 * Update Part
 	 */
 	/**
-	 * 
-	 * @param code
-	 * @return
+	 * Updates the given model into the Database
+	 * @param code the new model
+	 * @return the amount of affected rows
 	 */
 	public int updateCode(Code code){
 		return codeJdbcTemplate.update(code.getId(), code);
 	}
 	/**
-	 * 
-	 * @param codeType
-	 * @return
+	 * Updates the given model into the Database
+	 * @param codeType the new model
+	 * @return the amount of affected rows
 	 */
 	public int updateCodeType(CodeType codeType){
 		return codeTypeJdbcTemplate.update(codeType.getId(), codeType);
 	}
 	/**
-	 * 
-	 * @param medHistory
-	 * @return
+	 * Updates the given model into the Database
+	 * @param medHistory the new model
+	 * @return the amount of affected rows
 	 */
 	public int updateMedicalHistory(MedicalHistory medHistory){
 		return medicalHistoryJdbcTemplate.update(medHistory.getId(), medHistory);
 	}
 	/**
-	 * 
-	 * @param patient
-	 * @return
+	 * Updates the given model into the Database
+	 * @param patient the new model
+	 * @return the amount of affected rows
 	 */
 	public int updatePatient(Patient patient){
 		return patientJdbcTemplate.update(patient.getId(), patient);
 	}
 	/**
-	 * 
-	 * @param user
-	 * @return
+	 * Updates the given model into the Database
+	 * @param user the new model
+	 * @return the amount of affected rows
 	 */
 	public int updateUser(User user){
 		return userJdbcTemplate.update(user.getId(), user);

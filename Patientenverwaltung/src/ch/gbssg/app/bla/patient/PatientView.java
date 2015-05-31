@@ -31,6 +31,10 @@ import ch.gbssg.core.pac.IView;
  * @version 1.0
  */
 public class PatientView implements IView, Initializable {
+	/**
+	 * Constructor of the class
+	 * @param patientController the Controller
+	 */
 	public PatientView(PatientController patientController) {
 		controller = patientController;
 		
@@ -51,7 +55,10 @@ public class PatientView implements IView, Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * sets the Error message and display it to the message box
+	 * @param errors
+	 */
 	public void setError(List<String> errors) {
 		String str = "";
 		
@@ -61,7 +68,10 @@ public class PatientView implements IView, Initializable {
 		
 		state.setText(str);
 	}
-	
+	/**
+	 * Fills the Data from the model into the form
+	 * @param model
+	 */
 	public void setData(Patient patient) {
 		firstname.setText(patient.getFirstname());
 		lastname.setText(patient.getLastname());

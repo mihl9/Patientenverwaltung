@@ -22,12 +22,17 @@ import ch.gbssg.app.model.User;
 import ch.gbssg.app.util.CellFactoryCode;
 import ch.gbssg.core.pac.IView;
 /**
- * 
- * @author michael.huber
- *
+ * Represents the View of the user Agent
+ * Loads the belonging fxml and initialize the view and all other elements
+ * Handles the Events and redirect them to the controller. 
+ * @author Michael Huber
+ * @version 1.0
  */
 public class UserView  implements IView, Initializable {
-	
+	/**
+	 * Constructor of the class
+	 * @param controller
+	 */
 	public UserView(UserController controller){
 		this.controller = controller;
 		
@@ -48,7 +53,10 @@ public class UserView  implements IView, Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Called when the FXML file is loaded
+	 * Set the necessary options and cellfactories
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cboCodes.setCellFactory(new Callback<ListView<Code>, ListCell<Code>>() {
@@ -61,11 +69,17 @@ public class UserView  implements IView, Initializable {
 		});
 		cboCodes.setButtonCell(new CellFactoryCode());
 	}
-	
+	/**
+	 * Fill the Comboboxes with the given list of Code model
+	 * @param codes the list of could which should be choosable
+	 */
 	public void fillCombobox(ObservableList<Code> codes){
 		cboCodes.setItems(codes);
 	}
-	
+	/**
+	 * Fills the Data from the model into the form
+	 * @param model
+	 */
 	public void displayData(User model){
 		if(model!=null){
 			txtFirstname.setText(model.getFirstname());

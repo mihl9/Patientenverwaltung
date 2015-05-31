@@ -7,7 +7,11 @@ import org.springframework.jdbc.core.RowMapper;
 
 import ch.gbssg.app.model.User;
 import ch.gbssg.app.util.UserRoll;
-
+/**
+ * This class defines the relation between the User Model and the table t_User
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class UserMapper implements RowMapper<User> {
 
 	@Override

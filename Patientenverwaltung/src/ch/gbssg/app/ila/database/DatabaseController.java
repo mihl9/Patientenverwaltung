@@ -17,12 +17,14 @@ import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * TODO
- * @author pedrett.sandro
- *
+ * This class defines the relation between the MedicalHistory Model and the table t_MedicalHistory
+ * @author Michael Huber, Sandro Pedrett
+ * @version 1.0
  */
 public class DatabaseController extends AgentController {
-
+	/**
+	 * Is called when the AGent is created
+	 */
 	@Override
 	public boolean setupAgent() {
 		model = new DatabaseModel();
@@ -49,7 +51,10 @@ public class DatabaseController extends AgentController {
 		}
 
 	}
-	
+	/**
+	 * Check which type of model should be updated and then send it to the right handler
+	 * @param update the update command
+	 */
 	private void executeUpdateEntity(CmdUpdateEntity<?> update){
 		if (update.getType() == Code.class) {
 			int affectedRow = model.updateCode((Code) update.getToUpdatingEntity());
@@ -73,7 +78,10 @@ public class DatabaseController extends AgentController {
 			update.setAffectedRows(affectedRow);
 		}
 	}
-	
+	/**
+	 * Check which type of model should be deleted and then send it to the right handler
+	 * @param update the delete command
+	 */
 	private void executeDeleteEntity(CmdDeleteEntity<?> delete){
 		if (delete.getType() == Code.class) {
 			int statusCode = model.removeCode((Code) delete.getToDeletingEntity());
@@ -97,7 +105,10 @@ public class DatabaseController extends AgentController {
 			delete.setResult(statusCode);
 		}
 	}
-	
+	/**
+	 * Check which type of model should be inserted and then send it to the right handler
+	 * @param update the insert command
+	 */
 	private void executeInsertEntity(CmdInsertEntity<?> insert){
 		if (insert.getType() == Code.class) {
 			int insertedKey = model.addCode((Code) insert.getToAddingEntity());
@@ -121,7 +132,10 @@ public class DatabaseController extends AgentController {
 			insert.setInsertedKey(insertedKey);
 		}
 	}
-	
+	/**
+	 * Check which type of model should be filtered and then send it to the right handler
+	 * @param update the filter command
+	 */
 	private void executeFilterEntity(CmdFilterEntity<?> filter){
 		if (filter.getType() == Code.class) {
 			List<?> matches = model.getFilteredCode((Code) filter.getFilterEntity());

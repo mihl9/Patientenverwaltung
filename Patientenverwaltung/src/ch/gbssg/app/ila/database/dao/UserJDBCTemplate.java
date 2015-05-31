@@ -15,7 +15,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ch.gbssg.app.ila.database.mapper.UserMapper;
 import ch.gbssg.app.model.User;
 import ch.gbssg.core.ICrud;
-
+/**
+ * JDBC Template for the User model
+ * Contains all basic SQL transaction, like Select, Insert, Update and delete
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class UserJDBCTemplate implements ICrud<User> {
 	private JdbcTemplate jdbcTemplateObject;
     private DataSource dataSource;

@@ -17,7 +17,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ch.gbssg.app.ila.database.mapper.MedicalHistoryMapper;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.core.ICrud;
-
+/**
+ * JDBC Template for the MedicalHistory model
+ * Contains all basic SQL transaction, like Select, Insert, Update and delete
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 	private JdbcTemplate jdbcTemplateObject;
     private DataSource dataSource;

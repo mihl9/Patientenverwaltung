@@ -17,17 +17,25 @@ import ch.gbssg.app.util.command.CmdUpdateEntity;
 import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.ICommand;
-
+/**
+ * Represents the Controller for the Bottom Level Agent user
+ * This agent is for editing/adding User Entries
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class UserController extends AgentController {
 
 	private UserModel model;
 	private UserView view;
-	
+	/**
+	 * Constructor
+	 */
 	public UserController() {
-		// TODO Auto-generated constructor stub
 		
 	}
-	
+	/**
+	 * Method which is called every time the Agent is initialized
+	 */
 	@Override
 	public boolean setupAgent() {
 		model = new UserModel();
@@ -48,7 +56,11 @@ public class UserController extends AgentController {
 			showDialog(cmdShowUserDialog.getParent(), this.model.getModel());			
 		}
 	}
-	
+	/**
+	 * Check the Code list and return the Code Model object based on the given ID
+	 * @param id the Code ID which should be returned
+	 * @return the code model object
+	 */
 	public Code getAssignedCode(int id){
 		Code result = null;
 		for (Code code : model.getCodesData()) {
@@ -112,7 +124,10 @@ public class UserController extends AgentController {
 	    this.view.displayData(model);
 	    dialog.showAndWait();
 	}
-	
+	/**
+	 * Write all changes into the Model
+	 * @param model the model which should be written
+	 */
 	public void refreshUserData(User model){
 		model.setFirstname(this.view.getTxtFirstname().getText());
 		model.setLastname(this.view.getTxtlastname().getText());
@@ -130,7 +145,10 @@ public class UserController extends AgentController {
 		//Currently this setting is fix
 		model.setInactive(false);
 	}
-	
+	/**
+	 * Saves all changes and update it to the Database
+	 * @param model
+	 */
 	public void saveUser(User model){
 		if(model.getId()==0){
 			//Create new Entry

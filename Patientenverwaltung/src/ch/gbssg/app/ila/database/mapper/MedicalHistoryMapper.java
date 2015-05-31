@@ -6,7 +6,11 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import ch.gbssg.app.model.MedicalHistory;
-
+/**
+ * This class defines the relation between the MedicalHistory Model and the table t_MedicalHistory
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class MedicalHistoryMapper implements RowMapper<MedicalHistory> {
 
 	@Override

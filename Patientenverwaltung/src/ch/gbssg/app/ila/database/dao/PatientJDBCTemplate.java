@@ -17,7 +17,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ch.gbssg.app.ila.database.mapper.PatientMapper;
 import ch.gbssg.app.model.Patient;
 import ch.gbssg.core.ICrud;
-
+/**
+ * JDBC Template for the Patient model
+ * Contains all basic SQL transaction, like Select, Insert, Update and delete
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class PatientJDBCTemplate implements ICrud<Patient> {
 	private JdbcTemplate jdbcTemplateObject;
     private DataSource dataSource;

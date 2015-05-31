@@ -1,8 +1,8 @@
 package ch.gbssg.app.bla.pdfexport;
 
 /**
- * TODO
- * @author pedrett.sandro
+ * Unused class
+ * @author Michael Huber
  *
  */
 public class PdfExportModel {

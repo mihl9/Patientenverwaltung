@@ -6,7 +6,11 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import ch.gbssg.app.model.Faktura;
-
+/**
+ * This class defines the relation between the Faktura Model and the table v_Faktura
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class FakturaMapper implements RowMapper<Faktura> {
 
 	@Override

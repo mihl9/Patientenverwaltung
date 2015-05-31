@@ -6,7 +6,11 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import ch.gbssg.app.model.CodeType;
-
+/**
+ * This class defines the relation between the CodeType Model and the table t_CodeType
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class CodeTypeMapper implements RowMapper<CodeType> {
 
 	@Override

@@ -19,9 +19,10 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 
 /**
- * TODO
- * @author pedrett.sandro
- *
+ * Represents the Controller for the Bottom Level Agent PDFExport
+ * This agent is for exporting/Merging the model into the Template and saving it into a pdf file
+ * @author Michael Huber
+ * @version 1.0
  */
 public class PdfExportController extends AgentController {
 
@@ -36,7 +37,12 @@ public class PdfExportController extends AgentController {
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * Generate a PDF File on the given location with the given model and template
+	 * @param outputFile The File object where it should be saved
+	 * @param models the data Models as a map
+	 * @param template the Template which should be used
+	 */
 	public void generateVelocityPDF(File outputFile, Map<String, Object> models, InputStream template){
 		try {
 			//read this site
