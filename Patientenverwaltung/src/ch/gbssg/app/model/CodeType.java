@@ -10,7 +10,7 @@ import ch.gbssg.core.AbsModel;
 /**
  * Represent a CodeType model
  * @author Michael Huber
- *
+ * @version 1.0
  */
 public class CodeType extends AbsModel {
 	

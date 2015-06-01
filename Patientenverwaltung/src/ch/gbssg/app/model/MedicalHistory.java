@@ -15,7 +15,7 @@ import ch.gbssg.core.AbsModel;
 /**
  * represent a Medical History model
  * @author Michael Huber
- *
+ * @version 1.0
  */
 public class MedicalHistory extends AbsModel{
 	

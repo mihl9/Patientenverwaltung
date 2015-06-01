@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 /**
  * interface for DAO objects.
  * 
- * @author pedrett.sandro
+ * @author Sandro Pedrett
  * @version 1.0
  */
 public interface ICrud<T extends AbsModel> {

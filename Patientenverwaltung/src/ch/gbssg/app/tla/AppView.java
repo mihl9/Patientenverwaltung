@@ -16,14 +16,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import ch.gbssg.app.model.User;
 import ch.gbssg.core.pac.IView;
-
+/**
+ * Represents the View of the Top level Agent App
+ * Loads the belonging fxml and initialize the view and all other elements
+ * Handles the Events and redirect them to the controller. 
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class AppView implements IView, Initializable {
 	public AppView(AppController controller) {
 		this.controller = controller;
 	}
 	
 	/**
-	 * set a error on screen
+	 * set a list of errors on screen
 	 * @param errors list of errors
 	 */
 	public void setErrors(List<String> errors) {
@@ -35,7 +41,10 @@ public class AppView implements IView, Initializable {
 		
 		lblErrorCode.setText(errorString);
 	}
-	
+	/**
+	 * set a error on screen
+	 * @param error error as string
+	 */
 	public void setError(String error) {
 		List<String> errors = new ArrayList<String>();
 		errors.add(error);

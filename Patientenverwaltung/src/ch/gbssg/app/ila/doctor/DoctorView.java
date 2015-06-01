@@ -151,7 +151,7 @@ public class DoctorView implements IView {
 	
 	@SuppressWarnings("unchecked")
 	@FXML
-	 public void MedHTableDblClicked(MouseEvent event){
+	 private void MedHTableDblClicked(MouseEvent event){
 		//System.out.println("click");
 		if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
             Node node = ((Node) event.getTarget()).getParent();

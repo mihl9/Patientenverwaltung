@@ -18,17 +18,20 @@ import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * 
+ * Represents the Controller for the Intermediate Level Agent KV
+ * This agent is the Main Dialog for the User of the type KV
+ * It handles all basic action which should be performed
  * @author Michael Huber
- *
+ * @version 1.0
  */
 public class KvController extends AgentController {
 	
 	private KvModel model;
 	private KvView view;
-	
+	/**
+	 * Constructor
+	 */
 	public KvController() {
-		// TODO Auto-generated constructor stub
 		
 	}
 	@Override
@@ -54,7 +57,11 @@ public class KvController extends AgentController {
 		}
 		
 	}
-	
+	/**
+	 * Check the Code list and return the Code Model object based on the given ID
+	 * @param id the Code ID which should be returned
+	 * @return the code model object
+	 */
 	public Code getAssignedCode(int id){
 		Code result = null;
 		for (Code code : model.getCodesData()) {
@@ -66,7 +73,11 @@ public class KvController extends AgentController {
 		
 		return result;
 	}
-	
+	/**
+	 * Check the Code list and return the Code Model object based on the given Description
+	 * @param desc the Code Description to compare which should be returned
+	 * @return the code model object
+	 */
 	public Code getAssignedCode(String desc){
 		Code result = null;
 		for (Code code : model.getCodesData()) {
@@ -78,7 +89,10 @@ public class KvController extends AgentController {
 		
 		return result;
 	}
-	
+	/**
+	 * Generate the Invoice Export based on the given data model
+	 * @param model the data model which should be exported
+	 */
 	public void generateInvoice(Faktura model){
 		CmdDoExport cmd = new CmdDoExport("InvoiceTemplate.docx");
 		cmd.addDataModel("faktura", model);
@@ -104,7 +118,11 @@ public class KvController extends AgentController {
 		loadData();
 		
 	}
-	
+	/**
+	 * Change the state of the given Faktura model.
+	 * Displays a Dialog.
+	 * @param model
+	 */
 	public void changeState(Faktura model){
 		if(model!=null){
 			ArrayList<String> selective = new ArrayList<String>();
@@ -137,6 +155,12 @@ public class KvController extends AgentController {
 			loadData();
 		}
 	}
+	/**
+	 * Filter the Faktura table based on the given criterias
+	 * @param state as named
+	 * @param dateFrom as named
+	 * @param dateTo as named
+	 */
 	public void FilterTable(Code state, LocalDate dateFrom, LocalDate dateTo){
 		model.getFakturenFilteredData().clear();
 		for (Faktura faktura : model.getFakturenData()) {
@@ -155,7 +179,9 @@ public class KvController extends AgentController {
 			}
 		}
 	}
-	
+	/**
+	 * Load the data from the Database and save it into the model
+	 */
 	public void loadData(){
 		/*Load the Data from the db*/
 		/*

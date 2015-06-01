@@ -1,15 +1,10 @@
-/**
- * 
- * @modtime 13:30:29
- * @author pedrett
- */
 package ch.gbssg.core.pac;
 
 
 
 /**
  * interface to agent control
- * @author pedrett
+ * @author Pedrett Sandro
  * @version 1.0
  */
 public interface IAgentController {

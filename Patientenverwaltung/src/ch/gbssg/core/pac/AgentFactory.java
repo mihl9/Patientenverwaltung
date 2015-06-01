@@ -1,15 +1,10 @@
-/**
- * 
- * @modtime 13:28:25
- * @author pedrett
- */
 package ch.gbssg.core.pac;
 
 import java.util.ArrayList;
 
 /**
  * Singleton factory for create new agents or return an existing agent.
- * @author pedrett
+ * @author Pedrett Sandro
  * @version 1.0
  */
 public class AgentFactory {

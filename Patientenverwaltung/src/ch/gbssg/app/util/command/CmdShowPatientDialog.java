@@ -3,11 +3,19 @@ package ch.gbssg.app.util.command;
 import javafx.stage.Stage;
 import ch.gbssg.app.model.Patient;
 import ch.gbssg.core.pac.ICommand;
-
+/**
+ * Command to call the Edit Dialog Patient
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class CmdShowPatientDialog implements ICommand  {
 	private Stage parent;
 	private Patient patient;
-	
+	/**
+	 * Constructor
+	 * @param owner
+	 * @param model
+	 */
 	public CmdShowPatientDialog(Stage owner, Patient model) {
 		setParent(owner);
 		setPatient(model);
@@ -29,7 +37,7 @@ public class CmdShowPatientDialog implements ICommand  {
 	}
 
 	/**
-	 * @param patient the patient to set
+	 * @param patient the patient to be set
 	 */
 	public void setPatient(Patient patient) {
 		this.patient = patient;

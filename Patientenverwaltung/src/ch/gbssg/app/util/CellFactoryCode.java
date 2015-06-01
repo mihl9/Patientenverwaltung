@@ -2,8 +2,11 @@ package ch.gbssg.app.util;
 
 import ch.gbssg.app.model.Code;
 import javafx.scene.control.ListCell;
-/*
- * Defines the Factory for the Codes
+/**
+ * Defines the Factory for the Codes.
+ * This is used for all cases a Code model is used in an table or Combobox and the Desciption is needed to display
+ * @author Michael Huber
+ * @version 1.0
  */
 public class CellFactoryCode extends ListCell<Code> {
 	/*

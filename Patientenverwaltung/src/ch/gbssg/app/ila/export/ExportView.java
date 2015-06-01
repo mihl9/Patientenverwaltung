@@ -23,9 +23,10 @@ import ch.gbssg.app.util.command.CmdDoExport;
 import ch.gbssg.app.util.command.CmdDoExport.ExportType;
 import ch.gbssg.core.pac.IView;
 /**
- * 
+ * View for the Export Agent
+ * Displays if it is needed a Modal Window, for setting the Options to finish the Export
  * @author Michael Huber
- *
+ * @version 1.0
  */
 public class ExportView implements IView, Initializable{
 	
@@ -34,7 +35,11 @@ public class ExportView implements IView, Initializable{
 	
 	private Stage window;
 	private Scene form;
-	
+	/**
+	 * Constructor
+	 * Loasd the FXML file
+	 * @param controller
+	 */
 	public ExportView(ExportController controller){
 		this.controller = controller;
 		
@@ -55,7 +60,12 @@ public class ExportView implements IView, Initializable{
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Displays the Dialog as a modal window
+	 * Fills in the data provided from the model
+	 * @param owner The Parent Window
+	 * @param export the data model
+	 */
 	public void showDialog(Window owner, CmdDoExport export){
 		Stage dialog = new Stage();
 
@@ -78,7 +88,10 @@ public class ExportView implements IView, Initializable{
 	    this.window = dialog;
 	    loadData(export);
 	}
-	
+	/**
+	 * Loads the data from the model into the form
+	 * @param export the model
+	 */
 	public void loadData(CmdDoExport export){
 		this.export = export;
 		cboExportType.setValue(this.export.getExportType());
@@ -147,7 +160,8 @@ public class ExportView implements IView, Initializable{
 		
 	}
 	
-	@FXML void submit(){
+	@FXML 
+	private void submit(){
 		//TODO Check if everything is correct
 		this.export.setExportType(cboExportType.getValue());
 		//this.export.setOutputPath(txtSavePath.getText());

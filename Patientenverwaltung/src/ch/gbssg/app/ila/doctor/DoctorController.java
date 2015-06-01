@@ -22,9 +22,18 @@ import ch.gbssg.core.pac.AgentCommand;
 import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.AgentFactory;
 import ch.gbssg.core.pac.ICommand;
-
+/**
+ * Represents the Controller for the Intermediate Level Agent Doctor
+ * This agent is the Main Dialog for the User of the type Doctor
+ * It handles all basic action which should be performed when an Doctor user loggs on
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class DoctorController extends AgentController {
-
+	/**
+	 * Constrcutor of the class
+	 * Creates alls sub Agent (Bottom level Agents)
+	 */
 	public DoctorController() {
 		patientAgent = AgentFactory.getInstance().requestAgent(PatientController.class);
 		addChild(patientAgent);
@@ -32,7 +41,9 @@ public class DoctorController extends AgentController {
 		medHistoryAgent = AgentFactory.getInstance().requestAgent(MedicalHistoryController.class);
 		addChild(medHistoryAgent);
 	}
-	
+	/**
+	 * Called when the Agent is initialized
+	 */
 	@Override
 	public boolean setupAgent() {
 		model = new DoctorModel();
@@ -66,7 +77,11 @@ public class DoctorController extends AgentController {
 		model.getPatientsData().addAll(cmdPatient.getEntities());
 		FilterTable(null,null,null,null);
 	}
-	
+	/**
+	 * Opens the Patient Dialog and sends the given model
+	 * for later processing
+	 * @param model
+	 */
 	public void showPatientChildWindow(Patient model) {
 		CmdGetRootWindow cmdRoot = new CmdGetRootWindow();
 		sendAgentMessage(new AgentCommand(cmdRoot));
@@ -78,7 +93,10 @@ public class DoctorController extends AgentController {
 			loadData();
 		}
 	}
-	
+	/**
+	 * prompt the user and inactivate the Patient
+	 * @param model
+	 */
 	public void deletePatient(Patient model){
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		
@@ -96,7 +114,11 @@ public class DoctorController extends AgentController {
 			loadData();
 		}
 	}
-	
+	/**
+	 * Get the Medical history from the Database based on the passed PatientID
+	 * Fills the received data into the Table
+	 * @param patientId the ID of the Patient
+	 */
 	public void showMedicalHistory(int patientId) {
 		model.getMedicalHistoryData().clear();
 		MedicalHistory filter = new MedicalHistory();
@@ -107,7 +129,11 @@ public class DoctorController extends AgentController {
 		model.getMedicalHistoryData().addAll(cmdMedicalHistory.getEntities());
 		
 	}
-
+	/**
+	 * Open the Patient Dialog for creating a new Patient
+	 * Creates the model and saves the PatientID and the UserID into the model
+	 * @param patientId the id of the Patient which should be assigned
+	 */
 	public void createMedicalHistory(int patientId){
 		CmdCurrentUser cmdCurUser = new CmdCurrentUser();
 		sendAgentMessage(new AgentCommand(cmdCurUser));
@@ -126,7 +152,11 @@ public class DoctorController extends AgentController {
 		
 		showMedicalHistory(patientId);
 	}
-	
+	/**
+	 * Edit the given MedicalHistory model. Send it to the Bottom Level Agent MedicalHistory
+	 * Reloads the Data when finished
+	 * @param model
+	 */
 	public void editMedicalHistory(MedicalHistory model){
 		CmdGetRootWindow cmdRoot = new CmdGetRootWindow();
 		sendAgentMessage(new AgentCommand(cmdRoot));
@@ -137,7 +167,14 @@ public class DoctorController extends AgentController {
 			showMedicalHistory(model.getPatientId());
 		}
 	}
-	
+	/**
+	 * Filter the Patient Table based on the given criteria
+	 * If all params are null or empty the display all data
+	 * @param firstname as the name say
+	 * @param lastname as the name say
+	 * @param birthDate as the name say
+	 * @param ahv as the name say
+	 */
 	public void FilterTable(String firstname, String lastname, LocalDate birthDate, String ahv){
 		model.getPatientsFilteredData().clear();
 		if((firstname!=null && !firstname.isEmpty()) || (lastname!=null && !lastname.isEmpty()) || (ahv!=null && !ahv.isEmpty()) || birthDate!=null){

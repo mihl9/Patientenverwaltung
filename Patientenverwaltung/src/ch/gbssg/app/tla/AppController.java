@@ -129,11 +129,15 @@ public class AppController extends AgentController {
 		model.getStage().centerOnScreen();
 		model.getStage().show();
 	}
-
+	/**
+	 * Close the whole Application
+	 */
 	public void closeApp(){
 		this.model.getStage().close();
 	}
-	
+	/**
+	 * Logout and display the Login Pane
+	 */
 	public void logout(){
 		showLoginPane();
 	}

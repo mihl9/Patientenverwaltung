@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * abstract model for all models. 
- * @author pedrett
+ * @author Pedrett Sandro
  * @version 1.0
  */
 public abstract class AbsModel implements IValidatableObject {
@@ -26,16 +26,6 @@ public abstract class AbsModel implements IValidatableObject {
 		List<String> errors = new ArrayList<String>();
 		isValid(errors);
 		return errors;
-	}
-
-	private boolean visible;
-	
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
 	}
 
 }

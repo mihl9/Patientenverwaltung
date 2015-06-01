@@ -4,10 +4,9 @@ import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * 
+ * A Command for updating the given Model on the Database.
  * @author Michael Huber
- *
- * @param <T>
+ * @param <T> the model Type which should be updated
  */
 public class CmdUpdateEntity<T extends AbsModel> implements ICommand {
 	private final Class<T> type;
@@ -25,7 +24,7 @@ public class CmdUpdateEntity<T extends AbsModel> implements ICommand {
 	}
 
 	/**
-	 * 
+	 * returns the class type of the model
 	 * @return
 	 */
 	public Class<T> getType() {
@@ -33,7 +32,7 @@ public class CmdUpdateEntity<T extends AbsModel> implements ICommand {
 	}
 
 	/**
-	 * returns null if no entities matches; otherwise a list of entities.
+	 * returns the amount of affected rows.
 	 * @return
 	 */
 	public int getAffectedRows() {

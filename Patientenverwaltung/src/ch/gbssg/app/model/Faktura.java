@@ -15,7 +15,7 @@ import ch.gbssg.core.AbsModel;
 /**
  * represent a Faktura Model
  * @author Michael Huber
- *
+ * @version 1.0
  */
 public class Faktura extends AbsModel{
 	/*Medical History Infos*/
@@ -63,7 +63,10 @@ public class Faktura extends AbsModel{
 		usrLastname = new SimpleStringProperty();
 		hourlyWage = new SimpleDoubleProperty();
 	}
-	
+	/**
+	 * Calculates the price based on the amoun of hours ant the fee per hour
+	 * @return
+	 */
 	public double getPrice() {
 		return hourlyWage.get() * hour.get();
 	}

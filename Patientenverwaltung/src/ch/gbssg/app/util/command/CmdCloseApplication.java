@@ -3,10 +3,9 @@ package ch.gbssg.app.util.command;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * 
- * @author Michael Huber
- *
- * @param <T>
+ * Command for closing the Application
+ * @author afihm
+ * @version 1.0
  */
 public class CmdCloseApplication implements ICommand {
 	

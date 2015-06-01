@@ -10,10 +10,10 @@ import java.util.LinkedList;
 
 
 /**
- * Command wrapper for agent commands. This instance includs more than one
+ * Command wrapper for agent commands. This instance includes more than one
  * commands for an agent. It's implemented like a queue. First input - First output
  * 
- * @author pedrett
+ * @author Pedrett Sandro
  * @version 1.0
  */
 public class AgentCommand implements ICommand {

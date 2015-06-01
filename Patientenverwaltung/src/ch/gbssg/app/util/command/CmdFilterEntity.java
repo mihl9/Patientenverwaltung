@@ -9,9 +9,9 @@ import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * 
+ * Command for get filtered result from the database
  * @author pedrett.sandro
- *
+ * @version 1.0
  * @param <T>
  */
 public class CmdFilterEntity<T extends AbsModel> implements ICommand {
@@ -30,7 +30,7 @@ public class CmdFilterEntity<T extends AbsModel> implements ICommand {
 	}
 
 	/**
-	 * 
+	 * gets the Class Type of the model
 	 * @return
 	 */
 	public Class<T> getType() {

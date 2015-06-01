@@ -2,7 +2,7 @@ package ch.gbssg.app.util;
 
 /**
  * represent the user roll state
- * @author pedrett
+ * @author Pedrett Sandro
  * @version 1.0
  */
 public enum UserRoll {

@@ -1,15 +1,10 @@
-/**
- * 
- * @modtime 13:30:09
- * @author pedrett
- */
 package ch.gbssg.core.pac;
 
 import java.util.ArrayList;
 
 /**
  * abstract class for pac pattern - controller
- * @author pedrett
+ * @author Pedrett Sandro
  * @version 1.0
  */
 public abstract class AgentController implements IAgentController {

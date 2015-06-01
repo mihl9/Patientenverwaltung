@@ -4,10 +4,9 @@ import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * 
+ * A Command for inserting the given Model into the Database.
  * @author Michael Huber
- *
- * @param <T>
+ * @param <T> the model Type which should be inserted
  */
 public class CmdInsertEntity<T extends AbsModel> implements ICommand {
 	private final Class<T> type;
@@ -15,9 +14,9 @@ public class CmdInsertEntity<T extends AbsModel> implements ICommand {
 	private T toAddingEntity;
 	
 	/**
-	 * create a new command for get filterd entities from database.
-	 * @param type of returned entities
-	 * @param entity for filter result.
+	 * create a new command to insert new entities into database.
+	 * @param type of the given entities
+	 * @param entity for inserting.
 	 */
 	public CmdInsertEntity(Class<T> type, T entity) {
 		this.type = type;
@@ -25,7 +24,7 @@ public class CmdInsertEntity<T extends AbsModel> implements ICommand {
 	}
 
 	/**
-	 * 
+	 * gets the Class Type of the model
 	 * @return
 	 */
 	public Class<T> getType() {
@@ -33,7 +32,7 @@ public class CmdInsertEntity<T extends AbsModel> implements ICommand {
 	}
 
 	/**
-	 * returns null if no entities matches; otherwise a list of entities.
+	 * returns the ID of the new inserted datarow
 	 * @return
 	 */
 	public int getInsertedKey() {

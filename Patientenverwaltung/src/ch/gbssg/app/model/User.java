@@ -141,7 +141,13 @@ public class User extends AbsModel implements IFilterEntity<User>  {
 	public ObjectProperty<UserRoll> getRolleProperty(){
 		return this.rolle;
 	}
-	
+	/**
+	 * Decrypt the given string into an SHA1 hash.
+	 * This is the current decryption which is used for the Password to secure
+	 * @param input the readable string
+	 * @return the decrypted passwort as string
+	 * @throws NoSuchAlgorithmException
+	 */
 	public String decryptSha1(String input) throws NoSuchAlgorithmException{
 		MessageDigest mDigest = null;
 		mDigest = MessageDigest.getInstance("SHA1");

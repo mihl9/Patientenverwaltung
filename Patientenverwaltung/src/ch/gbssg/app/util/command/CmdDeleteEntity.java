@@ -4,10 +4,9 @@ import ch.gbssg.core.AbsModel;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * 
+ * A Command for deleting the given Model from the Database.
  * @author Michael Huber
- *
- * @param <T>
+ * @param <T> the model Type which should be deleted
  */
 public class CmdDeleteEntity<T extends AbsModel> implements ICommand {
 	private final Class<T> type;
@@ -15,9 +14,9 @@ public class CmdDeleteEntity<T extends AbsModel> implements ICommand {
 	private T toDeletingEntity;
 	
 	/**
-	 * create a new command for Updating entities from database.
-	 * @param type of returned entities
-	 * @param entity for filter result.
+	 * create a new command for deleting entities from database.
+	 * @param type of the entity which should be deleted
+	 * @param entity to delete.
 	 */
 	public CmdDeleteEntity(Class<T> type, T entity) {
 		this.type = type;
@@ -25,7 +24,7 @@ public class CmdDeleteEntity<T extends AbsModel> implements ICommand {
 	}
 
 	/**
-	 * 
+	 * gets the Class Type of the model
 	 * @return
 	 */
 	public Class<T> getType() {
@@ -33,7 +32,7 @@ public class CmdDeleteEntity<T extends AbsModel> implements ICommand {
 	}
 
 	/**
-	 * returns null if no entities matches; otherwise a list of entities.
+	 * returns the state of the Action.
 	 * @return
 	 */
 	public int getResult() {

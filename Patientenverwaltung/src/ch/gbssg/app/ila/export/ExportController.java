@@ -13,9 +13,10 @@ import ch.gbssg.core.pac.AgentFactory;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * TODO 
+ * Represents the Controller for the Intermediate Level Agent Admin
+ * This Agent handles all Exporting tasks, and validate the commands sended by the user
  * @author Michael Huber
- *
+ * @version 1.0
  */
 public class ExportController extends AgentController {
 	private WordExportController wordAgent;
@@ -23,7 +24,9 @@ public class ExportController extends AgentController {
 	
 	private ExportModel model;
 	private ExportView view;
-	
+	/**
+	 * Constructor of the Controller
+	 */
 	public ExportController() {
 		// create agent hierarchy
 		wordAgent = AgentFactory.getInstance().requestAgent(WordExportController.class);
@@ -35,7 +38,9 @@ public class ExportController extends AgentController {
 		addChild(pdfAgent);
 		
 	}
-	
+	/**
+	 * Called when the agent is initializing
+	 */
 	@Override
 	public boolean setupAgent() {
 		model = new ExportModel();
@@ -62,8 +67,8 @@ public class ExportController extends AgentController {
 		
 	}
 	/**
-	 * 
-	 * @param export
+	 * Load the Template and send the data to the sub Agents based on the Doc Type for processing.
+	 * @param export the Validated Export command
 	 */
 	public void doExport(CmdDoExport export){
 		//load the Template

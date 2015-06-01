@@ -25,12 +25,17 @@ import ch.gbssg.app.model.Faktura;
 import ch.gbssg.app.util.CellFactoryCode;
 import ch.gbssg.core.pac.IView;
 /**
- * 
- * @author Michael
- *
+ * Represents the View of the Intermediate level Agent KV
+ * Loads the belonging fxml and initialize the view and all other elements
+ * Handles the Events and redirect them to the controller. 
+ * @author Michael Huber
+ * @version 1.0
  */
 public class KvView implements IView, Initializable{
-
+	/**
+	 * Constructor of the view
+	 * @param controller
+	 */
 	public KvView(KvController controller){
 		this.controller = controller;
 		
@@ -51,7 +56,9 @@ public class KvView implements IView, Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Is called while the FXML file/object is loaded
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -93,11 +100,17 @@ public class KvView implements IView, Initializable{
 		}
 		return null;
 	}
-	
+	/**
+	 * Fill the Table with the given data model List
+	 * @param fakturen
+	 */
 	public void fillTableData(ObservableList<Faktura> fakturen){
 		faktTable.setItems(fakturen);
 	}
-	
+	/**
+	 * Fill the comboboxes with the given data model list
+	 * @param codes
+	 */
 	public void fillCombobox(ObservableList<Code> codes){
 		cboCodes.setItems(codes);
 	}

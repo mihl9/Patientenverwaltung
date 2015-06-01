@@ -10,7 +10,7 @@ import ch.gbssg.core.AbsModel;
 /**
  * represent a Code model
  * @author Michael Huber
- *
+ * @version 1.0
  */
 public class Code extends AbsModel {
 
@@ -57,6 +57,7 @@ public class Code extends AbsModel {
 	public IntegerProperty getCodetypeIdProperty(){
 		return this.codeTypeId;
 	}
+
 	@Override
 	public boolean isValid(List<String> errors) {
 		// TODO Auto-generated method stub

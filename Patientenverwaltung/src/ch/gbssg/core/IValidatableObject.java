@@ -1,13 +1,10 @@
-/**
- * 
- */
 package ch.gbssg.core;
 
 import java.util.List;
 
 /**
  * validatable object for check if object valid.
- * @author pedrett
+ * @author Pedrett Sandro
  * @version 1.0
  */
 public interface IValidatableObject {

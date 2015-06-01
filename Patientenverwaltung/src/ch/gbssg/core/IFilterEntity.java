@@ -6,7 +6,7 @@ package ch.gbssg.core;
  * to the DatabaseController via CmdFilterEntity. So, the ICrud<T> Interface returns 
  * all merged entities of the database collection.
  * 
- * @author pedrett.sandro
+ * @author Pedrett Sandro
  * @version 1.0
  * 
  * @param <T> the type of entity. It must be extension of a ICommand

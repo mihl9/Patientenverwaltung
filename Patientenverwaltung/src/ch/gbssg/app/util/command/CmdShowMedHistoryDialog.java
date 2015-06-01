@@ -3,10 +3,14 @@ package ch.gbssg.app.util.command;
 import javafx.stage.Stage;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.core.pac.ICommand;
-
+/**
+ * Command to call the Edit Dialog MedHistory
+ * @author Michael Huber
+ * @version 1.0
+ */
 public class CmdShowMedHistoryDialog implements ICommand  {
 	private Stage parent;
-	private MedicalHistory patient;
+	private MedicalHistory medHistory;
 	
 	public CmdShowMedHistoryDialog(Stage owner, MedicalHistory model) {
 		setParent(owner);
@@ -22,16 +26,16 @@ public class CmdShowMedHistoryDialog implements ICommand  {
 	}
 
 	/**
-	 * @return the patient
+	 * @return the model
 	 */
 	public MedicalHistory getMedHistory() {
-		return patient;
+		return medHistory;
 	}
 
 	/**
-	 * @param patient the patient to set
+	 * @param patient the model which should be set
 	 */
 	public void setMedHistory(MedicalHistory patient) {
-		this.patient = patient;
+		this.medHistory = patient;
 	}
 }
