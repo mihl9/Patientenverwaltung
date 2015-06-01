@@ -17,13 +17,15 @@ import ch.gbssg.core.pac.AgentController;
 import ch.gbssg.core.pac.ICommand;
 
 /**
- * This class defines the relation between the MedicalHistory Model and the table t_MedicalHistory
+ * Represents the Controller for the Intermediate Level Agent Database
+ * It handles all Insert, Update, Select and Delete commands used in this application
+ * It passes the commands to the right handler
  * @author Michael Huber, Sandro Pedrett
  * @version 1.0
  */
 public class DatabaseController extends AgentController {
 	/**
-	 * Is called when the AGent is created
+	 * Is called when the Agent is created
 	 */
 	@Override
 	public boolean setupAgent() {
