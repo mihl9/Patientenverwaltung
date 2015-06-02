@@ -141,7 +141,7 @@ public class DoctorView implements IView {
 	
 	@FXML
 	private void exportPatient() {
-		
+		this.controller.exportMedHistory(this.patientTable.getSelectionModel().getSelectedItem(), this.medicalHistoryTable.getSelectionModel().getSelectedItem());
 	}
 	
 	@FXML

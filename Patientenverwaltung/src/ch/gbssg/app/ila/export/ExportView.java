@@ -127,7 +127,6 @@ public class ExportView implements IView, Initializable{
 	}
 	@FXML
 	private void saveIn(){
-		//TODO Show File Save Dialog
 		FileChooser fileChooser = new FileChooser();
 		
 		//extension Filter
@@ -154,7 +153,6 @@ public class ExportView implements IView, Initializable{
 	
 	@FXML
 	private void cancel(){
-		//TODO set the Export object to null
 		this.export = null;
 		this.window.close();
 		

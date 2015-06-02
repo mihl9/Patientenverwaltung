@@ -11,7 +11,9 @@ import ch.gbssg.app.bla.medicalHistory.MedicalHistoryController;
 import ch.gbssg.app.bla.patient.PatientController;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.app.model.Patient;
+import ch.gbssg.app.model.User;
 import ch.gbssg.app.util.command.CmdCurrentUser;
+import ch.gbssg.app.util.command.CmdDoExport;
 import ch.gbssg.app.util.command.CmdFilterEntity;
 import ch.gbssg.app.util.command.CmdGetRootWindow;
 import ch.gbssg.app.util.command.CmdShowMedHistoryDialog;
@@ -200,6 +202,23 @@ public class DoctorController extends AgentController {
 			model.getPatientsFilteredData().addAll(model.getPatientsData());
 		}
 		
+	}
+	
+	public void exportMedHistory(Patient patient, MedicalHistory medHis){
+		User doc = null;
+		//get the current User
+		CmdCurrentUser cmdUser = new CmdCurrentUser();
+		sendAgentMessage(new AgentCommand(cmdUser));
+		doc = cmdUser.getUser();
+		
+		if(doc!=null && patient != null && medHis != null){
+			//prepare the Export command
+			CmdDoExport cmdExport = new CmdDoExport("MedHistoryTemplate.docx");
+			cmdExport.addDataModel("doc", doc);
+			cmdExport.addDataModel("patient", patient);
+			cmdExport.addDataModel("medHis", medHis);
+			sendAgentMessage(new AgentCommand(cmdExport));
+		}
 	}
 	
 	private PatientController patientAgent;
