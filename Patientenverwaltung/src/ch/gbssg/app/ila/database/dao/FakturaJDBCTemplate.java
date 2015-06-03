@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import ch.gbssg.app.ila.database.ConnectionPool;
 import ch.gbssg.app.ila.database.mapper.FakturaMapper;
 import ch.gbssg.app.model.Faktura;
 import ch.gbssg.core.ICrud;
@@ -19,11 +20,10 @@ import ch.gbssg.core.ICrud;
 public class FakturaJDBCTemplate implements ICrud<Faktura> {
 	private JdbcTemplate jdbcTemplateObject;
     @SuppressWarnings("unused")
-	private DataSource dataSource;
     
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+		ConnectionPool.getInstance().setDataSource(dataSource);
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 

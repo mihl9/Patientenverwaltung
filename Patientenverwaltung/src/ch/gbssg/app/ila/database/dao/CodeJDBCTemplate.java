@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import ch.gbssg.app.ila.database.ConnectionPool;
 import ch.gbssg.app.ila.database.mapper.CodeMapper;
 import ch.gbssg.app.model.Code;
 import ch.gbssg.core.ICrud;
@@ -39,7 +40,7 @@ public class CodeJDBCTemplate implements ICrud<Code> {
 		if(entity.isValid(null)){
 			try {
 				//prepare the connection
-				connection = dataSource.getConnection();
+				connection = ConnectionPool.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
 				//set the new Values
 				statement.setString(1, entity.getDescription());

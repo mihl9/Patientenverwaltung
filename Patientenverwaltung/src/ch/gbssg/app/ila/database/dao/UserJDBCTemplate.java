@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import ch.gbssg.app.ila.database.ConnectionPool;
 import ch.gbssg.app.ila.database.mapper.UserMapper;
 import ch.gbssg.app.model.User;
 import ch.gbssg.core.ICrud;
@@ -23,11 +24,10 @@ import ch.gbssg.core.ICrud;
  */
 public class UserJDBCTemplate implements ICrud<User> {
 	private JdbcTemplate jdbcTemplateObject;
-    private DataSource dataSource;
     
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+		ConnectionPool.getInstance().setDataSource(dataSource);
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 
@@ -41,7 +41,7 @@ public class UserJDBCTemplate implements ICrud<User> {
 		if(entity.isValid(null)){
 			try {
 				//prepare the connection
-				connection = dataSource.getConnection();
+				connection = ConnectionPool.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
 				//set the new Values
 				statement.setInt(1, entity.getRolle().getValue());
@@ -161,7 +161,7 @@ public class UserJDBCTemplate implements ICrud<User> {
 		if(newEntity.isValid(null)){
 			try {
 				//prepare the connection
-				connection = dataSource.getConnection();
+				connection = ConnectionPool.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(sqlUpdate,Statement.RETURN_GENERATED_KEYS);
 				//set the new Values
 				statement.setInt(1, newEntity.getRolle().getValue());

@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import ch.gbssg.app.ila.database.ConnectionPool;
 import ch.gbssg.app.ila.database.mapper.MedicalHistoryMapper;
 import ch.gbssg.app.model.MedicalHistory;
 import ch.gbssg.core.ICrud;
@@ -25,11 +26,10 @@ import ch.gbssg.core.ICrud;
  */
 public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 	private JdbcTemplate jdbcTemplateObject;
-    private DataSource dataSource;
     
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+		ConnectionPool.getInstance().setDataSource(dataSource);
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 
@@ -43,7 +43,7 @@ public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 		if(entity.isValid(null)){
 			try {
 				//prepare the connection
-				connection = dataSource.getConnection();
+				connection = ConnectionPool.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
 				//set the new Values
 				statement.setInt(1, entity.getUserId());
@@ -176,7 +176,7 @@ public class MedicalHistoryJDBCTemplate implements ICrud<MedicalHistory> {
 		if(newEntity.isValid(null)){
 			try {
 				//prepare the connection
-				connection = dataSource.getConnection();
+				connection = ConnectionPool.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(sqlUpdate,Statement.RETURN_GENERATED_KEYS);
 				//set the new Values
 				statement.setInt(1, newEntity.getUserId());

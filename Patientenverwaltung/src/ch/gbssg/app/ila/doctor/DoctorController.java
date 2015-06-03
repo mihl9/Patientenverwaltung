@@ -203,7 +203,11 @@ public class DoctorController extends AgentController {
 		}
 		
 	}
-	
+	/**
+	 * Export the given Patient and the given Medical History into the WOrd template
+	 * @param patient patient model
+	 * @param medHis Medical History model
+	 */
 	public void exportMedHistory(Patient patient, MedicalHistory medHis){
 		User doc = null;
 		//get the current User
